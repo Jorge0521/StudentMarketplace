@@ -1,0 +1,36 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.item {
+  margin: 25px;
+  border: solid 1px #eee;
+  min-width: 300px;
+}
+
+.item p {
+  margin: 15px;
+  line-height: 1.5em;
+  text-align: left;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 100%;
+  border-top: solid 1px #eee;
+  padding: 15px;
+}
+
+.link {
+  color: red;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+  text-decoration: underline;
+}

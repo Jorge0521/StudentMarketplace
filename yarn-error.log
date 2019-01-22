@@ -1,0 +1,51 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn prisma:deploy
+
+PATH: 
+  /Users/RajInMacLand/miniconda3/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/opt/icu4c/sbin:/usr/local/opt/icu4c/bin:/usr/local/opt/node@8/bin:/usr/local/opt/icu4c/bin:/usr/local/opt/icu4c/sbin:/usr/local/opt/icu4c/bin:/usr/local/opt/node@8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/RajInMacLand/Library/Android/sdk/platform-tools:/Users/RajInMacLand/Library/Android/sdk/tools:/usr/local/go/bin:/opt/X11/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/opt/icu4c/sbin:/usr/local/opt/icu4c/bin:/usr/local/opt/node@8/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  10.13.0
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+  	"name": "react-prisma-fullstack",
+  	"version": "1.0.0",
+  	"main": "none",
+  	"author": "rajinwonderland <raj@novvuminc.com>",
+  	"license": "MIT",
+  	"scripts": {
+  		"install": "sh ./scripts.sh",
+  		"start:server": "cd server && yarn start",
+  		"start:client": "cd client && yarn start",
+  		"start": "yarn start:server && yarn start:client",
+  		"prisma:deploy": "cd server && yarn prisma:deploy"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Command failed.
+  Exit code: 1
+  Command: sh
+  Arguments: -c cd server && yarn prisma:deploy
+  Directory: /Users/RajInMacLand/Documents/prisma-starter-typescript
+  Output:
+  
+      at ProcessTermError.MessageError (/Users/RajInMacLand/.config/yarn/global/node_modules/yarn/lib/cli.js:186:110)
+      at new ProcessTermError (/Users/RajInMacLand/.config/yarn/global/node_modules/yarn/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/Users/RajInMacLand/.config/yarn/global/node_modules/yarn/lib/cli.js:30281:17)
+      at ChildProcess.emit (events.js:182:13)
+      at maybeClose (internal/child_process.js:962:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:251:5)

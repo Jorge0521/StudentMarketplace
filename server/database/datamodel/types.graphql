@@ -1,0 +1,46 @@
+type User {
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	email: String! @unique
+	password: String!
+	name: String!
+	items: [Item!] @relation(name: "UsersItem")
+	profilePhoto: Photo @relation(name: "UserProfilePhoto")
+}
+
+type Item {
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	category: Category
+	price: Float
+	location: Location @relation(name: "ItemsLocation")
+	photos: [Photo!] @relation(name: "ItemPhotos")
+	listed: Boolean! @default(value: false)
+	user: User @relation(name: "UsersItem")
+}
+
+type Location {
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	lat: Float
+	long: Float
+	street: String
+	city: String
+	state: State
+	zip: Int
+	item: Item @relation(name: "ItemsLocation")
+}
+
+type Photo {
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	url: String
+	caption: String
+	default: Boolean! @default(value: false)
+	item: Item @relation(name: "ItemPhotos")
+	user: User @relation(name: "UserProfilePhoto")
+}

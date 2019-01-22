@@ -1,0 +1,8 @@
+# import * from "./generated/prisma.graphql"
+
+type Query {
+	user(id: ID, email: String): User
+	photo(id: ID): Photo
+
+}
+
