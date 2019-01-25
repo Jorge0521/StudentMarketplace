@@ -13,6 +13,7 @@
 		"start": "concurrently 'yarn start:server' 'yarn start:client'"
 	},
 	"dependencies": {
+		"@material-ui/core": "^3.9.0",
 		"concurrently": "^4.1.0"
 	}
 }

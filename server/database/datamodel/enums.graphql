@@ -5,6 +5,16 @@ enum Category {
 	OTHER
 }
 
+enum School {
+	UC_IRVINE
+	UC_LOS_ANGELES
+	UC_SAND_DIEGO
+	UC_SANTA_BARBARA
+	UC_SANTA_CRUZ
+	UC_DAVIS
+	UC_BERKELEY
+}
+
 enum State {
 	AL
 	AK

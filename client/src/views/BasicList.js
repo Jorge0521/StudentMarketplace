@@ -10,6 +10,7 @@ const MY_QUERY = gql`
    ){
      id
      name
+     school
       email
       profilePhoto {
         id
@@ -25,13 +26,14 @@ const BasicList = props => (
       {({ loading, error, data }) => {
         if (loading) return "Loading...";
         if (error) return `Error! ${error.message}`;
-        const { id, name, email, profilePhoto} = data.user;
+        const { id, name, school, email, profilePhoto} = data.user;
+        console.log(data.user)
         return (
           <div className="list">
-            
               <ListItem
                 key={id}
                 title={name}
+                school={school}
                 subtitle={email}
                 image={profilePhoto.url}
               />

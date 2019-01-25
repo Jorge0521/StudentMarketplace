@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/raj-singh/demo/dev
-# timestamp: Tue Jan 22 2019 14:46:28 GMT-0800 (Pacific Standard Time)
+# source: https://us1.prisma.sh/jorge/peer2peer/dev
+# timestamp: Thu Jan 24 2019 12:43:36 GMT-0800 (PST)
 
 type AggregateItem {
   count: Int!
@@ -1617,6 +1617,16 @@ type Query {
   ): Node
 }
 
+enum School {
+  UC_IRVINE
+  UC_LOS_ANGELES
+  UC_SAND_DIEGO
+  UC_SANTA_BARBARA
+  UC_SANTA_CRUZ
+  UC_DAVIS
+  UC_BERKELEY
+}
+
 enum State {
   AL
   AK
@@ -1693,6 +1703,7 @@ type User implements Node {
   email: String!
   password: String!
   name: String!
+  school: School!
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item!]
   profilePhoto: Photo
 }
@@ -1711,6 +1722,7 @@ input UserCreateInput {
   email: String!
   password: String!
   name: String!
+  school: School!
   items: ItemCreateManyWithoutUserInput
   profilePhoto: PhotoCreateOneWithoutUserInput
 }
@@ -1729,6 +1741,7 @@ input UserCreateWithoutItemsInput {
   email: String!
   password: String!
   name: String!
+  school: School!
   profilePhoto: PhotoCreateOneWithoutUserInput
 }
 
@@ -1736,6 +1749,7 @@ input UserCreateWithoutProfilePhotoInput {
   email: String!
   password: String!
   name: String!
+  school: School!
   items: ItemCreateManyWithoutUserInput
 }
 
@@ -1761,6 +1775,8 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
+  school_ASC
+  school_DESC
 }
 
 type UserPreviousValues {
@@ -1770,6 +1786,7 @@ type UserPreviousValues {
   email: String!
   password: String!
   name: String!
+  school: School!
 }
 
 type UserSubscriptionPayload {
@@ -1815,6 +1832,7 @@ input UserUpdateInput {
   email: String
   password: String
   name: String
+  school: School
   items: ItemUpdateManyWithoutUserInput
   profilePhoto: PhotoUpdateOneWithoutUserInput
 }
@@ -1823,6 +1841,7 @@ input UserUpdateManyMutationInput {
   email: String
   password: String
   name: String
+  school: School
 }
 
 input UserUpdateOneWithoutItemsInput {
@@ -1847,6 +1866,7 @@ input UserUpdateWithoutItemsDataInput {
   email: String
   password: String
   name: String
+  school: School
   profilePhoto: PhotoUpdateOneWithoutUserInput
 }
 
@@ -1854,6 +1874,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   email: String
   password: String
   name: String
+  school: School
   items: ItemUpdateManyWithoutUserInput
 }
 
@@ -2080,6 +2101,16 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  school: School
+
+  """All values that are not equal to given value."""
+  school_not: School
+
+  """All values that are contained in given list."""
+  school_in: [School!]
+
+  """All values that are not contained in given list."""
+  school_not_in: [School!]
   items_every: ItemWhereInput
   items_some: ItemWhereInput
   items_none: ItemWhereInput
@@ -2089,4 +2120,5 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+  school: School
 }

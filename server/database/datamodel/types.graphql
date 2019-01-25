@@ -5,6 +5,7 @@ type User {
 	email: String! @unique
 	password: String!
 	name: String!
+	school: School! @unique
 	items: [Item!] @relation(name: "UsersItem")
 	profilePhoto: Photo @relation(name: "UserProfilePhoto")
 }

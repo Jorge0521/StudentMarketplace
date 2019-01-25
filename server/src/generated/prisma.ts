@@ -1698,6 +1698,16 @@ type Query {
   ): Node
 }
 
+enum School {
+  UC_IRVINE
+  UC_LOS_ANGELES
+  UC_SAND_DIEGO
+  UC_SANTA_BARBARA
+  UC_SANTA_CRUZ
+  UC_DAVIS
+  UC_BERKELEY
+}
+
 enum State {
   AL
   AK
@@ -1774,6 +1784,7 @@ type User implements Node {
   email: String!
   password: String!
   name: String!
+  school: School!
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item!]
   profilePhoto: Photo
 }
@@ -1792,6 +1803,7 @@ input UserCreateInput {
   email: String!
   password: String!
   name: String!
+  school: School!
   items: ItemCreateManyWithoutUserInput
   profilePhoto: PhotoCreateOneWithoutUserInput
 }
@@ -1810,6 +1822,7 @@ input UserCreateWithoutItemsInput {
   email: String!
   password: String!
   name: String!
+  school: School!
   profilePhoto: PhotoCreateOneWithoutUserInput
 }
 
@@ -1817,6 +1830,7 @@ input UserCreateWithoutProfilePhotoInput {
   email: String!
   password: String!
   name: String!
+  school: School!
   items: ItemCreateManyWithoutUserInput
 }
 
@@ -1842,6 +1856,8 @@ enum UserOrderByInput {
   password_DESC
   name_ASC
   name_DESC
+  school_ASC
+  school_DESC
 }
 
 type UserPreviousValues {
@@ -1851,6 +1867,7 @@ type UserPreviousValues {
   email: String!
   password: String!
   name: String!
+  school: School!
 }
 
 type UserSubscriptionPayload {
@@ -1896,6 +1913,7 @@ input UserUpdateInput {
   email: String
   password: String
   name: String
+  school: School
   items: ItemUpdateManyWithoutUserInput
   profilePhoto: PhotoUpdateOneWithoutUserInput
 }
@@ -1904,6 +1922,7 @@ input UserUpdateManyMutationInput {
   email: String
   password: String
   name: String
+  school: School
 }
 
 input UserUpdateOneWithoutItemsInput {
@@ -1928,6 +1947,7 @@ input UserUpdateWithoutItemsDataInput {
   email: String
   password: String
   name: String
+  school: School
   profilePhoto: PhotoUpdateOneWithoutUserInput
 }
 
@@ -1935,6 +1955,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   email: String
   password: String
   name: String
+  school: School
   items: ItemUpdateManyWithoutUserInput
 }
 
@@ -2161,6 +2182,16 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  school: School
+
+  """All values that are not equal to given value."""
+  school_not: School
+
+  """All values that are contained in given list."""
+  school_in: [School!]
+
+  """All values that are not contained in given list."""
+  school_not_in: [School!]
   items_every: ItemWhereInput
   items_some: ItemWhereInput
   items_none: ItemWhereInput
@@ -2170,6 +2201,7 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+  school: School
 }
 `
 
@@ -2250,7 +2282,9 @@ export type UserOrderByInput =   'id_ASC' |
   'password_ASC' |
   'password_DESC' |
   'name_ASC' |
-  'name_DESC'
+  'name_DESC' |
+  'school_ASC' |
+  'school_DESC'
 
 export type ItemOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -2282,6 +2316,14 @@ export type PhotoOrderByInput =   'id_ASC' |
   'caption_DESC' |
   'default_ASC' |
   'default_DESC'
+
+export type School =   'UC_IRVINE' |
+  'UC_LOS_ANGELES' |
+  'UC_SAND_DIEGO' |
+  'UC_SANTA_BARBARA' |
+  'UC_SANTA_CRUZ' |
+  'UC_DAVIS' |
+  'UC_BERKELEY'
 
 export type LocationOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -2390,6 +2432,10 @@ export interface UserWhereInput {
   name_not_starts_with?: String
   name_ends_with?: String
   name_not_ends_with?: String
+  school?: School
+  school_not?: School
+  school_in?: School[] | School
+  school_not_in?: School[] | School
   items_every?: ItemWhereInput
   items_some?: ItemWhereInput
   items_none?: ItemWhereInput
@@ -2696,6 +2742,7 @@ export interface UserCreateWithoutItemsInput {
   email: String
   password: String
   name: String
+  school: School
   profilePhoto?: PhotoCreateOneWithoutUserInput
 }
 
@@ -2784,6 +2831,7 @@ export interface UserUpdateInput {
   email?: String
   password?: String
   name?: String
+  school?: School
   items?: ItemUpdateManyWithoutUserInput
   profilePhoto?: PhotoUpdateOneWithoutUserInput
 }
@@ -2819,6 +2867,7 @@ export interface UserCreateInput {
   email: String
   password: String
   name: String
+  school: School
   items?: ItemCreateManyWithoutUserInput
   profilePhoto?: PhotoCreateOneWithoutUserInput
 }
@@ -2868,6 +2917,7 @@ export interface UserCreateWithoutProfilePhotoInput {
   email: String
   password: String
   name: String
+  school: School
   items?: ItemCreateManyWithoutUserInput
 }
 
@@ -2902,6 +2952,7 @@ export interface PhotoUpdateManyWithoutItemInput {
 export interface UserWhereUniqueInput {
   id?: ID_Input
   email?: String
+  school?: School
 }
 
 export interface PhotoUpdateWithWhereUniqueWithoutItemInput {
@@ -2952,6 +3003,7 @@ export interface UserUpdateWithoutProfilePhotoDataInput {
   email?: String
   password?: String
   name?: String
+  school?: School
   items?: ItemUpdateManyWithoutUserInput
 }
 
@@ -2959,6 +3011,7 @@ export interface UserUpdateWithoutItemsDataInput {
   email?: String
   password?: String
   name?: String
+  school?: School
   profilePhoto?: PhotoUpdateOneWithoutUserInput
 }
 
@@ -3069,6 +3122,7 @@ export interface UserUpdateManyMutationInput {
   email?: String
   password?: String
   name?: String
+  school?: School
 }
 
 export interface PhotoUpsertWithWhereUniqueWithoutItemInput {
@@ -3227,6 +3281,7 @@ export interface User extends Node {
   email: String
   password: String
   name: String
+  school: School
   items?: Item[]
   profilePhoto?: Photo
 }
@@ -3380,6 +3435,7 @@ export interface UserPreviousValues {
   email: String
   password: String
   name: String
+  school: School
 }
 
 export interface UserSubscriptionPayload {

@@ -11,6 +11,7 @@
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@material-ui/core": "^3.9.0",
     "apollo-boost": "latest",
     "cuid": "2.1.4",
     "graphql": "latest",
