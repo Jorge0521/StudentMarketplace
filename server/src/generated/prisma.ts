@@ -116,6 +116,7 @@ type Item implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  title: String!
   category: Category
   price: Float
   location: Location
@@ -135,6 +136,7 @@ type ItemConnection {
 }
 
 input ItemCreateInput {
+  title: String!
   category: Category
   price: Float
   listed: Boolean
@@ -159,6 +161,7 @@ input ItemCreateOneWithoutPhotosInput {
 }
 
 input ItemCreateWithoutLocationInput {
+  title: String!
   category: Category
   price: Float
   listed: Boolean
@@ -167,6 +170,7 @@ input ItemCreateWithoutLocationInput {
 }
 
 input ItemCreateWithoutPhotosInput {
+  title: String!
   category: Category
   price: Float
   listed: Boolean
@@ -175,6 +179,7 @@ input ItemCreateWithoutPhotosInput {
 }
 
 input ItemCreateWithoutUserInput {
+  title: String!
   category: Category
   price: Float
   listed: Boolean
@@ -198,6 +203,8 @@ enum ItemOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  title_ASC
+  title_DESC
   category_ASC
   category_DESC
   price_ASC
@@ -210,6 +217,7 @@ type ItemPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  title: String!
   category: Category
   price: Float
   listed: Boolean!
@@ -308,6 +316,46 @@ input ItemScalarWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
   category: Category
 
   """All values that are not equal to given value."""
@@ -386,6 +434,7 @@ input ItemSubscriptionWhereInput {
 }
 
 input ItemUpdateInput {
+  title: String
   category: Category
   price: Float
   listed: Boolean
@@ -395,12 +444,14 @@ input ItemUpdateInput {
 }
 
 input ItemUpdateManyDataInput {
+  title: String
   category: Category
   price: Float
   listed: Boolean
 }
 
 input ItemUpdateManyMutationInput {
+  title: String
   category: Category
   price: Float
   listed: Boolean
@@ -442,6 +493,7 @@ input ItemUpdateOneWithoutPhotosInput {
 }
 
 input ItemUpdateWithoutLocationDataInput {
+  title: String
   category: Category
   price: Float
   listed: Boolean
@@ -450,6 +502,7 @@ input ItemUpdateWithoutLocationDataInput {
 }
 
 input ItemUpdateWithoutPhotosDataInput {
+  title: String
   category: Category
   price: Float
   listed: Boolean
@@ -458,6 +511,7 @@ input ItemUpdateWithoutPhotosDataInput {
 }
 
 input ItemUpdateWithoutUserDataInput {
+  title: String
   category: Category
   price: Float
   listed: Boolean
@@ -579,6 +633,46 @@ input ItemWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
   category: Category
 
   """All values that are not equal to given value."""
@@ -2292,6 +2386,8 @@ export type ItemOrderByInput =   'id_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
+  'title_ASC' |
+  'title_DESC' |
   'category_ASC' |
   'category_DESC' |
   'price_ASC' |
@@ -2349,6 +2445,7 @@ export type MutationType =   'CREATED' |
   'DELETED'
 
 export interface ItemCreateWithoutLocationInput {
+  title: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -2443,6 +2540,7 @@ export interface UserWhereInput {
 }
 
 export interface ItemUpdateWithoutUserDataInput {
+  title?: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -2665,6 +2763,7 @@ export interface LocationSubscriptionWhereInput {
 }
 
 export interface ItemCreateWithoutPhotosInput {
+  title: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -2706,6 +2805,20 @@ export interface ItemWhereInput {
   updatedAt_lte?: DateTime
   updatedAt_gt?: DateTime
   updatedAt_gte?: DateTime
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
   category?: Category
   category_not?: Category
   category_in?: Category[] | Category
@@ -2751,6 +2864,7 @@ export interface ItemWhereUniqueInput {
 }
 
 export interface ItemCreateInput {
+  title: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -2774,6 +2888,7 @@ export interface LocationCreateInput {
 }
 
 export interface ItemUpdateManyMutationInput {
+  title?: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -2802,6 +2917,7 @@ export interface UserUpdateOneWithoutItemsInput {
 }
 
 export interface ItemUpdateWithoutLocationDataInput {
+  title?: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -2873,6 +2989,7 @@ export interface UserCreateInput {
 }
 
 export interface ItemUpdateWithoutPhotosDataInput {
+  title?: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -2881,6 +2998,7 @@ export interface ItemUpdateWithoutPhotosDataInput {
 }
 
 export interface ItemCreateWithoutUserInput {
+  title: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -2991,6 +3109,7 @@ export interface UserUpdateOneWithoutProfilePhotoInput {
 }
 
 export interface ItemUpdateInput {
+  title?: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -3162,6 +3281,7 @@ export interface ItemUpsertWithWhereUniqueWithoutUserInput {
 }
 
 export interface ItemUpdateManyDataInput {
+  title?: String
   category?: Category
   price?: Float
   listed?: Boolean
@@ -3201,6 +3321,20 @@ export interface ItemScalarWhereInput {
   updatedAt_lte?: DateTime
   updatedAt_gt?: DateTime
   updatedAt_gte?: DateTime
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
   category?: Category
   category_not?: Category
   category_in?: Category[] | Category
@@ -3294,6 +3428,7 @@ export interface ItemPreviousValues {
   id: ID_Output
   createdAt: DateTime
   updatedAt: DateTime
+  title: String
   category?: Category
   price?: Float
   listed: Boolean
@@ -3387,6 +3522,7 @@ export interface Item extends Node {
   id: ID_Output
   createdAt: DateTime
   updatedAt: DateTime
+  title: String
   category?: Category
   price?: Float
   location?: Location

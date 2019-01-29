@@ -1,4 +1,5 @@
 import { Query } from './Query';
+import { Mutation } from './Mutation';
 import { makeExecutableSchema } from 'graphql-tools';
 import { extractFragmentReplacements } from 'prisma-binding';
 import { FragmentReplacement } from 'graphql-binding';
@@ -7,7 +8,8 @@ import { importSchema } from 'graphql-import';
 import * as path from 'path';
 
 const resolvers = {
-	Query
+	Query,
+	Mutation
 };
 
 const mergedSchema: MergeSchemaHelper = new MergeSchemaHelper();

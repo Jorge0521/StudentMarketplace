@@ -6,7 +6,7 @@ type User {
 	password: String!
 	name: String!
 	school: School! @unique
-	items: [Item!] @relation(name: "UsersItem")
+	items: [Item] @relation(name: "UsersItem")
 	profilePhoto: Photo @relation(name: "UserProfilePhoto")
 }
 
@@ -14,6 +14,7 @@ type Item {
 	id: ID! @unique
 	createdAt: DateTime!
 	updatedAt: DateTime!
+	title: String!
 	category: Category
 	price: Float
 	location: Location @relation(name: "ItemsLocation")

@@ -6,3 +6,8 @@ type Query {
 
 }
 
+type Mutation {
+	createItem(data: ItemCreateInput!): Item!
+	createUser(data: UserCreateInput!): User!
+}
+

@@ -2,16 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloProvider } from "react-apollo";
 import client from "./apollo-client";
-import BasicList from "./views/BasicList";
-import Homepage from "./views/HomePage"
+import Routes from "./components/Routes"
+import { BrowserRouter } from "react-router-dom";
 
 import "./styles.css";
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Homepage/>
+      <BrowserRouter>
+        <Routes/>
+      </BrowserRouter>
     </ApolloProvider>
+    
   );
 }
 
