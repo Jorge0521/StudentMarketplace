@@ -16,5 +16,20 @@ export const Query = {
 			}
 		}, info);
 
-	}
+	},
+	items: (_, args, ctx: Context, info) => {
+		return ctx.db.query.items({
+			where: {
+				...args,
+			},
+		}, info);
+	},
+	book: (_, args, ctx: Context, info) => {
+		return ctx.db.query.item({
+			where: {
+				...args,
+			},
+		}, info);
+	},
+
 };

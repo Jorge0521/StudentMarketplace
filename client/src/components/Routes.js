@@ -4,6 +4,8 @@ import Home from '../views/Home'
 import BasicList from "../views/BasicList";
 import Buy from "../views/Buy"
 import Sale from "../views/Sale"
+import Books from "../views/Books"
+
 
 const Routes = () => (
   <main>
@@ -12,6 +14,7 @@ const Routes = () => (
       <Route path='/basiclist' component={BasicList}/>
       <Route path='/buy' component={Buy}/>
       <Route path='/sale' component={Sale} />
+      <Route path='/books' component={Books} />
      </Switch>
   </main>
 )

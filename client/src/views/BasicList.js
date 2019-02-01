@@ -2,6 +2,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import ListItem from "../components/ListItem";
 import gql from "graphql-tag";
+import Popup from "reactjs-popup";
 
 const MY_QUERY = gql`
   query {

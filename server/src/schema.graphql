@@ -3,6 +3,8 @@
 type Query {
 	user(id: ID, email: String, school: School): User
 	photo(id: ID): Photo
+	items(id:ID, listed:Boolean, category:Category): [Item]
+	book(id:ID): Book
 
 }
 

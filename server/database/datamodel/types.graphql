@@ -14,13 +14,37 @@ type Item {
 	id: ID! @unique
 	createdAt: DateTime!
 	updatedAt: DateTime!
-	title: String!
 	category: Category
 	price: Float
 	location: Location @relation(name: "ItemsLocation")
 	photos: [Photo!] @relation(name: "ItemPhotos")
 	listed: Boolean! @default(value: false)
 	user: User @relation(name: "UsersItem")
+	bookDetails: Book @relation(name: "BookDetails")
+	clothesDetails: clothes @relation(name: "ClothesDetails")
+}
+
+type Book{
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	title: String!
+	author: String!
+	condition: BookCondition
+	published: Int!
+	category: BookCategory!
+	item: Item @relation(name: "BookDetails")
+}
+
+type clothes{
+	id: ID! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	name: String!
+	size: String!
+	category: String!
+	forwho: String!
+	item: Item @relation(name: "ClothesDetails")
 }
 
 type Location {

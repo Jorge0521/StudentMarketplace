@@ -6,14 +6,20 @@ import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 export interface Query {
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     items: <T = Item[]>(args: { where?: ItemWhereInput, orderBy?: ItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    books: <T = Book[]>(args: { where?: BookWhereInput, orderBy?: BookOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    clotheses: <T = clothes[]>(args: { where?: clothesWhereInput, orderBy?: clothesOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     locations: <T = Location[]>(args: { where?: LocationWhereInput, orderBy?: LocationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     photos: <T = Photo[]>(args: { where?: PhotoWhereInput, orderBy?: PhotoOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     item: <T = Item | null>(args: { where: ItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    book: <T = Book | null>(args: { where: BookWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    clothes: <T = clothes | null>(args: { where: clothesWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     location: <T = Location | null>(args: { where: LocationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     photo: <T = Photo | null>(args: { where: PhotoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     itemsConnection: <T = ItemConnection>(args: { where?: ItemWhereInput, orderBy?: ItemOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    booksConnection: <T = BookConnection>(args: { where?: BookWhereInput, orderBy?: BookOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    clothesesConnection: <T = clothesConnection>(args: { where?: clothesWhereInput, orderBy?: clothesOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     locationsConnection: <T = LocationConnection>(args: { where?: LocationWhereInput, orderBy?: LocationOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     photosConnection: <T = PhotoConnection>(args: { where?: PhotoWhereInput, orderBy?: PhotoOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
@@ -22,26 +28,38 @@ export interface Query {
 export interface Mutation {
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createItem: <T = Item>(args: { data: ItemCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createBook: <T = Book>(args: { data: BookCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createclothes: <T = clothes>(args: { data: clothesCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createLocation: <T = Location>(args: { data: LocationCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createPhoto: <T = Photo>(args: { data: PhotoCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateItem: <T = Item | null>(args: { data: ItemUpdateInput, where: ItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateBook: <T = Book | null>(args: { data: BookUpdateInput, where: BookWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateclothes: <T = clothes | null>(args: { data: clothesUpdateInput, where: clothesWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateLocation: <T = Location | null>(args: { data: LocationUpdateInput, where: LocationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updatePhoto: <T = Photo | null>(args: { data: PhotoUpdateInput, where: PhotoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteItem: <T = Item | null>(args: { where: ItemWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteBook: <T = Book | null>(args: { where: BookWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteclothes: <T = clothes | null>(args: { where: clothesWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteLocation: <T = Location | null>(args: { where: LocationWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deletePhoto: <T = Photo | null>(args: { where: PhotoWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertItem: <T = Item>(args: { where: ItemWhereUniqueInput, create: ItemCreateInput, update: ItemUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertBook: <T = Book>(args: { where: BookWhereUniqueInput, create: BookCreateInput, update: BookUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertclothes: <T = clothes>(args: { where: clothesWhereUniqueInput, create: clothesCreateInput, update: clothesUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertLocation: <T = Location>(args: { where: LocationWhereUniqueInput, create: LocationCreateInput, update: LocationUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertPhoto: <T = Photo>(args: { where: PhotoWhereUniqueInput, create: PhotoCreateInput, update: PhotoUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateManyMutationInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyItems: <T = BatchPayload>(args: { data: ItemUpdateManyMutationInput, where?: ItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyBooks: <T = BatchPayload>(args: { data: BookUpdateManyMutationInput, where?: BookWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyClotheses: <T = BatchPayload>(args: { data: clothesUpdateManyMutationInput, where?: clothesWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyLocations: <T = BatchPayload>(args: { data: LocationUpdateManyMutationInput, where?: LocationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyPhotos: <T = BatchPayload>(args: { data: PhotoUpdateManyMutationInput, where?: PhotoWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyItems: <T = BatchPayload>(args: { where?: ItemWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyBooks: <T = BatchPayload>(args: { where?: BookWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyClotheses: <T = BatchPayload>(args: { where?: clothesWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyLocations: <T = BatchPayload>(args: { where?: LocationWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyPhotos: <T = BatchPayload>(args: { where?: PhotoWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
@@ -49,6 +67,8 @@ export interface Mutation {
 export interface Subscription {
     user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     item: <T = ItemSubscriptionPayload | null>(args: { where?: ItemSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    book: <T = BookSubscriptionPayload | null>(args: { where?: BookSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    clothes: <T = clothesSubscriptionPayload | null>(args: { where?: clothesSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     location: <T = LocationSubscriptionPayload | null>(args: { where?: LocationSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     photo: <T = PhotoSubscriptionPayload | null>(args: { where?: PhotoSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
@@ -56,6 +76,8 @@ export interface Subscription {
 export interface Exists {
   User: (where?: UserWhereInput) => Promise<boolean>
   Item: (where?: ItemWhereInput) => Promise<boolean>
+  Book: (where?: BookWhereInput) => Promise<boolean>
+  clothes: (where?: clothesWhereInput) => Promise<boolean>
   Location: (where?: LocationWhereInput) => Promise<boolean>
   Photo: (where?: PhotoWhereInput) => Promise<boolean>
 }
@@ -82,7 +104,15 @@ export interface BindingConstructor<T> {
  * Type Defs
 */
 
-const typeDefs = `type AggregateItem {
+const typeDefs = `type AggregateBook {
+  count: Int!
+}
+
+type Aggregateclothes {
+  count: Int!
+}
+
+type AggregateItem {
   count: Int!
 }
 
@@ -103,100 +133,101 @@ type BatchPayload {
   count: Long!
 }
 
-enum Category {
-  BOOKS
-  CLOTHES
-  HOUSEHOLD
-  OTHER
-}
-
-scalar DateTime
-
-type Item implements Node {
+type Book implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
-  category: Category
-  price: Float
-  location: Location
-  photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo!]
-  listed: Boolean!
-  user: User
+  author: String!
+  condition: BookCondition
+  published: Int!
+  category: BookCategory!
+  item: Item
+}
+
+enum BookCategory {
+  ARTS_PHOTOGRAPHY
+  BIOGRAPHIES_MEMOIRS
+  BUSINESS_MONEY
+  CALENDARS
+  CHILDREN
+  COMICS_GRAPHIC_NOVELS
+  COMPUTERS_TECHNOLOGY
+  COOKBOOKS
+  CRAFTS
+  CHRISTIAN
+  ENGINEERING_TRANSPORTATION
+  HEALTH
+  HISTORY
+  HUMOR_ENTERTAINMENT
+  LAW
+  MEDICAL
+  MYSTERY
+  PARENTING_RELATIONSHIPS
+  POLITICS
+  SOCIAL_SCIENCE
+  REFERENCE
+  RELIGION_SPIRITUALITY
+  ROMANCE
+  SCIENCE_MATH
+  FICTION_FANTASY
+  SELF_HELP
+  SPORTS_OUTDOORS
+  TEST_PREPARATION
+  TRAVEL
+  EDUCATION_TEACHING
+}
+
+enum BookCondition {
+  NEW
+  LIKE_NEW
+  VERY_GOOD
+  GOOD
+  ACCEPTABLE
 }
 
 """A connection to a list of items."""
-type ItemConnection {
+type BookConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [ItemEdge]!
-  aggregate: AggregateItem!
+  edges: [BookEdge]!
+  aggregate: AggregateBook!
 }
 
-input ItemCreateInput {
+input BookCreateInput {
   title: String!
-  category: Category
-  price: Float
-  listed: Boolean
-  location: LocationCreateOneWithoutItemInput
-  photos: PhotoCreateManyWithoutItemInput
-  user: UserCreateOneWithoutItemsInput
+  author: String!
+  condition: BookCondition
+  published: Int!
+  category: BookCategory!
+  item: ItemCreateOneWithoutBookDetailsInput
 }
 
-input ItemCreateManyWithoutUserInput {
-  create: [ItemCreateWithoutUserInput!]
-  connect: [ItemWhereUniqueInput!]
+input BookCreateOneWithoutItemInput {
+  create: BookCreateWithoutItemInput
+  connect: BookWhereUniqueInput
 }
 
-input ItemCreateOneWithoutLocationInput {
-  create: ItemCreateWithoutLocationInput
-  connect: ItemWhereUniqueInput
-}
-
-input ItemCreateOneWithoutPhotosInput {
-  create: ItemCreateWithoutPhotosInput
-  connect: ItemWhereUniqueInput
-}
-
-input ItemCreateWithoutLocationInput {
+input BookCreateWithoutItemInput {
   title: String!
-  category: Category
-  price: Float
-  listed: Boolean
-  photos: PhotoCreateManyWithoutItemInput
-  user: UserCreateOneWithoutItemsInput
-}
-
-input ItemCreateWithoutPhotosInput {
-  title: String!
-  category: Category
-  price: Float
-  listed: Boolean
-  location: LocationCreateOneWithoutItemInput
-  user: UserCreateOneWithoutItemsInput
-}
-
-input ItemCreateWithoutUserInput {
-  title: String!
-  category: Category
-  price: Float
-  listed: Boolean
-  location: LocationCreateOneWithoutItemInput
-  photos: PhotoCreateManyWithoutItemInput
+  author: String!
+  condition: BookCondition
+  published: Int!
+  category: BookCategory!
 }
 
 """An edge in a connection."""
-type ItemEdge {
+type BookEdge {
   """The item at the end of the edge."""
-  node: Item!
+  node: Book!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum ItemOrderByInput {
+enum BookOrderByInput {
   id_ASC
   id_DESC
   createdAt_ASC
@@ -205,33 +236,114 @@ enum ItemOrderByInput {
   updatedAt_DESC
   title_ASC
   title_DESC
+  author_ASC
+  author_DESC
+  condition_ASC
+  condition_DESC
+  published_ASC
+  published_DESC
   category_ASC
   category_DESC
-  price_ASC
-  price_DESC
-  listed_ASC
-  listed_DESC
 }
 
-type ItemPreviousValues {
+type BookPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
-  category: Category
-  price: Float
-  listed: Boolean!
+  author: String!
+  condition: BookCondition
+  published: Int!
+  category: BookCategory!
 }
 
-input ItemScalarWhereInput {
+type BookSubscriptionPayload {
+  mutation: MutationType!
+  node: Book
+  updatedFields: [String!]
+  previousValues: BookPreviousValues
+}
+
+input BookSubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [ItemScalarWhereInput!]
+  AND: [BookSubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [ItemScalarWhereInput!]
+  OR: [BookSubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [ItemScalarWhereInput!]
+  NOT: [BookSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: BookWhereInput
+}
+
+input BookUpdateInput {
+  title: String
+  author: String
+  condition: BookCondition
+  published: Int
+  category: BookCategory
+  item: ItemUpdateOneWithoutBookDetailsInput
+}
+
+input BookUpdateManyMutationInput {
+  title: String
+  author: String
+  condition: BookCondition
+  published: Int
+  category: BookCategory
+}
+
+input BookUpdateOneWithoutItemInput {
+  create: BookCreateWithoutItemInput
+  connect: BookWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: BookUpdateWithoutItemDataInput
+  upsert: BookUpsertWithoutItemInput
+}
+
+input BookUpdateWithoutItemDataInput {
+  title: String
+  author: String
+  condition: BookCondition
+  published: Int
+  category: BookCategory
+}
+
+input BookUpsertWithoutItemInput {
+  update: BookUpdateWithoutItemDataInput!
+  create: BookCreateWithoutItemInput!
+}
+
+input BookWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BookWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BookWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BookWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -356,6 +468,752 @@ input ItemScalarWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  author: String
+
+  """All values that are not equal to given value."""
+  author_not: String
+
+  """All values that are contained in given list."""
+  author_in: [String!]
+
+  """All values that are not contained in given list."""
+  author_not_in: [String!]
+
+  """All values less than the given value."""
+  author_lt: String
+
+  """All values less than or equal the given value."""
+  author_lte: String
+
+  """All values greater than the given value."""
+  author_gt: String
+
+  """All values greater than or equal the given value."""
+  author_gte: String
+
+  """All values containing the given string."""
+  author_contains: String
+
+  """All values not containing the given string."""
+  author_not_contains: String
+
+  """All values starting with the given string."""
+  author_starts_with: String
+
+  """All values not starting with the given string."""
+  author_not_starts_with: String
+
+  """All values ending with the given string."""
+  author_ends_with: String
+
+  """All values not ending with the given string."""
+  author_not_ends_with: String
+  condition: BookCondition
+
+  """All values that are not equal to given value."""
+  condition_not: BookCondition
+
+  """All values that are contained in given list."""
+  condition_in: [BookCondition!]
+
+  """All values that are not contained in given list."""
+  condition_not_in: [BookCondition!]
+  published: Int
+
+  """All values that are not equal to given value."""
+  published_not: Int
+
+  """All values that are contained in given list."""
+  published_in: [Int!]
+
+  """All values that are not contained in given list."""
+  published_not_in: [Int!]
+
+  """All values less than the given value."""
+  published_lt: Int
+
+  """All values less than or equal the given value."""
+  published_lte: Int
+
+  """All values greater than the given value."""
+  published_gt: Int
+
+  """All values greater than or equal the given value."""
+  published_gte: Int
+  category: BookCategory
+
+  """All values that are not equal to given value."""
+  category_not: BookCategory
+
+  """All values that are contained in given list."""
+  category_in: [BookCategory!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [BookCategory!]
+  item: ItemWhereInput
+}
+
+input BookWhereUniqueInput {
+  id: ID
+}
+
+enum Category {
+  BOOKS
+  CLOTHES
+  HOUSEHOLD
+  OTHER
+}
+
+type clothes implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  size: String!
+  category: String!
+  forwho: String!
+  item: Item
+}
+
+"""A connection to a list of items."""
+type clothesConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [clothesEdge]!
+  aggregate: Aggregateclothes!
+}
+
+input clothesCreateInput {
+  name: String!
+  size: String!
+  category: String!
+  forwho: String!
+  item: ItemCreateOneWithoutClothesDetailsInput
+}
+
+input clothesCreateOneWithoutItemInput {
+  create: clothesCreateWithoutItemInput
+  connect: clothesWhereUniqueInput
+}
+
+input clothesCreateWithoutItemInput {
+  name: String!
+  size: String!
+  category: String!
+  forwho: String!
+}
+
+"""An edge in a connection."""
+type clothesEdge {
+  """The item at the end of the edge."""
+  node: clothes!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum clothesOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+  size_ASC
+  size_DESC
+  category_ASC
+  category_DESC
+  forwho_ASC
+  forwho_DESC
+}
+
+type clothesPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  size: String!
+  category: String!
+  forwho: String!
+}
+
+type clothesSubscriptionPayload {
+  mutation: MutationType!
+  node: clothes
+  updatedFields: [String!]
+  previousValues: clothesPreviousValues
+}
+
+input clothesSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [clothesSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [clothesSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [clothesSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: clothesWhereInput
+}
+
+input clothesUpdateInput {
+  name: String
+  size: String
+  category: String
+  forwho: String
+  item: ItemUpdateOneWithoutClothesDetailsInput
+}
+
+input clothesUpdateManyMutationInput {
+  name: String
+  size: String
+  category: String
+  forwho: String
+}
+
+input clothesUpdateOneWithoutItemInput {
+  create: clothesCreateWithoutItemInput
+  connect: clothesWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: clothesUpdateWithoutItemDataInput
+  upsert: clothesUpsertWithoutItemInput
+}
+
+input clothesUpdateWithoutItemDataInput {
+  name: String
+  size: String
+  category: String
+  forwho: String
+}
+
+input clothesUpsertWithoutItemInput {
+  update: clothesUpdateWithoutItemDataInput!
+  create: clothesCreateWithoutItemInput!
+}
+
+input clothesWhereInput {
+  """Logical AND on all given filters."""
+  AND: [clothesWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [clothesWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [clothesWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  size: String
+
+  """All values that are not equal to given value."""
+  size_not: String
+
+  """All values that are contained in given list."""
+  size_in: [String!]
+
+  """All values that are not contained in given list."""
+  size_not_in: [String!]
+
+  """All values less than the given value."""
+  size_lt: String
+
+  """All values less than or equal the given value."""
+  size_lte: String
+
+  """All values greater than the given value."""
+  size_gt: String
+
+  """All values greater than or equal the given value."""
+  size_gte: String
+
+  """All values containing the given string."""
+  size_contains: String
+
+  """All values not containing the given string."""
+  size_not_contains: String
+
+  """All values starting with the given string."""
+  size_starts_with: String
+
+  """All values not starting with the given string."""
+  size_not_starts_with: String
+
+  """All values ending with the given string."""
+  size_ends_with: String
+
+  """All values not ending with the given string."""
+  size_not_ends_with: String
+  category: String
+
+  """All values that are not equal to given value."""
+  category_not: String
+
+  """All values that are contained in given list."""
+  category_in: [String!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [String!]
+
+  """All values less than the given value."""
+  category_lt: String
+
+  """All values less than or equal the given value."""
+  category_lte: String
+
+  """All values greater than the given value."""
+  category_gt: String
+
+  """All values greater than or equal the given value."""
+  category_gte: String
+
+  """All values containing the given string."""
+  category_contains: String
+
+  """All values not containing the given string."""
+  category_not_contains: String
+
+  """All values starting with the given string."""
+  category_starts_with: String
+
+  """All values not starting with the given string."""
+  category_not_starts_with: String
+
+  """All values ending with the given string."""
+  category_ends_with: String
+
+  """All values not ending with the given string."""
+  category_not_ends_with: String
+  forwho: String
+
+  """All values that are not equal to given value."""
+  forwho_not: String
+
+  """All values that are contained in given list."""
+  forwho_in: [String!]
+
+  """All values that are not contained in given list."""
+  forwho_not_in: [String!]
+
+  """All values less than the given value."""
+  forwho_lt: String
+
+  """All values less than or equal the given value."""
+  forwho_lte: String
+
+  """All values greater than the given value."""
+  forwho_gt: String
+
+  """All values greater than or equal the given value."""
+  forwho_gte: String
+
+  """All values containing the given string."""
+  forwho_contains: String
+
+  """All values not containing the given string."""
+  forwho_not_contains: String
+
+  """All values starting with the given string."""
+  forwho_starts_with: String
+
+  """All values not starting with the given string."""
+  forwho_not_starts_with: String
+
+  """All values ending with the given string."""
+  forwho_ends_with: String
+
+  """All values not ending with the given string."""
+  forwho_not_ends_with: String
+  item: ItemWhereInput
+}
+
+input clothesWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+type Item implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  category: Category
+  price: Float
+  location: Location
+  photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo!]
+  listed: Boolean!
+  user: User
+  bookDetails: Book
+  clothesDetails: clothes
+}
+
+"""A connection to a list of items."""
+type ItemConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ItemEdge]!
+  aggregate: AggregateItem!
+}
+
+input ItemCreateInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  photos: PhotoCreateManyWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  bookDetails: BookCreateOneWithoutItemInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+input ItemCreateManyWithoutUserInput {
+  create: [ItemCreateWithoutUserInput!]
+  connect: [ItemWhereUniqueInput!]
+}
+
+input ItemCreateOneWithoutBookDetailsInput {
+  create: ItemCreateWithoutBookDetailsInput
+  connect: ItemWhereUniqueInput
+}
+
+input ItemCreateOneWithoutClothesDetailsInput {
+  create: ItemCreateWithoutClothesDetailsInput
+  connect: ItemWhereUniqueInput
+}
+
+input ItemCreateOneWithoutLocationInput {
+  create: ItemCreateWithoutLocationInput
+  connect: ItemWhereUniqueInput
+}
+
+input ItemCreateOneWithoutPhotosInput {
+  create: ItemCreateWithoutPhotosInput
+  connect: ItemWhereUniqueInput
+}
+
+input ItemCreateWithoutBookDetailsInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  photos: PhotoCreateManyWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+input ItemCreateWithoutClothesDetailsInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  photos: PhotoCreateManyWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  bookDetails: BookCreateOneWithoutItemInput
+}
+
+input ItemCreateWithoutLocationInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  photos: PhotoCreateManyWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  bookDetails: BookCreateOneWithoutItemInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+input ItemCreateWithoutPhotosInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  bookDetails: BookCreateOneWithoutItemInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+input ItemCreateWithoutUserInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  photos: PhotoCreateManyWithoutItemInput
+  bookDetails: BookCreateOneWithoutItemInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+"""An edge in a connection."""
+type ItemEdge {
+  """The item at the end of the edge."""
+  node: Item!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ItemOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  category_ASC
+  category_DESC
+  price_ASC
+  price_DESC
+  listed_ASC
+  listed_DESC
+}
+
+type ItemPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  category: Category
+  price: Float
+  listed: Boolean!
+}
+
+input ItemScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ItemScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ItemScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ItemScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   category: Category
 
   """All values that are not equal to given value."""
@@ -434,24 +1292,23 @@ input ItemSubscriptionWhereInput {
 }
 
 input ItemUpdateInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
   location: LocationUpdateOneWithoutItemInput
   photos: PhotoUpdateManyWithoutItemInput
   user: UserUpdateOneWithoutItemsInput
+  bookDetails: BookUpdateOneWithoutItemInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
 }
 
 input ItemUpdateManyDataInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
 }
 
 input ItemUpdateManyMutationInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
@@ -474,6 +1331,24 @@ input ItemUpdateManyWithWhereNestedInput {
   data: ItemUpdateManyDataInput!
 }
 
+input ItemUpdateOneWithoutBookDetailsInput {
+  create: ItemCreateWithoutBookDetailsInput
+  connect: ItemWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ItemUpdateWithoutBookDetailsDataInput
+  upsert: ItemUpsertWithoutBookDetailsInput
+}
+
+input ItemUpdateOneWithoutClothesDetailsInput {
+  create: ItemCreateWithoutClothesDetailsInput
+  connect: ItemWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ItemUpdateWithoutClothesDetailsDataInput
+  upsert: ItemUpsertWithoutClothesDetailsInput
+}
+
 input ItemUpdateOneWithoutLocationInput {
   create: ItemCreateWithoutLocationInput
   connect: ItemWhereUniqueInput
@@ -492,36 +1367,69 @@ input ItemUpdateOneWithoutPhotosInput {
   upsert: ItemUpsertWithoutPhotosInput
 }
 
+input ItemUpdateWithoutBookDetailsDataInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationUpdateOneWithoutItemInput
+  photos: PhotoUpdateManyWithoutItemInput
+  user: UserUpdateOneWithoutItemsInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
+}
+
+input ItemUpdateWithoutClothesDetailsDataInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationUpdateOneWithoutItemInput
+  photos: PhotoUpdateManyWithoutItemInput
+  user: UserUpdateOneWithoutItemsInput
+  bookDetails: BookUpdateOneWithoutItemInput
+}
+
 input ItemUpdateWithoutLocationDataInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
   photos: PhotoUpdateManyWithoutItemInput
   user: UserUpdateOneWithoutItemsInput
+  bookDetails: BookUpdateOneWithoutItemInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
 }
 
 input ItemUpdateWithoutPhotosDataInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
   location: LocationUpdateOneWithoutItemInput
   user: UserUpdateOneWithoutItemsInput
+  bookDetails: BookUpdateOneWithoutItemInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
 }
 
 input ItemUpdateWithoutUserDataInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
   location: LocationUpdateOneWithoutItemInput
   photos: PhotoUpdateManyWithoutItemInput
+  bookDetails: BookUpdateOneWithoutItemInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
 }
 
 input ItemUpdateWithWhereUniqueWithoutUserInput {
   where: ItemWhereUniqueInput!
   data: ItemUpdateWithoutUserDataInput!
+}
+
+input ItemUpsertWithoutBookDetailsInput {
+  update: ItemUpdateWithoutBookDetailsDataInput!
+  create: ItemCreateWithoutBookDetailsInput!
+}
+
+input ItemUpsertWithoutClothesDetailsInput {
+  update: ItemUpdateWithoutClothesDetailsDataInput!
+  create: ItemCreateWithoutClothesDetailsInput!
 }
 
 input ItemUpsertWithoutLocationInput {
@@ -633,46 +1541,6 @@ input ItemWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
-
-  """All values containing the given string."""
-  title_contains: String
-
-  """All values not containing the given string."""
-  title_not_contains: String
-
-  """All values starting with the given string."""
-  title_starts_with: String
-
-  """All values not starting with the given string."""
-  title_not_starts_with: String
-
-  """All values ending with the given string."""
-  title_ends_with: String
-
-  """All values not ending with the given string."""
-  title_not_ends_with: String
   category: Category
 
   """All values that are not equal to given value."""
@@ -714,6 +1582,8 @@ input ItemWhereInput {
   photos_some: PhotoWhereInput
   photos_none: PhotoWhereInput
   user: UserWhereInput
+  bookDetails: BookWhereInput
+  clothesDetails: clothesWhereInput
 }
 
 input ItemWhereUniqueInput {
@@ -1155,26 +2025,38 @@ scalar Long
 type Mutation {
   createUser(data: UserCreateInput!): User!
   createItem(data: ItemCreateInput!): Item!
+  createBook(data: BookCreateInput!): Book!
+  createclothes(data: clothesCreateInput!): clothes!
   createLocation(data: LocationCreateInput!): Location!
   createPhoto(data: PhotoCreateInput!): Photo!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
+  updateBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book
+  updateclothes(data: clothesUpdateInput!, where: clothesWhereUniqueInput!): clothes
   updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
   updatePhoto(data: PhotoUpdateInput!, where: PhotoWhereUniqueInput!): Photo
   deleteUser(where: UserWhereUniqueInput!): User
   deleteItem(where: ItemWhereUniqueInput!): Item
+  deleteBook(where: BookWhereUniqueInput!): Book
+  deleteclothes(where: clothesWhereUniqueInput!): clothes
   deleteLocation(where: LocationWhereUniqueInput!): Location
   deletePhoto(where: PhotoWhereUniqueInput!): Photo
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertItem(where: ItemWhereUniqueInput!, create: ItemCreateInput!, update: ItemUpdateInput!): Item!
+  upsertBook(where: BookWhereUniqueInput!, create: BookCreateInput!, update: BookUpdateInput!): Book!
+  upsertclothes(where: clothesWhereUniqueInput!, create: clothesCreateInput!, update: clothesUpdateInput!): clothes!
   upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
   upsertPhoto(where: PhotoWhereUniqueInput!, create: PhotoCreateInput!, update: PhotoUpdateInput!): Photo!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyItems(data: ItemUpdateManyMutationInput!, where: ItemWhereInput): BatchPayload!
+  updateManyBooks(data: BookUpdateManyMutationInput!, where: BookWhereInput): BatchPayload!
+  updateManyClotheses(data: clothesUpdateManyMutationInput!, where: clothesWhereInput): BatchPayload!
   updateManyLocations(data: LocationUpdateManyMutationInput!, where: LocationWhereInput): BatchPayload!
   updateManyPhotos(data: PhotoUpdateManyMutationInput!, where: PhotoWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyItems(where: ItemWhereInput): BatchPayload!
+  deleteManyBooks(where: BookWhereInput): BatchPayload!
+  deleteManyClotheses(where: clothesWhereInput): BatchPayload!
   deleteManyLocations(where: LocationWhereInput): BatchPayload!
   deleteManyPhotos(where: PhotoWhereInput): BatchPayload!
 }
@@ -1774,14 +2656,20 @@ input PhotoWhereUniqueInput {
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item]!
+  books(where: BookWhereInput, orderBy: BookOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Book]!
+  clotheses(where: clothesWhereInput, orderBy: clothesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [clothes]!
   locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo]!
   user(where: UserWhereUniqueInput!): User
   item(where: ItemWhereUniqueInput!): Item
+  book(where: BookWhereUniqueInput!): Book
+  clothes(where: clothesWhereUniqueInput!): clothes
   location(where: LocationWhereUniqueInput!): Location
   photo(where: PhotoWhereUniqueInput!): Photo
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   itemsConnection(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ItemConnection!
+  booksConnection(where: BookWhereInput, orderBy: BookOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BookConnection!
+  clothesesConnection(where: clothesWhereInput, orderBy: clothesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): clothesConnection!
   locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   photosConnection(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PhotoConnection!
 
@@ -1793,13 +2681,13 @@ type Query {
 }
 
 enum School {
-  UC_IRVINE
-  UC_LOS_ANGELES
-  UC_SAND_DIEGO
-  UC_SANTA_BARBARA
-  UC_SANTA_CRUZ
-  UC_DAVIS
-  UC_BERKELEY
+  UNIVERSITY_OF_CALIFORNIA_IRVINE
+  UNIVERSITY_OF_CALIFORNIA_LOS_ANGELES
+  UNIVERSITY_OF_CALIFORNIA_SAND_DIEGO
+  UNIVERSITY_OF_CALIFORNIA_SANTA_BARBARA
+  UNIVERSITY_OF_CALIFORNIA_SANTA_CRUZ
+  UNIVERSITY_OF_CALIFORNIA_DAVIS
+  UNIVERSITY_OF_CALIFORNIA_BERKELEY
 }
 
 enum State {
@@ -1867,6 +2755,8 @@ enum State {
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
+  book(where: BookSubscriptionWhereInput): BookSubscriptionPayload
+  clothes(where: clothesSubscriptionWhereInput): clothesSubscriptionPayload
   location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   photo(where: PhotoSubscriptionWhereInput): PhotoSubscriptionPayload
 }
@@ -2305,6 +3195,107 @@ export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDe
  * Types
 */
 
+export type BookOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'title_ASC' |
+  'title_DESC' |
+  'author_ASC' |
+  'author_DESC' |
+  'condition_ASC' |
+  'condition_DESC' |
+  'published_ASC' |
+  'published_DESC' |
+  'category_ASC' |
+  'category_DESC'
+
+export type BookCondition =   'NEW' |
+  'LIKE_NEW' |
+  'VERY_GOOD' |
+  'GOOD' |
+  'ACCEPTABLE'
+
+export type PhotoOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'url_ASC' |
+  'url_DESC' |
+  'caption_ASC' |
+  'caption_DESC' |
+  'default_ASC' |
+  'default_DESC'
+
+export type LocationOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'lat_ASC' |
+  'lat_DESC' |
+  'long_ASC' |
+  'long_DESC' |
+  'street_ASC' |
+  'street_DESC' |
+  'city_ASC' |
+  'city_DESC' |
+  'state_ASC' |
+  'state_DESC' |
+  'zip_ASC' |
+  'zip_DESC'
+
+export type BookCategory =   'ARTS_PHOTOGRAPHY' |
+  'BIOGRAPHIES_MEMOIRS' |
+  'BUSINESS_MONEY' |
+  'CALENDARS' |
+  'CHILDREN' |
+  'COMICS_GRAPHIC_NOVELS' |
+  'COMPUTERS_TECHNOLOGY' |
+  'COOKBOOKS' |
+  'CRAFTS' |
+  'CHRISTIAN' |
+  'ENGINEERING_TRANSPORTATION' |
+  'HEALTH' |
+  'HISTORY' |
+  'HUMOR_ENTERTAINMENT' |
+  'LAW' |
+  'MEDICAL' |
+  'MYSTERY' |
+  'PARENTING_RELATIONSHIPS' |
+  'POLITICS' |
+  'SOCIAL_SCIENCE' |
+  'REFERENCE' |
+  'RELIGION_SPIRITUALITY' |
+  'ROMANCE' |
+  'SCIENCE_MATH' |
+  'FICTION_FANTASY' |
+  'SELF_HELP' |
+  'SPORTS_OUTDOORS' |
+  'TEST_PREPARATION' |
+  'TRAVEL' |
+  'EDUCATION_TEACHING'
+
+export type UserOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'email_ASC' |
+  'email_DESC' |
+  'password_ASC' |
+  'password_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'school_ASC' |
+  'school_DESC'
+
 export type State =   'AL' |
   'AK' |
   'AS' |
@@ -2365,29 +3356,12 @@ export type State =   'AL' |
   'WI' |
   'WY'
 
-export type UserOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'email_ASC' |
-  'email_DESC' |
-  'password_ASC' |
-  'password_DESC' |
-  'name_ASC' |
-  'name_DESC' |
-  'school_ASC' |
-  'school_DESC'
-
 export type ItemOrderByInput =   'id_ASC' |
   'id_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
-  'title_ASC' |
-  'title_DESC' |
   'category_ASC' |
   'category_DESC' |
   'price_ASC' |
@@ -2395,62 +3369,46 @@ export type ItemOrderByInput =   'id_ASC' |
   'listed_ASC' |
   'listed_DESC'
 
-export type Category =   'BOOKS' |
-  'CLOTHES' |
-  'HOUSEHOLD' |
-  'OTHER'
-
-export type PhotoOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'url_ASC' |
-  'url_DESC' |
-  'caption_ASC' |
-  'caption_DESC' |
-  'default_ASC' |
-  'default_DESC'
-
-export type School =   'UC_IRVINE' |
-  'UC_LOS_ANGELES' |
-  'UC_SAND_DIEGO' |
-  'UC_SANTA_BARBARA' |
-  'UC_SANTA_CRUZ' |
-  'UC_DAVIS' |
-  'UC_BERKELEY'
-
-export type LocationOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'lat_ASC' |
-  'lat_DESC' |
-  'long_ASC' |
-  'long_DESC' |
-  'street_ASC' |
-  'street_DESC' |
-  'city_ASC' |
-  'city_DESC' |
-  'state_ASC' |
-  'state_DESC' |
-  'zip_ASC' |
-  'zip_DESC'
+export type School =   'UNIVERSITY_OF_CALIFORNIA_IRVINE' |
+  'UNIVERSITY_OF_CALIFORNIA_LOS_ANGELES' |
+  'UNIVERSITY_OF_CALIFORNIA_SAND_DIEGO' |
+  'UNIVERSITY_OF_CALIFORNIA_SANTA_BARBARA' |
+  'UNIVERSITY_OF_CALIFORNIA_SANTA_CRUZ' |
+  'UNIVERSITY_OF_CALIFORNIA_DAVIS' |
+  'UNIVERSITY_OF_CALIFORNIA_BERKELEY'
 
 export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export interface ItemCreateWithoutLocationInput {
-  title: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-  photos?: PhotoCreateManyWithoutItemInput
-  user?: UserCreateOneWithoutItemsInput
+export type Category =   'BOOKS' |
+  'CLOTHES' |
+  'HOUSEHOLD' |
+  'OTHER'
+
+export type clothesOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'size_ASC' |
+  'size_DESC' |
+  'category_ASC' |
+  'category_DESC' |
+  'forwho_ASC' |
+  'forwho_DESC'
+
+export interface LocationCreateInput {
+  lat?: Float
+  long?: Float
+  street?: String
+  city?: String
+  state?: State
+  zip?: Int
+  item?: ItemCreateOneWithoutLocationInput
 }
 
 export interface UserWhereInput {
@@ -2540,12 +3498,1124 @@ export interface UserWhereInput {
 }
 
 export interface ItemUpdateWithoutUserDataInput {
-  title?: String
   category?: Category
   price?: Float
   listed?: Boolean
   location?: LocationUpdateOneWithoutItemInput
   photos?: PhotoUpdateManyWithoutItemInput
+  bookDetails?: BookUpdateOneWithoutItemInput
+  clothesDetails?: clothesUpdateOneWithoutItemInput
+}
+
+export interface BookWhereInput {
+  AND?: BookWhereInput[] | BookWhereInput
+  OR?: BookWhereInput[] | BookWhereInput
+  NOT?: BookWhereInput[] | BookWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  author?: String
+  author_not?: String
+  author_in?: String[] | String
+  author_not_in?: String[] | String
+  author_lt?: String
+  author_lte?: String
+  author_gt?: String
+  author_gte?: String
+  author_contains?: String
+  author_not_contains?: String
+  author_starts_with?: String
+  author_not_starts_with?: String
+  author_ends_with?: String
+  author_not_ends_with?: String
+  condition?: BookCondition
+  condition_not?: BookCondition
+  condition_in?: BookCondition[] | BookCondition
+  condition_not_in?: BookCondition[] | BookCondition
+  published?: Int
+  published_not?: Int
+  published_in?: Int[] | Int
+  published_not_in?: Int[] | Int
+  published_lt?: Int
+  published_lte?: Int
+  published_gt?: Int
+  published_gte?: Int
+  category?: BookCategory
+  category_not?: BookCategory
+  category_in?: BookCategory[] | BookCategory
+  category_not_in?: BookCategory[] | BookCategory
+  item?: ItemWhereInput
+}
+
+export interface LocationUpdateOneWithoutItemInput {
+  create?: LocationCreateWithoutItemInput
+  connect?: LocationWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: LocationUpdateWithoutItemDataInput
+  upsert?: LocationUpsertWithoutItemInput
+}
+
+export interface clothesWhereInput {
+  AND?: clothesWhereInput[] | clothesWhereInput
+  OR?: clothesWhereInput[] | clothesWhereInput
+  NOT?: clothesWhereInput[] | clothesWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  size?: String
+  size_not?: String
+  size_in?: String[] | String
+  size_not_in?: String[] | String
+  size_lt?: String
+  size_lte?: String
+  size_gt?: String
+  size_gte?: String
+  size_contains?: String
+  size_not_contains?: String
+  size_starts_with?: String
+  size_not_starts_with?: String
+  size_ends_with?: String
+  size_not_ends_with?: String
+  category?: String
+  category_not?: String
+  category_in?: String[] | String
+  category_not_in?: String[] | String
+  category_lt?: String
+  category_lte?: String
+  category_gt?: String
+  category_gte?: String
+  category_contains?: String
+  category_not_contains?: String
+  category_starts_with?: String
+  category_not_starts_with?: String
+  category_ends_with?: String
+  category_not_ends_with?: String
+  forwho?: String
+  forwho_not?: String
+  forwho_in?: String[] | String
+  forwho_not_in?: String[] | String
+  forwho_lt?: String
+  forwho_lte?: String
+  forwho_gt?: String
+  forwho_gte?: String
+  forwho_contains?: String
+  forwho_not_contains?: String
+  forwho_starts_with?: String
+  forwho_not_starts_with?: String
+  forwho_ends_with?: String
+  forwho_not_ends_with?: String
+  item?: ItemWhereInput
+}
+
+export interface PhotoCreateOneWithoutUserInput {
+  create?: PhotoCreateWithoutUserInput
+  connect?: PhotoWhereUniqueInput
+}
+
+export interface UserUpdateWithoutItemsDataInput {
+  email?: String
+  password?: String
+  name?: String
+  school?: School
+  profilePhoto?: PhotoUpdateOneWithoutUserInput
+}
+
+export interface PhotoCreateWithoutUserInput {
+  url?: String
+  caption?: String
+  default?: Boolean
+  item?: ItemCreateOneWithoutPhotosInput
+}
+
+export interface LocationUpdateWithoutItemDataInput {
+  lat?: Float
+  long?: Float
+  street?: String
+  city?: String
+  state?: State
+  zip?: Int
+}
+
+export interface ItemCreateOneWithoutPhotosInput {
+  create?: ItemCreateWithoutPhotosInput
+  connect?: ItemWhereUniqueInput
+}
+
+export interface PhotoSubscriptionWhereInput {
+  AND?: PhotoSubscriptionWhereInput[] | PhotoSubscriptionWhereInput
+  OR?: PhotoSubscriptionWhereInput[] | PhotoSubscriptionWhereInput
+  NOT?: PhotoSubscriptionWhereInput[] | PhotoSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: PhotoWhereInput
+}
+
+export interface ItemCreateWithoutPhotosInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationCreateOneWithoutItemInput
+  user?: UserCreateOneWithoutItemsInput
+  bookDetails?: BookCreateOneWithoutItemInput
+  clothesDetails?: clothesCreateOneWithoutItemInput
+}
+
+export interface clothesSubscriptionWhereInput {
+  AND?: clothesSubscriptionWhereInput[] | clothesSubscriptionWhereInput
+  OR?: clothesSubscriptionWhereInput[] | clothesSubscriptionWhereInput
+  NOT?: clothesSubscriptionWhereInput[] | clothesSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: clothesWhereInput
+}
+
+export interface UserCreateOneWithoutItemsInput {
+  create?: UserCreateWithoutItemsInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface ItemSubscriptionWhereInput {
+  AND?: ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput
+  OR?: ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput
+  NOT?: ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: ItemWhereInput
+}
+
+export interface UserCreateWithoutItemsInput {
+  email: String
+  password: String
+  name: String
+  school: School
+  profilePhoto?: PhotoCreateOneWithoutUserInput
+}
+
+export interface PhotoUpdateManyMutationInput {
+  url?: String
+  caption?: String
+  default?: Boolean
+}
+
+export interface ItemCreateInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationCreateOneWithoutItemInput
+  photos?: PhotoCreateManyWithoutItemInput
+  user?: UserCreateOneWithoutItemsInput
+  bookDetails?: BookCreateOneWithoutItemInput
+  clothesDetails?: clothesCreateOneWithoutItemInput
+}
+
+export interface LocationUpdateManyMutationInput {
+  lat?: Float
+  long?: Float
+  street?: String
+  city?: String
+  state?: State
+  zip?: Int
+}
+
+export interface BookCreateInput {
+  title: String
+  author: String
+  condition?: BookCondition
+  published: Int
+  category: BookCategory
+  item?: ItemCreateOneWithoutBookDetailsInput
+}
+
+export interface ItemWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface ItemCreateOneWithoutBookDetailsInput {
+  create?: ItemCreateWithoutBookDetailsInput
+  connect?: ItemWhereUniqueInput
+}
+
+export interface clothesWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface ItemCreateWithoutBookDetailsInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationCreateOneWithoutItemInput
+  photos?: PhotoCreateManyWithoutItemInput
+  user?: UserCreateOneWithoutItemsInput
+  clothesDetails?: clothesCreateOneWithoutItemInput
+}
+
+export interface PhotoWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface clothesCreateInput {
+  name: String
+  size: String
+  category: String
+  forwho: String
+  item?: ItemCreateOneWithoutClothesDetailsInput
+}
+
+export interface BookUpdateManyMutationInput {
+  title?: String
+  author?: String
+  condition?: BookCondition
+  published?: Int
+  category?: BookCategory
+}
+
+export interface ItemCreateOneWithoutClothesDetailsInput {
+  create?: ItemCreateWithoutClothesDetailsInput
+  connect?: ItemWhereUniqueInput
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: String
+  password?: String
+  name?: String
+  school?: School
+}
+
+export interface ItemCreateWithoutClothesDetailsInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationCreateOneWithoutItemInput
+  photos?: PhotoCreateManyWithoutItemInput
+  user?: UserCreateOneWithoutItemsInput
+  bookDetails?: BookCreateOneWithoutItemInput
+}
+
+export interface ItemUpsertWithoutLocationInput {
+  update: ItemUpdateWithoutLocationDataInput
+  create: ItemCreateWithoutLocationInput
+}
+
+export interface ItemUpsertWithoutPhotosInput {
+  update: ItemUpdateWithoutPhotosDataInput
+  create: ItemCreateWithoutPhotosInput
+}
+
+export interface ItemUpdateOneWithoutLocationInput {
+  create?: ItemCreateWithoutLocationInput
+  connect?: ItemWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: ItemUpdateWithoutLocationDataInput
+  upsert?: ItemUpsertWithoutLocationInput
+}
+
+export interface ItemCreateOneWithoutLocationInput {
+  create?: ItemCreateWithoutLocationInput
+  connect?: ItemWhereUniqueInput
+}
+
+export interface ItemUpsertWithoutClothesDetailsInput {
+  update: ItemUpdateWithoutClothesDetailsDataInput
+  create: ItemCreateWithoutClothesDetailsInput
+}
+
+export interface ItemCreateWithoutLocationInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  photos?: PhotoCreateManyWithoutItemInput
+  user?: UserCreateOneWithoutItemsInput
+  bookDetails?: BookCreateOneWithoutItemInput
+  clothesDetails?: clothesCreateOneWithoutItemInput
+}
+
+export interface ItemUpdateOneWithoutClothesDetailsInput {
+  create?: ItemCreateWithoutClothesDetailsInput
+  connect?: ItemWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: ItemUpdateWithoutClothesDetailsDataInput
+  upsert?: ItemUpsertWithoutClothesDetailsInput
+}
+
+export interface PhotoCreateInput {
+  url?: String
+  caption?: String
+  default?: Boolean
+  item?: ItemCreateOneWithoutPhotosInput
+  user?: UserCreateOneWithoutProfilePhotoInput
+}
+
+export interface ItemUpsertWithoutBookDetailsInput {
+  update: ItemUpdateWithoutBookDetailsDataInput
+  create: ItemCreateWithoutBookDetailsInput
+}
+
+export interface UserUpdateInput {
+  email?: String
+  password?: String
+  name?: String
+  school?: School
+  items?: ItemUpdateManyWithoutUserInput
+  profilePhoto?: PhotoUpdateOneWithoutUserInput
+}
+
+export interface ItemUpdateOneWithoutBookDetailsInput {
+  create?: ItemCreateWithoutBookDetailsInput
+  connect?: ItemWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: ItemUpdateWithoutBookDetailsDataInput
+  upsert?: ItemUpsertWithoutBookDetailsInput
+}
+
+export interface ItemUpdateManyWithoutUserInput {
+  create?: ItemCreateWithoutUserInput[] | ItemCreateWithoutUserInput
+  connect?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
+  set?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
+  disconnect?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
+  delete?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
+  update?: ItemUpdateWithWhereUniqueWithoutUserInput[] | ItemUpdateWithWhereUniqueWithoutUserInput
+  updateMany?: ItemUpdateManyWithWhereNestedInput[] | ItemUpdateManyWithWhereNestedInput
+  deleteMany?: ItemScalarWhereInput[] | ItemScalarWhereInput
+  upsert?: ItemUpsertWithWhereUniqueWithoutUserInput[] | ItemUpsertWithWhereUniqueWithoutUserInput
+}
+
+export interface ItemUpdateInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationUpdateOneWithoutItemInput
+  photos?: PhotoUpdateManyWithoutItemInput
+  user?: UserUpdateOneWithoutItemsInput
+  bookDetails?: BookUpdateOneWithoutItemInput
+  clothesDetails?: clothesUpdateOneWithoutItemInput
+}
+
+export interface ItemUpdateWithWhereUniqueWithoutUserInput {
+  where: ItemWhereUniqueInput
+  data: ItemUpdateWithoutUserDataInput
+}
+
+export interface UserCreateInput {
+  email: String
+  password: String
+  name: String
+  school: School
+  items?: ItemCreateManyWithoutUserInput
+  profilePhoto?: PhotoCreateOneWithoutUserInput
+}
+
+export interface PhotoWhereInput {
+  AND?: PhotoWhereInput[] | PhotoWhereInput
+  OR?: PhotoWhereInput[] | PhotoWhereInput
+  NOT?: PhotoWhereInput[] | PhotoWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  url?: String
+  url_not?: String
+  url_in?: String[] | String
+  url_not_in?: String[] | String
+  url_lt?: String
+  url_lte?: String
+  url_gt?: String
+  url_gte?: String
+  url_contains?: String
+  url_not_contains?: String
+  url_starts_with?: String
+  url_not_starts_with?: String
+  url_ends_with?: String
+  url_not_ends_with?: String
+  caption?: String
+  caption_not?: String
+  caption_in?: String[] | String
+  caption_not_in?: String[] | String
+  caption_lt?: String
+  caption_lte?: String
+  caption_gt?: String
+  caption_gte?: String
+  caption_contains?: String
+  caption_not_contains?: String
+  caption_starts_with?: String
+  caption_not_starts_with?: String
+  caption_ends_with?: String
+  caption_not_ends_with?: String
+  default?: Boolean
+  default_not?: Boolean
+  item?: ItemWhereInput
+  user?: UserWhereInput
+}
+
+export interface ItemCreateWithoutUserInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationCreateOneWithoutItemInput
+  photos?: PhotoCreateManyWithoutItemInput
+  bookDetails?: BookCreateOneWithoutItemInput
+  clothesDetails?: clothesCreateOneWithoutItemInput
+}
+
+export interface UserUpsertWithoutItemsInput {
+  update: UserUpdateWithoutItemsDataInput
+  create: UserCreateWithoutItemsInput
+}
+
+export interface LocationCreateWithoutItemInput {
+  lat?: Float
+  long?: Float
+  street?: String
+  city?: String
+  state?: State
+  zip?: Int
+}
+
+export interface PhotoCreateWithoutItemInput {
+  url?: String
+  caption?: String
+  default?: Boolean
+  user?: UserCreateOneWithoutProfilePhotoInput
+}
+
+export interface UserCreateWithoutProfilePhotoInput {
+  email: String
+  password: String
+  name: String
+  school: School
+  items?: ItemCreateManyWithoutUserInput
+}
+
+export interface LocationUpsertWithoutItemInput {
+  update: LocationUpdateWithoutItemDataInput
+  create: LocationCreateWithoutItemInput
+}
+
+export interface BookCreateWithoutItemInput {
+  title: String
+  author: String
+  condition?: BookCondition
+  published: Int
+  category: BookCategory
+}
+
+export interface PhotoUpdateManyWithoutItemInput {
+  create?: PhotoCreateWithoutItemInput[] | PhotoCreateWithoutItemInput
+  connect?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
+  set?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
+  disconnect?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
+  delete?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
+  update?: PhotoUpdateWithWhereUniqueWithoutItemInput[] | PhotoUpdateWithWhereUniqueWithoutItemInput
+  updateMany?: PhotoUpdateManyWithWhereNestedInput[] | PhotoUpdateManyWithWhereNestedInput
+  deleteMany?: PhotoScalarWhereInput[] | PhotoScalarWhereInput
+  upsert?: PhotoUpsertWithWhereUniqueWithoutItemInput[] | PhotoUpsertWithWhereUniqueWithoutItemInput
+}
+
+export interface clothesCreateWithoutItemInput {
+  name: String
+  size: String
+  category: String
+  forwho: String
+}
+
+export interface PhotoUpdateWithWhereUniqueWithoutItemInput {
+  where: PhotoWhereUniqueInput
+  data: PhotoUpdateWithoutItemDataInput
+}
+
+export interface LocationSubscriptionWhereInput {
+  AND?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput
+  OR?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput
+  NOT?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: LocationWhereInput
+}
+
+export interface PhotoUpdateWithoutItemDataInput {
+  url?: String
+  caption?: String
+  default?: Boolean
+  user?: UserUpdateOneWithoutProfilePhotoInput
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface UserUpdateOneWithoutProfilePhotoInput {
+  create?: UserCreateWithoutProfilePhotoInput
+  connect?: UserWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: UserUpdateWithoutProfilePhotoDataInput
+  upsert?: UserUpsertWithoutProfilePhotoInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  email?: String
+  school?: School
+}
+
+export interface UserUpdateWithoutProfilePhotoDataInput {
+  email?: String
+  password?: String
+  name?: String
+  school?: School
+  items?: ItemUpdateManyWithoutUserInput
+}
+
+export interface LocationWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserUpsertWithoutProfilePhotoInput {
+  update: UserUpdateWithoutProfilePhotoDataInput
+  create: UserCreateWithoutProfilePhotoInput
+}
+
+export interface ItemUpdateManyMutationInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+}
+
+export interface PhotoUpdateManyWithWhereNestedInput {
+  where: PhotoScalarWhereInput
+  data: PhotoUpdateManyDataInput
+}
+
+export interface ItemUpdateWithoutLocationDataInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  photos?: PhotoUpdateManyWithoutItemInput
+  user?: UserUpdateOneWithoutItemsInput
+  bookDetails?: BookUpdateOneWithoutItemInput
+  clothesDetails?: clothesUpdateOneWithoutItemInput
+}
+
+export interface PhotoScalarWhereInput {
+  AND?: PhotoScalarWhereInput[] | PhotoScalarWhereInput
+  OR?: PhotoScalarWhereInput[] | PhotoScalarWhereInput
+  NOT?: PhotoScalarWhereInput[] | PhotoScalarWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  url?: String
+  url_not?: String
+  url_in?: String[] | String
+  url_not_in?: String[] | String
+  url_lt?: String
+  url_lte?: String
+  url_gt?: String
+  url_gte?: String
+  url_contains?: String
+  url_not_contains?: String
+  url_starts_with?: String
+  url_not_starts_with?: String
+  url_ends_with?: String
+  url_not_ends_with?: String
+  caption?: String
+  caption_not?: String
+  caption_in?: String[] | String
+  caption_not_in?: String[] | String
+  caption_lt?: String
+  caption_lte?: String
+  caption_gt?: String
+  caption_gte?: String
+  caption_contains?: String
+  caption_not_contains?: String
+  caption_starts_with?: String
+  caption_not_starts_with?: String
+  caption_ends_with?: String
+  caption_not_ends_with?: String
+  default?: Boolean
+  default_not?: Boolean
+}
+
+export interface ItemUpdateWithoutClothesDetailsDataInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationUpdateOneWithoutItemInput
+  photos?: PhotoUpdateManyWithoutItemInput
+  user?: UserUpdateOneWithoutItemsInput
+  bookDetails?: BookUpdateOneWithoutItemInput
+}
+
+export interface PhotoUpdateManyDataInput {
+  url?: String
+  caption?: String
+  default?: Boolean
+}
+
+export interface ItemUpdateWithoutBookDetailsDataInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationUpdateOneWithoutItemInput
+  photos?: PhotoUpdateManyWithoutItemInput
+  user?: UserUpdateOneWithoutItemsInput
+  clothesDetails?: clothesUpdateOneWithoutItemInput
+}
+
+export interface PhotoUpsertWithWhereUniqueWithoutItemInput {
+  where: PhotoWhereUniqueInput
+  update: PhotoUpdateWithoutItemDataInput
+  create: PhotoCreateWithoutItemInput
+}
+
+export interface PhotoUpsertWithoutUserInput {
+  update: PhotoUpdateWithoutUserDataInput
+  create: PhotoCreateWithoutUserInput
+}
+
+export interface BookUpdateOneWithoutItemInput {
+  create?: BookCreateWithoutItemInput
+  connect?: BookWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: BookUpdateWithoutItemDataInput
+  upsert?: BookUpsertWithoutItemInput
+}
+
+export interface LocationCreateOneWithoutItemInput {
+  create?: LocationCreateWithoutItemInput
+  connect?: LocationWhereUniqueInput
+}
+
+export interface BookUpdateWithoutItemDataInput {
+  title?: String
+  author?: String
+  condition?: BookCondition
+  published?: Int
+  category?: BookCategory
+}
+
+export interface UserCreateOneWithoutProfilePhotoInput {
+  create?: UserCreateWithoutProfilePhotoInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface BookUpsertWithoutItemInput {
+  update: BookUpdateWithoutItemDataInput
+  create: BookCreateWithoutItemInput
+}
+
+export interface clothesCreateOneWithoutItemInput {
+  create?: clothesCreateWithoutItemInput
+  connect?: clothesWhereUniqueInput
+}
+
+export interface clothesUpdateOneWithoutItemInput {
+  create?: clothesCreateWithoutItemInput
+  connect?: clothesWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: clothesUpdateWithoutItemDataInput
+  upsert?: clothesUpsertWithoutItemInput
+}
+
+export interface BookSubscriptionWhereInput {
+  AND?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput
+  OR?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput
+  NOT?: BookSubscriptionWhereInput[] | BookSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: BookWhereInput
+}
+
+export interface clothesUpdateWithoutItemDataInput {
+  name?: String
+  size?: String
+  category?: String
+  forwho?: String
+}
+
+export interface BookWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface clothesUpsertWithoutItemInput {
+  update: clothesUpdateWithoutItemDataInput
+  create: clothesCreateWithoutItemInput
+}
+
+export interface PhotoUpdateInput {
+  url?: String
+  caption?: String
+  default?: Boolean
+  item?: ItemUpdateOneWithoutPhotosInput
+  user?: UserUpdateOneWithoutProfilePhotoInput
+}
+
+export interface ItemUpdateManyWithWhereNestedInput {
+  where: ItemScalarWhereInput
+  data: ItemUpdateManyDataInput
+}
+
+export interface clothesUpdateInput {
+  name?: String
+  size?: String
+  category?: String
+  forwho?: String
+  item?: ItemUpdateOneWithoutClothesDetailsInput
+}
+
+export interface ItemScalarWhereInput {
+  AND?: ItemScalarWhereInput[] | ItemScalarWhereInput
+  OR?: ItemScalarWhereInput[] | ItemScalarWhereInput
+  NOT?: ItemScalarWhereInput[] | ItemScalarWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  category?: Category
+  category_not?: Category
+  category_in?: Category[] | Category
+  category_not_in?: Category[] | Category
+  price?: Float
+  price_not?: Float
+  price_in?: Float[] | Float
+  price_not_in?: Float[] | Float
+  price_lt?: Float
+  price_lte?: Float
+  price_gt?: Float
+  price_gte?: Float
+  listed?: Boolean
+  listed_not?: Boolean
+}
+
+export interface ItemCreateManyWithoutUserInput {
+  create?: ItemCreateWithoutUserInput[] | ItemCreateWithoutUserInput
+  connect?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
+}
+
+export interface ItemUpdateManyDataInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+}
+
+export interface BookCreateOneWithoutItemInput {
+  create?: BookCreateWithoutItemInput
+  connect?: BookWhereUniqueInput
+}
+
+export interface ItemUpsertWithWhereUniqueWithoutUserInput {
+  where: ItemWhereUniqueInput
+  update: ItemUpdateWithoutUserDataInput
+  create: ItemCreateWithoutUserInput
+}
+
+export interface ItemWhereInput {
+  AND?: ItemWhereInput[] | ItemWhereInput
+  OR?: ItemWhereInput[] | ItemWhereInput
+  NOT?: ItemWhereInput[] | ItemWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  category?: Category
+  category_not?: Category
+  category_in?: Category[] | Category
+  category_not_in?: Category[] | Category
+  price?: Float
+  price_not?: Float
+  price_in?: Float[] | Float
+  price_not_in?: Float[] | Float
+  price_lt?: Float
+  price_lte?: Float
+  price_gt?: Float
+  price_gte?: Float
+  listed?: Boolean
+  listed_not?: Boolean
+  location?: LocationWhereInput
+  photos_every?: PhotoWhereInput
+  photos_some?: PhotoWhereInput
+  photos_none?: PhotoWhereInput
+  user?: UserWhereInput
+  bookDetails?: BookWhereInput
+  clothesDetails?: clothesWhereInput
+}
+
+export interface PhotoUpdateOneWithoutUserInput {
+  create?: PhotoCreateWithoutUserInput
+  connect?: PhotoWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: PhotoUpdateWithoutUserDataInput
+  upsert?: PhotoUpsertWithoutUserInput
+}
+
+export interface LocationUpdateInput {
+  lat?: Float
+  long?: Float
+  street?: String
+  city?: String
+  state?: State
+  zip?: Int
+  item?: ItemUpdateOneWithoutLocationInput
+}
+
+export interface UserUpdateOneWithoutItemsInput {
+  create?: UserCreateWithoutItemsInput
+  connect?: UserWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: UserUpdateWithoutItemsDataInput
+  upsert?: UserUpsertWithoutItemsInput
+}
+
+export interface ItemUpdateWithoutPhotosDataInput {
+  category?: Category
+  price?: Float
+  listed?: Boolean
+  location?: LocationUpdateOneWithoutItemInput
+  user?: UserUpdateOneWithoutItemsInput
+  bookDetails?: BookUpdateOneWithoutItemInput
+  clothesDetails?: clothesUpdateOneWithoutItemInput
+}
+
+export interface ItemUpdateOneWithoutPhotosInput {
+  create?: ItemCreateWithoutPhotosInput
+  connect?: ItemWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: ItemUpdateWithoutPhotosDataInput
+  upsert?: ItemUpsertWithoutPhotosInput
+}
+
+export interface PhotoUpdateWithoutUserDataInput {
+  url?: String
+  caption?: String
+  default?: Boolean
+  item?: ItemUpdateOneWithoutPhotosInput
+}
+
+export interface BookUpdateInput {
+  title?: String
+  author?: String
+  condition?: BookCondition
+  published?: Int
+  category?: BookCategory
+  item?: ItemUpdateOneWithoutBookDetailsInput
+}
+
+export interface clothesUpdateManyMutationInput {
+  name?: String
+  size?: String
+  category?: String
+  forwho?: String
 }
 
 export interface LocationWhereInput {
@@ -2641,743 +4711,9 @@ export interface LocationWhereInput {
   item?: ItemWhereInput
 }
 
-export interface LocationUpdateOneWithoutItemInput {
-  create?: LocationCreateWithoutItemInput
-  connect?: LocationWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: LocationUpdateWithoutItemDataInput
-  upsert?: LocationUpsertWithoutItemInput
-}
-
-export interface PhotoWhereInput {
-  AND?: PhotoWhereInput[] | PhotoWhereInput
-  OR?: PhotoWhereInput[] | PhotoWhereInput
-  NOT?: PhotoWhereInput[] | PhotoWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  url?: String
-  url_not?: String
-  url_in?: String[] | String
-  url_not_in?: String[] | String
-  url_lt?: String
-  url_lte?: String
-  url_gt?: String
-  url_gte?: String
-  url_contains?: String
-  url_not_contains?: String
-  url_starts_with?: String
-  url_not_starts_with?: String
-  url_ends_with?: String
-  url_not_ends_with?: String
-  caption?: String
-  caption_not?: String
-  caption_in?: String[] | String
-  caption_not_in?: String[] | String
-  caption_lt?: String
-  caption_lte?: String
-  caption_gt?: String
-  caption_gte?: String
-  caption_contains?: String
-  caption_not_contains?: String
-  caption_starts_with?: String
-  caption_not_starts_with?: String
-  caption_ends_with?: String
-  caption_not_ends_with?: String
-  default?: Boolean
-  default_not?: Boolean
-  item?: ItemWhereInput
-  user?: UserWhereInput
-}
-
-export interface PhotoCreateOneWithoutUserInput {
-  create?: PhotoCreateWithoutUserInput
-  connect?: PhotoWhereUniqueInput
-}
-
-export interface PhotoUpdateWithoutUserDataInput {
-  url?: String
-  caption?: String
-  default?: Boolean
-  item?: ItemUpdateOneWithoutPhotosInput
-}
-
-export interface PhotoCreateWithoutUserInput {
-  url?: String
-  caption?: String
-  default?: Boolean
-  item?: ItemCreateOneWithoutPhotosInput
-}
-
-export interface LocationUpdateWithoutItemDataInput {
-  lat?: Float
-  long?: Float
-  street?: String
-  city?: String
-  state?: State
-  zip?: Int
-}
-
-export interface ItemCreateOneWithoutPhotosInput {
-  create?: ItemCreateWithoutPhotosInput
-  connect?: ItemWhereUniqueInput
-}
-
-export interface LocationSubscriptionWhereInput {
-  AND?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput
-  OR?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput
-  NOT?: LocationSubscriptionWhereInput[] | LocationSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: LocationWhereInput
-}
-
-export interface ItemCreateWithoutPhotosInput {
-  title: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-  location?: LocationCreateOneWithoutItemInput
-  user?: UserCreateOneWithoutItemsInput
-}
-
-export interface ItemWhereInput {
-  AND?: ItemWhereInput[] | ItemWhereInput
-  OR?: ItemWhereInput[] | ItemWhereInput
-  NOT?: ItemWhereInput[] | ItemWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  category?: Category
-  category_not?: Category
-  category_in?: Category[] | Category
-  category_not_in?: Category[] | Category
-  price?: Float
-  price_not?: Float
-  price_in?: Float[] | Float
-  price_not_in?: Float[] | Float
-  price_lt?: Float
-  price_lte?: Float
-  price_gt?: Float
-  price_gte?: Float
-  listed?: Boolean
-  listed_not?: Boolean
-  location?: LocationWhereInput
-  photos_every?: PhotoWhereInput
-  photos_some?: PhotoWhereInput
-  photos_none?: PhotoWhereInput
-  user?: UserWhereInput
-}
-
-export interface UserCreateOneWithoutItemsInput {
-  create?: UserCreateWithoutItemsInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface PhotoUpdateManyMutationInput {
-  url?: String
-  caption?: String
-  default?: Boolean
-}
-
-export interface UserCreateWithoutItemsInput {
-  email: String
-  password: String
-  name: String
-  school: School
-  profilePhoto?: PhotoCreateOneWithoutUserInput
-}
-
-export interface ItemWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface ItemCreateInput {
-  title: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-  location?: LocationCreateOneWithoutItemInput
-  photos?: PhotoCreateManyWithoutItemInput
-  user?: UserCreateOneWithoutItemsInput
-}
-
-export interface PhotoWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface LocationCreateInput {
-  lat?: Float
-  long?: Float
-  street?: String
-  city?: String
-  state?: State
-  zip?: Int
-  item?: ItemCreateOneWithoutLocationInput
-}
-
-export interface ItemUpdateManyMutationInput {
-  title?: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-}
-
-export interface ItemCreateOneWithoutLocationInput {
-  create?: ItemCreateWithoutLocationInput
-  connect?: ItemWhereUniqueInput
-}
-
-export interface PhotoUpdateInput {
-  url?: String
-  caption?: String
-  default?: Boolean
-  item?: ItemUpdateOneWithoutPhotosInput
-  user?: UserUpdateOneWithoutProfilePhotoInput
-}
-
-export interface UserUpdateOneWithoutItemsInput {
-  create?: UserCreateWithoutItemsInput
-  connect?: UserWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: UserUpdateWithoutItemsDataInput
-  upsert?: UserUpsertWithoutItemsInput
-}
-
-export interface ItemUpdateWithoutLocationDataInput {
-  title?: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-  photos?: PhotoUpdateManyWithoutItemInput
-  user?: UserUpdateOneWithoutItemsInput
-}
-
-export interface PhotoCreateInput {
-  url?: String
-  caption?: String
-  default?: Boolean
-  item?: ItemCreateOneWithoutPhotosInput
-  user?: UserCreateOneWithoutProfilePhotoInput
-}
-
-export interface LocationUpdateInput {
-  lat?: Float
-  long?: Float
-  street?: String
-  city?: String
-  state?: State
-  zip?: Int
-  item?: ItemUpdateOneWithoutLocationInput
-}
-
-export interface UserUpdateInput {
-  email?: String
-  password?: String
-  name?: String
-  school?: School
-  items?: ItemUpdateManyWithoutUserInput
-  profilePhoto?: PhotoUpdateOneWithoutUserInput
-}
-
-export interface PhotoUpsertWithoutUserInput {
-  update: PhotoUpdateWithoutUserDataInput
-  create: PhotoCreateWithoutUserInput
-}
-
-export interface ItemUpdateManyWithoutUserInput {
-  create?: ItemCreateWithoutUserInput[] | ItemCreateWithoutUserInput
-  connect?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
-  set?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
-  disconnect?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
-  delete?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
-  update?: ItemUpdateWithWhereUniqueWithoutUserInput[] | ItemUpdateWithWhereUniqueWithoutUserInput
-  updateMany?: ItemUpdateManyWithWhereNestedInput[] | ItemUpdateManyWithWhereNestedInput
-  deleteMany?: ItemScalarWhereInput[] | ItemScalarWhereInput
-  upsert?: ItemUpsertWithWhereUniqueWithoutUserInput[] | ItemUpsertWithWhereUniqueWithoutUserInput
-}
-
-export interface UserUpsertWithoutItemsInput {
-  update: UserUpdateWithoutItemsDataInput
-  create: UserCreateWithoutItemsInput
-}
-
-export interface ItemUpdateWithWhereUniqueWithoutUserInput {
-  where: ItemWhereUniqueInput
-  data: ItemUpdateWithoutUserDataInput
-}
-
-export interface UserCreateInput {
-  email: String
-  password: String
-  name: String
-  school: School
-  items?: ItemCreateManyWithoutUserInput
-  profilePhoto?: PhotoCreateOneWithoutUserInput
-}
-
-export interface ItemUpdateWithoutPhotosDataInput {
-  title?: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-  location?: LocationUpdateOneWithoutItemInput
-  user?: UserUpdateOneWithoutItemsInput
-}
-
-export interface ItemCreateWithoutUserInput {
-  title: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-  location?: LocationCreateOneWithoutItemInput
-  photos?: PhotoCreateManyWithoutItemInput
-}
-
-export interface ItemUpdateOneWithoutPhotosInput {
-  create?: ItemCreateWithoutPhotosInput
-  connect?: ItemWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: ItemUpdateWithoutPhotosDataInput
-  upsert?: ItemUpsertWithoutPhotosInput
-}
-
-export interface LocationCreateWithoutItemInput {
-  lat?: Float
-  long?: Float
-  street?: String
-  city?: String
-  state?: State
-  zip?: Int
-}
-
-export interface PhotoCreateWithoutItemInput {
-  url?: String
-  caption?: String
-  default?: Boolean
-  user?: UserCreateOneWithoutProfilePhotoInput
-}
-
-export interface UserCreateWithoutProfilePhotoInput {
-  email: String
-  password: String
-  name: String
-  school: School
-  items?: ItemCreateManyWithoutUserInput
-}
-
-export interface LocationUpsertWithoutItemInput {
-  update: LocationUpdateWithoutItemDataInput
-  create: LocationCreateWithoutItemInput
-}
-
-export interface ItemSubscriptionWhereInput {
-  AND?: ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput
-  OR?: ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput
-  NOT?: ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: ItemWhereInput
-}
-
-export interface PhotoUpdateManyWithoutItemInput {
-  create?: PhotoCreateWithoutItemInput[] | PhotoCreateWithoutItemInput
-  connect?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
-  set?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
-  disconnect?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
-  delete?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
-  update?: PhotoUpdateWithWhereUniqueWithoutItemInput[] | PhotoUpdateWithWhereUniqueWithoutItemInput
-  updateMany?: PhotoUpdateManyWithWhereNestedInput[] | PhotoUpdateManyWithWhereNestedInput
-  deleteMany?: PhotoScalarWhereInput[] | PhotoScalarWhereInput
-  upsert?: PhotoUpsertWithWhereUniqueWithoutItemInput[] | PhotoUpsertWithWhereUniqueWithoutItemInput
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-  email?: String
-  school?: School
-}
-
-export interface PhotoUpdateWithWhereUniqueWithoutItemInput {
-  where: PhotoWhereUniqueInput
-  data: PhotoUpdateWithoutItemDataInput
-}
-
-export interface LocationUpdateManyMutationInput {
-  lat?: Float
-  long?: Float
-  street?: String
-  city?: String
-  state?: State
-  zip?: Int
-}
-
-export interface PhotoUpdateWithoutItemDataInput {
-  url?: String
-  caption?: String
-  default?: Boolean
-  user?: UserUpdateOneWithoutProfilePhotoInput
-}
-
-export interface ItemUpsertWithoutLocationInput {
-  update: ItemUpdateWithoutLocationDataInput
-  create: ItemCreateWithoutLocationInput
-}
-
-export interface UserUpdateOneWithoutProfilePhotoInput {
-  create?: UserCreateWithoutProfilePhotoInput
-  connect?: UserWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: UserUpdateWithoutProfilePhotoDataInput
-  upsert?: UserUpsertWithoutProfilePhotoInput
-}
-
-export interface ItemUpdateInput {
-  title?: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-  location?: LocationUpdateOneWithoutItemInput
-  photos?: PhotoUpdateManyWithoutItemInput
-  user?: UserUpdateOneWithoutItemsInput
-}
-
-export interface UserUpdateWithoutProfilePhotoDataInput {
-  email?: String
-  password?: String
-  name?: String
-  school?: School
-  items?: ItemUpdateManyWithoutUserInput
-}
-
-export interface UserUpdateWithoutItemsDataInput {
-  email?: String
-  password?: String
-  name?: String
-  school?: School
-  profilePhoto?: PhotoUpdateOneWithoutUserInput
-}
-
-export interface UserUpsertWithoutProfilePhotoInput {
-  update: UserUpdateWithoutProfilePhotoDataInput
-  create: UserCreateWithoutProfilePhotoInput
-}
-
-export interface LocationCreateOneWithoutItemInput {
-  create?: LocationCreateWithoutItemInput
-  connect?: LocationWhereUniqueInput
-}
-
-export interface PhotoUpdateManyWithWhereNestedInput {
-  where: PhotoScalarWhereInput
-  data: PhotoUpdateManyDataInput
-}
-
-export interface UserCreateOneWithoutProfilePhotoInput {
-  create?: UserCreateWithoutProfilePhotoInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface PhotoScalarWhereInput {
-  AND?: PhotoScalarWhereInput[] | PhotoScalarWhereInput
-  OR?: PhotoScalarWhereInput[] | PhotoScalarWhereInput
-  NOT?: PhotoScalarWhereInput[] | PhotoScalarWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  url?: String
-  url_not?: String
-  url_in?: String[] | String
-  url_not_in?: String[] | String
-  url_lt?: String
-  url_lte?: String
-  url_gt?: String
-  url_gte?: String
-  url_contains?: String
-  url_not_contains?: String
-  url_starts_with?: String
-  url_not_starts_with?: String
-  url_ends_with?: String
-  url_not_ends_with?: String
-  caption?: String
-  caption_not?: String
-  caption_in?: String[] | String
-  caption_not_in?: String[] | String
-  caption_lt?: String
-  caption_lte?: String
-  caption_gt?: String
-  caption_gte?: String
-  caption_contains?: String
-  caption_not_contains?: String
-  caption_starts_with?: String
-  caption_not_starts_with?: String
-  caption_ends_with?: String
-  caption_not_ends_with?: String
-  default?: Boolean
-  default_not?: Boolean
-}
-
-export interface UserSubscriptionWhereInput {
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: UserWhereInput
-}
-
-export interface PhotoUpdateManyDataInput {
-  url?: String
-  caption?: String
-  default?: Boolean
-}
-
-export interface UserUpdateManyMutationInput {
-  email?: String
-  password?: String
-  name?: String
-  school?: School
-}
-
-export interface PhotoUpsertWithWhereUniqueWithoutItemInput {
-  where: PhotoWhereUniqueInput
-  update: PhotoUpdateWithoutItemDataInput
-  create: PhotoCreateWithoutItemInput
-}
-
-export interface ItemUpsertWithoutPhotosInput {
-  update: ItemUpdateWithoutPhotosDataInput
-  create: ItemCreateWithoutPhotosInput
-}
-
-export interface ItemUpdateManyWithWhereNestedInput {
-  where: ItemScalarWhereInput
-  data: ItemUpdateManyDataInput
-}
-
 export interface PhotoCreateManyWithoutItemInput {
   create?: PhotoCreateWithoutItemInput[] | PhotoCreateWithoutItemInput
   connect?: PhotoWhereUniqueInput[] | PhotoWhereUniqueInput
-}
-
-export interface PhotoUpdateOneWithoutUserInput {
-  create?: PhotoCreateWithoutUserInput
-  connect?: PhotoWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: PhotoUpdateWithoutUserDataInput
-  upsert?: PhotoUpsertWithoutUserInput
-}
-
-export interface ItemUpsertWithWhereUniqueWithoutUserInput {
-  where: ItemWhereUniqueInput
-  update: ItemUpdateWithoutUserDataInput
-  create: ItemCreateWithoutUserInput
-}
-
-export interface ItemUpdateManyDataInput {
-  title?: String
-  category?: Category
-  price?: Float
-  listed?: Boolean
-}
-
-export interface ItemScalarWhereInput {
-  AND?: ItemScalarWhereInput[] | ItemScalarWhereInput
-  OR?: ItemScalarWhereInput[] | ItemScalarWhereInput
-  NOT?: ItemScalarWhereInput[] | ItemScalarWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  category?: Category
-  category_not?: Category
-  category_in?: Category[] | Category
-  category_not_in?: Category[] | Category
-  price?: Float
-  price_not?: Float
-  price_in?: Float[] | Float
-  price_not_in?: Float[] | Float
-  price_lt?: Float
-  price_lte?: Float
-  price_gt?: Float
-  price_gte?: Float
-  listed?: Boolean
-  listed_not?: Boolean
-}
-
-export interface PhotoSubscriptionWhereInput {
-  AND?: PhotoSubscriptionWhereInput[] | PhotoSubscriptionWhereInput
-  OR?: PhotoSubscriptionWhereInput[] | PhotoSubscriptionWhereInput
-  NOT?: PhotoSubscriptionWhereInput[] | PhotoSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: PhotoWhereInput
-}
-
-export interface ItemCreateManyWithoutUserInput {
-  create?: ItemCreateWithoutUserInput[] | ItemCreateWithoutUserInput
-  connect?: ItemWhereUniqueInput[] | ItemWhereUniqueInput
-}
-
-export interface ItemUpdateOneWithoutLocationInput {
-  create?: ItemCreateWithoutLocationInput
-  connect?: ItemWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: ItemUpdateWithoutLocationDataInput
-  upsert?: ItemUpsertWithoutLocationInput
-}
-
-export interface LocationWhereUniqueInput {
-  id?: ID_Input
 }
 
 /*
@@ -3398,14 +4734,13 @@ export interface PhotoPreviousValues {
 }
 
 /*
- * Information about pagination in a connection.
+ * A connection to a list of items.
 
  */
-export interface PageInfo {
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-  startCursor?: String
-  endCursor?: String
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
 }
 
 export interface User extends Node {
@@ -3420,35 +4755,75 @@ export interface User extends Node {
   profilePhoto?: Photo
 }
 
-export interface BatchPayload {
-  count: Long
+/*
+ * An edge in a connection.
+
+ */
+export interface UserEdge {
+  node: User
+  cursor: String
 }
 
-export interface ItemPreviousValues {
+export interface clothesPreviousValues {
   id: ID_Output
   createdAt: DateTime
   updatedAt: DateTime
-  title: String
-  category?: Category
-  price?: Float
-  listed: Boolean
+  name: String
+  size: String
+  category: String
+  forwho: String
 }
 
-export interface PhotoSubscriptionPayload {
-  mutation: MutationType
-  node?: Photo
-  updatedFields?: String[]
-  previousValues?: PhotoPreviousValues
+/*
+ * Information about pagination in a connection.
+
+ */
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
+}
+
+export interface AggregatePhoto {
+  count: Int
+}
+
+export interface Item extends Node {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  category?: Category
+  price?: Float
+  location?: Location
+  photos?: Photo[]
+  listed: Boolean
+  user?: User
+  bookDetails?: Book
+  clothesDetails?: clothes
+}
+
+export interface AggregateLocation {
+  count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface PhotoEdge {
+  node: Photo
+  cursor: String
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface UserConnection {
+export interface LocationConnection {
   pageInfo: PageInfo
-  edges: UserEdge[]
-  aggregate: AggregateUser
+  edges: LocationEdge[]
+  aggregate: AggregateLocation
 }
 
 export interface LocationPreviousValues {
@@ -3464,17 +4839,100 @@ export interface LocationPreviousValues {
 }
 
 /*
+ * An edge in a connection.
+
+ */
+export interface clothesEdge {
+  node: clothes
+  cursor: String
+}
+
+export interface clothes extends Node {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  size: String
+  category: String
+  forwho: String
+  item?: Item
+}
+
+export interface AggregateBook {
+  count: Int
+}
+
+export interface LocationSubscriptionPayload {
+  mutation: MutationType
+  node?: Location
+  updatedFields?: String[]
+  previousValues?: LocationPreviousValues
+}
+
+/*
  * A connection to a list of items.
 
  */
-export interface PhotoConnection {
+export interface BookConnection {
   pageInfo: PageInfo
-  edges: PhotoEdge[]
-  aggregate: AggregatePhoto
+  edges: BookEdge[]
+  aggregate: AggregateBook
 }
 
-export interface AggregatePhoto {
+export interface UserSubscriptionPayload {
+  mutation: MutationType
+  node?: User
+  updatedFields?: String[]
+  previousValues?: UserPreviousValues
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface ItemEdge {
+  node: Item
+  cursor: String
+}
+
+export interface UserPreviousValues {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  email: String
+  password: String
+  name: String
+  school: School
+}
+
+export interface AggregateUser {
   count: Int
+}
+
+export interface Book extends Node {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String
+  author: String
+  condition?: BookCondition
+  published: Int
+  category: BookCategory
+  item?: Item
+}
+
+export interface PhotoSubscriptionPayload {
+  mutation: MutationType
+  node?: Photo
+  updatedFields?: String[]
+  previousValues?: PhotoPreviousValues
+}
+
+export interface ItemSubscriptionPayload {
+  mutation: MutationType
+  node?: Item
+  updatedFields?: String[]
+  previousValues?: ItemPreviousValues
 }
 
 /*
@@ -3486,15 +4944,23 @@ export interface LocationEdge {
   cursor: String
 }
 
-export interface LocationSubscriptionPayload {
-  mutation: MutationType
-  node?: Location
-  updatedFields?: String[]
-  previousValues?: LocationPreviousValues
+export interface ItemPreviousValues {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  category?: Category
+  price?: Float
+  listed: Boolean
 }
 
-export interface AggregateItem {
-  count: Int
+/*
+ * A connection to a list of items.
+
+ */
+export interface clothesConnection {
+  pageInfo: PageInfo
+  edges: clothesEdge[]
+  aggregate: Aggregateclothes
 }
 
 export interface Photo extends Node {
@@ -3508,47 +4974,19 @@ export interface Photo extends Node {
   user?: User
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface ItemConnection {
-  pageInfo: PageInfo
-  edges: ItemEdge[]
-  aggregate: AggregateItem
-}
-
-export interface Item extends Node {
-  id: ID_Output
-  createdAt: DateTime
-  updatedAt: DateTime
-  title: String
-  category?: Category
-  price?: Float
-  location?: Location
-  photos?: Photo[]
-  listed: Boolean
-  user?: User
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface UserEdge {
-  node: User
-  cursor: String
-}
-
-export interface AggregateLocation {
+export interface AggregateItem {
   count: Int
 }
 
-export interface ItemSubscriptionPayload {
+export interface BatchPayload {
+  count: Long
+}
+
+export interface clothesSubscriptionPayload {
   mutation: MutationType
-  node?: Item
+  node?: clothes
   updatedFields?: String[]
-  previousValues?: ItemPreviousValues
+  previousValues?: clothesPreviousValues
 }
 
 export interface Location extends Node {
@@ -3564,65 +5002,66 @@ export interface Location extends Node {
   item?: Item
 }
 
-export interface UserPreviousValues {
+export interface BookPreviousValues {
   id: ID_Output
   createdAt: DateTime
   updatedAt: DateTime
-  email: String
-  password: String
-  name: String
-  school: School
+  title: String
+  author: String
+  condition?: BookCondition
+  published: Int
+  category: BookCategory
 }
 
-export interface UserSubscriptionPayload {
+export interface BookSubscriptionPayload {
   mutation: MutationType
-  node?: User
+  node?: Book
   updatedFields?: String[]
-  previousValues?: UserPreviousValues
+  previousValues?: BookPreviousValues
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface LocationConnection {
+export interface PhotoConnection {
   pageInfo: PageInfo
-  edges: LocationEdge[]
-  aggregate: AggregateLocation
+  edges: PhotoEdge[]
+  aggregate: AggregatePhoto
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface ItemConnection {
+  pageInfo: PageInfo
+  edges: ItemEdge[]
+  aggregate: AggregateItem
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface PhotoEdge {
-  node: Photo
+export interface BookEdge {
+  node: Book
   cursor: String
 }
 
-export interface AggregateUser {
+export interface Aggregateclothes {
   count: Int
 }
 
 /*
- * An edge in a connection.
-
- */
-export interface ItemEdge {
-  node: Item
-  cursor: String
-}
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
-export type Boolean = boolean
-
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number
-export type ID_Output = string
+export type Int = number
 
 /*
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -3631,18 +5070,19 @@ Long can represent values between -(2^63) and 2^63 - 1.
 export type Long = string
 
 /*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number
+export type ID_Output = string
+
+/*
 The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
 */
 export type Float = number
 
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string
-
 export type DateTime = Date | string
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean

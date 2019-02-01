@@ -1,5 +1,13 @@
 # source: https://us1.prisma.sh/jorge/peer2peer/dev
-# timestamp: Tue Jan 29 2019 11:06:38 GMT-0800 (PST)
+# timestamp: Thu Jan 31 2019 15:51:22 GMT-0800 (PST)
+
+type AggregateBook {
+  count: Int!
+}
+
+type Aggregateclothes {
+  count: Int!
+}
 
 type AggregateItem {
   count: Int!
@@ -22,100 +30,101 @@ type BatchPayload {
   count: Long!
 }
 
-enum Category {
-  BOOKS
-  CLOTHES
-  HOUSEHOLD
-  OTHER
-}
-
-scalar DateTime
-
-type Item implements Node {
+type Book implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
-  category: Category
-  price: Float
-  location: Location
-  photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo!]
-  listed: Boolean!
-  user: User
+  author: String!
+  condition: BookCondition
+  published: Int!
+  category: BookCategory!
+  item: Item
+}
+
+enum BookCategory {
+  ARTS_PHOTOGRAPHY
+  BIOGRAPHIES_MEMOIRS
+  BUSINESS_MONEY
+  CALENDARS
+  CHILDREN
+  COMICS_GRAPHIC_NOVELS
+  COMPUTERS_TECHNOLOGY
+  COOKBOOKS
+  CRAFTS
+  CHRISTIAN
+  ENGINEERING_TRANSPORTATION
+  HEALTH
+  HISTORY
+  HUMOR_ENTERTAINMENT
+  LAW
+  MEDICAL
+  MYSTERY
+  PARENTING_RELATIONSHIPS
+  POLITICS
+  SOCIAL_SCIENCE
+  REFERENCE
+  RELIGION_SPIRITUALITY
+  ROMANCE
+  SCIENCE_MATH
+  FICTION_FANTASY
+  SELF_HELP
+  SPORTS_OUTDOORS
+  TEST_PREPARATION
+  TRAVEL
+  EDUCATION_TEACHING
+}
+
+enum BookCondition {
+  NEW
+  LIKE_NEW
+  VERY_GOOD
+  GOOD
+  ACCEPTABLE
 }
 
 """A connection to a list of items."""
-type ItemConnection {
+type BookConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [ItemEdge]!
-  aggregate: AggregateItem!
+  edges: [BookEdge]!
+  aggregate: AggregateBook!
 }
 
-input ItemCreateInput {
+input BookCreateInput {
   title: String!
-  category: Category
-  price: Float
-  listed: Boolean
-  location: LocationCreateOneWithoutItemInput
-  photos: PhotoCreateManyWithoutItemInput
-  user: UserCreateOneWithoutItemsInput
+  author: String!
+  condition: BookCondition
+  published: Int!
+  category: BookCategory!
+  item: ItemCreateOneWithoutBookDetailsInput
 }
 
-input ItemCreateManyWithoutUserInput {
-  create: [ItemCreateWithoutUserInput!]
-  connect: [ItemWhereUniqueInput!]
+input BookCreateOneWithoutItemInput {
+  create: BookCreateWithoutItemInput
+  connect: BookWhereUniqueInput
 }
 
-input ItemCreateOneWithoutLocationInput {
-  create: ItemCreateWithoutLocationInput
-  connect: ItemWhereUniqueInput
-}
-
-input ItemCreateOneWithoutPhotosInput {
-  create: ItemCreateWithoutPhotosInput
-  connect: ItemWhereUniqueInput
-}
-
-input ItemCreateWithoutLocationInput {
+input BookCreateWithoutItemInput {
   title: String!
-  category: Category
-  price: Float
-  listed: Boolean
-  photos: PhotoCreateManyWithoutItemInput
-  user: UserCreateOneWithoutItemsInput
-}
-
-input ItemCreateWithoutPhotosInput {
-  title: String!
-  category: Category
-  price: Float
-  listed: Boolean
-  location: LocationCreateOneWithoutItemInput
-  user: UserCreateOneWithoutItemsInput
-}
-
-input ItemCreateWithoutUserInput {
-  title: String!
-  category: Category
-  price: Float
-  listed: Boolean
-  location: LocationCreateOneWithoutItemInput
-  photos: PhotoCreateManyWithoutItemInput
+  author: String!
+  condition: BookCondition
+  published: Int!
+  category: BookCategory!
 }
 
 """An edge in a connection."""
-type ItemEdge {
+type BookEdge {
   """The item at the end of the edge."""
-  node: Item!
+  node: Book!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum ItemOrderByInput {
+enum BookOrderByInput {
   id_ASC
   id_DESC
   createdAt_ASC
@@ -124,33 +133,114 @@ enum ItemOrderByInput {
   updatedAt_DESC
   title_ASC
   title_DESC
+  author_ASC
+  author_DESC
+  condition_ASC
+  condition_DESC
+  published_ASC
+  published_DESC
   category_ASC
   category_DESC
-  price_ASC
-  price_DESC
-  listed_ASC
-  listed_DESC
 }
 
-type ItemPreviousValues {
+type BookPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
-  category: Category
-  price: Float
-  listed: Boolean!
+  author: String!
+  condition: BookCondition
+  published: Int!
+  category: BookCategory!
 }
 
-input ItemScalarWhereInput {
+type BookSubscriptionPayload {
+  mutation: MutationType!
+  node: Book
+  updatedFields: [String!]
+  previousValues: BookPreviousValues
+}
+
+input BookSubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [ItemScalarWhereInput!]
+  AND: [BookSubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [ItemScalarWhereInput!]
+  OR: [BookSubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [ItemScalarWhereInput!]
+  NOT: [BookSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: BookWhereInput
+}
+
+input BookUpdateInput {
+  title: String
+  author: String
+  condition: BookCondition
+  published: Int
+  category: BookCategory
+  item: ItemUpdateOneWithoutBookDetailsInput
+}
+
+input BookUpdateManyMutationInput {
+  title: String
+  author: String
+  condition: BookCondition
+  published: Int
+  category: BookCategory
+}
+
+input BookUpdateOneWithoutItemInput {
+  create: BookCreateWithoutItemInput
+  connect: BookWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: BookUpdateWithoutItemDataInput
+  upsert: BookUpsertWithoutItemInput
+}
+
+input BookUpdateWithoutItemDataInput {
+  title: String
+  author: String
+  condition: BookCondition
+  published: Int
+  category: BookCategory
+}
+
+input BookUpsertWithoutItemInput {
+  update: BookUpdateWithoutItemDataInput!
+  create: BookCreateWithoutItemInput!
+}
+
+input BookWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BookWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BookWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BookWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -275,6 +365,752 @@ input ItemScalarWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  author: String
+
+  """All values that are not equal to given value."""
+  author_not: String
+
+  """All values that are contained in given list."""
+  author_in: [String!]
+
+  """All values that are not contained in given list."""
+  author_not_in: [String!]
+
+  """All values less than the given value."""
+  author_lt: String
+
+  """All values less than or equal the given value."""
+  author_lte: String
+
+  """All values greater than the given value."""
+  author_gt: String
+
+  """All values greater than or equal the given value."""
+  author_gte: String
+
+  """All values containing the given string."""
+  author_contains: String
+
+  """All values not containing the given string."""
+  author_not_contains: String
+
+  """All values starting with the given string."""
+  author_starts_with: String
+
+  """All values not starting with the given string."""
+  author_not_starts_with: String
+
+  """All values ending with the given string."""
+  author_ends_with: String
+
+  """All values not ending with the given string."""
+  author_not_ends_with: String
+  condition: BookCondition
+
+  """All values that are not equal to given value."""
+  condition_not: BookCondition
+
+  """All values that are contained in given list."""
+  condition_in: [BookCondition!]
+
+  """All values that are not contained in given list."""
+  condition_not_in: [BookCondition!]
+  published: Int
+
+  """All values that are not equal to given value."""
+  published_not: Int
+
+  """All values that are contained in given list."""
+  published_in: [Int!]
+
+  """All values that are not contained in given list."""
+  published_not_in: [Int!]
+
+  """All values less than the given value."""
+  published_lt: Int
+
+  """All values less than or equal the given value."""
+  published_lte: Int
+
+  """All values greater than the given value."""
+  published_gt: Int
+
+  """All values greater than or equal the given value."""
+  published_gte: Int
+  category: BookCategory
+
+  """All values that are not equal to given value."""
+  category_not: BookCategory
+
+  """All values that are contained in given list."""
+  category_in: [BookCategory!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [BookCategory!]
+  item: ItemWhereInput
+}
+
+input BookWhereUniqueInput {
+  id: ID
+}
+
+enum Category {
+  BOOKS
+  CLOTHES
+  HOUSEHOLD
+  OTHER
+}
+
+type clothes implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  size: String!
+  category: String!
+  forwho: String!
+  item: Item
+}
+
+"""A connection to a list of items."""
+type clothesConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [clothesEdge]!
+  aggregate: Aggregateclothes!
+}
+
+input clothesCreateInput {
+  name: String!
+  size: String!
+  category: String!
+  forwho: String!
+  item: ItemCreateOneWithoutClothesDetailsInput
+}
+
+input clothesCreateOneWithoutItemInput {
+  create: clothesCreateWithoutItemInput
+  connect: clothesWhereUniqueInput
+}
+
+input clothesCreateWithoutItemInput {
+  name: String!
+  size: String!
+  category: String!
+  forwho: String!
+}
+
+"""An edge in a connection."""
+type clothesEdge {
+  """The item at the end of the edge."""
+  node: clothes!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum clothesOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+  size_ASC
+  size_DESC
+  category_ASC
+  category_DESC
+  forwho_ASC
+  forwho_DESC
+}
+
+type clothesPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  size: String!
+  category: String!
+  forwho: String!
+}
+
+type clothesSubscriptionPayload {
+  mutation: MutationType!
+  node: clothes
+  updatedFields: [String!]
+  previousValues: clothesPreviousValues
+}
+
+input clothesSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [clothesSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [clothesSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [clothesSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: clothesWhereInput
+}
+
+input clothesUpdateInput {
+  name: String
+  size: String
+  category: String
+  forwho: String
+  item: ItemUpdateOneWithoutClothesDetailsInput
+}
+
+input clothesUpdateManyMutationInput {
+  name: String
+  size: String
+  category: String
+  forwho: String
+}
+
+input clothesUpdateOneWithoutItemInput {
+  create: clothesCreateWithoutItemInput
+  connect: clothesWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: clothesUpdateWithoutItemDataInput
+  upsert: clothesUpsertWithoutItemInput
+}
+
+input clothesUpdateWithoutItemDataInput {
+  name: String
+  size: String
+  category: String
+  forwho: String
+}
+
+input clothesUpsertWithoutItemInput {
+  update: clothesUpdateWithoutItemDataInput!
+  create: clothesCreateWithoutItemInput!
+}
+
+input clothesWhereInput {
+  """Logical AND on all given filters."""
+  AND: [clothesWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [clothesWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [clothesWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  size: String
+
+  """All values that are not equal to given value."""
+  size_not: String
+
+  """All values that are contained in given list."""
+  size_in: [String!]
+
+  """All values that are not contained in given list."""
+  size_not_in: [String!]
+
+  """All values less than the given value."""
+  size_lt: String
+
+  """All values less than or equal the given value."""
+  size_lte: String
+
+  """All values greater than the given value."""
+  size_gt: String
+
+  """All values greater than or equal the given value."""
+  size_gte: String
+
+  """All values containing the given string."""
+  size_contains: String
+
+  """All values not containing the given string."""
+  size_not_contains: String
+
+  """All values starting with the given string."""
+  size_starts_with: String
+
+  """All values not starting with the given string."""
+  size_not_starts_with: String
+
+  """All values ending with the given string."""
+  size_ends_with: String
+
+  """All values not ending with the given string."""
+  size_not_ends_with: String
+  category: String
+
+  """All values that are not equal to given value."""
+  category_not: String
+
+  """All values that are contained in given list."""
+  category_in: [String!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [String!]
+
+  """All values less than the given value."""
+  category_lt: String
+
+  """All values less than or equal the given value."""
+  category_lte: String
+
+  """All values greater than the given value."""
+  category_gt: String
+
+  """All values greater than or equal the given value."""
+  category_gte: String
+
+  """All values containing the given string."""
+  category_contains: String
+
+  """All values not containing the given string."""
+  category_not_contains: String
+
+  """All values starting with the given string."""
+  category_starts_with: String
+
+  """All values not starting with the given string."""
+  category_not_starts_with: String
+
+  """All values ending with the given string."""
+  category_ends_with: String
+
+  """All values not ending with the given string."""
+  category_not_ends_with: String
+  forwho: String
+
+  """All values that are not equal to given value."""
+  forwho_not: String
+
+  """All values that are contained in given list."""
+  forwho_in: [String!]
+
+  """All values that are not contained in given list."""
+  forwho_not_in: [String!]
+
+  """All values less than the given value."""
+  forwho_lt: String
+
+  """All values less than or equal the given value."""
+  forwho_lte: String
+
+  """All values greater than the given value."""
+  forwho_gt: String
+
+  """All values greater than or equal the given value."""
+  forwho_gte: String
+
+  """All values containing the given string."""
+  forwho_contains: String
+
+  """All values not containing the given string."""
+  forwho_not_contains: String
+
+  """All values starting with the given string."""
+  forwho_starts_with: String
+
+  """All values not starting with the given string."""
+  forwho_not_starts_with: String
+
+  """All values ending with the given string."""
+  forwho_ends_with: String
+
+  """All values not ending with the given string."""
+  forwho_not_ends_with: String
+  item: ItemWhereInput
+}
+
+input clothesWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+type Item implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  category: Category
+  price: Float
+  location: Location
+  photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo!]
+  listed: Boolean!
+  user: User
+  bookDetails: Book
+  clothesDetails: clothes
+}
+
+"""A connection to a list of items."""
+type ItemConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ItemEdge]!
+  aggregate: AggregateItem!
+}
+
+input ItemCreateInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  photos: PhotoCreateManyWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  bookDetails: BookCreateOneWithoutItemInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+input ItemCreateManyWithoutUserInput {
+  create: [ItemCreateWithoutUserInput!]
+  connect: [ItemWhereUniqueInput!]
+}
+
+input ItemCreateOneWithoutBookDetailsInput {
+  create: ItemCreateWithoutBookDetailsInput
+  connect: ItemWhereUniqueInput
+}
+
+input ItemCreateOneWithoutClothesDetailsInput {
+  create: ItemCreateWithoutClothesDetailsInput
+  connect: ItemWhereUniqueInput
+}
+
+input ItemCreateOneWithoutLocationInput {
+  create: ItemCreateWithoutLocationInput
+  connect: ItemWhereUniqueInput
+}
+
+input ItemCreateOneWithoutPhotosInput {
+  create: ItemCreateWithoutPhotosInput
+  connect: ItemWhereUniqueInput
+}
+
+input ItemCreateWithoutBookDetailsInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  photos: PhotoCreateManyWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+input ItemCreateWithoutClothesDetailsInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  photos: PhotoCreateManyWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  bookDetails: BookCreateOneWithoutItemInput
+}
+
+input ItemCreateWithoutLocationInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  photos: PhotoCreateManyWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  bookDetails: BookCreateOneWithoutItemInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+input ItemCreateWithoutPhotosInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  user: UserCreateOneWithoutItemsInput
+  bookDetails: BookCreateOneWithoutItemInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+input ItemCreateWithoutUserInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationCreateOneWithoutItemInput
+  photos: PhotoCreateManyWithoutItemInput
+  bookDetails: BookCreateOneWithoutItemInput
+  clothesDetails: clothesCreateOneWithoutItemInput
+}
+
+"""An edge in a connection."""
+type ItemEdge {
+  """The item at the end of the edge."""
+  node: Item!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ItemOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  category_ASC
+  category_DESC
+  price_ASC
+  price_DESC
+  listed_ASC
+  listed_DESC
+}
+
+type ItemPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  category: Category
+  price: Float
+  listed: Boolean!
+}
+
+input ItemScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ItemScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ItemScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ItemScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   category: Category
 
   """All values that are not equal to given value."""
@@ -353,24 +1189,23 @@ input ItemSubscriptionWhereInput {
 }
 
 input ItemUpdateInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
   location: LocationUpdateOneWithoutItemInput
   photos: PhotoUpdateManyWithoutItemInput
   user: UserUpdateOneWithoutItemsInput
+  bookDetails: BookUpdateOneWithoutItemInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
 }
 
 input ItemUpdateManyDataInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
 }
 
 input ItemUpdateManyMutationInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
@@ -393,6 +1228,24 @@ input ItemUpdateManyWithWhereNestedInput {
   data: ItemUpdateManyDataInput!
 }
 
+input ItemUpdateOneWithoutBookDetailsInput {
+  create: ItemCreateWithoutBookDetailsInput
+  connect: ItemWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ItemUpdateWithoutBookDetailsDataInput
+  upsert: ItemUpsertWithoutBookDetailsInput
+}
+
+input ItemUpdateOneWithoutClothesDetailsInput {
+  create: ItemCreateWithoutClothesDetailsInput
+  connect: ItemWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ItemUpdateWithoutClothesDetailsDataInput
+  upsert: ItemUpsertWithoutClothesDetailsInput
+}
+
 input ItemUpdateOneWithoutLocationInput {
   create: ItemCreateWithoutLocationInput
   connect: ItemWhereUniqueInput
@@ -411,36 +1264,69 @@ input ItemUpdateOneWithoutPhotosInput {
   upsert: ItemUpsertWithoutPhotosInput
 }
 
+input ItemUpdateWithoutBookDetailsDataInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationUpdateOneWithoutItemInput
+  photos: PhotoUpdateManyWithoutItemInput
+  user: UserUpdateOneWithoutItemsInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
+}
+
+input ItemUpdateWithoutClothesDetailsDataInput {
+  category: Category
+  price: Float
+  listed: Boolean
+  location: LocationUpdateOneWithoutItemInput
+  photos: PhotoUpdateManyWithoutItemInput
+  user: UserUpdateOneWithoutItemsInput
+  bookDetails: BookUpdateOneWithoutItemInput
+}
+
 input ItemUpdateWithoutLocationDataInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
   photos: PhotoUpdateManyWithoutItemInput
   user: UserUpdateOneWithoutItemsInput
+  bookDetails: BookUpdateOneWithoutItemInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
 }
 
 input ItemUpdateWithoutPhotosDataInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
   location: LocationUpdateOneWithoutItemInput
   user: UserUpdateOneWithoutItemsInput
+  bookDetails: BookUpdateOneWithoutItemInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
 }
 
 input ItemUpdateWithoutUserDataInput {
-  title: String
   category: Category
   price: Float
   listed: Boolean
   location: LocationUpdateOneWithoutItemInput
   photos: PhotoUpdateManyWithoutItemInput
+  bookDetails: BookUpdateOneWithoutItemInput
+  clothesDetails: clothesUpdateOneWithoutItemInput
 }
 
 input ItemUpdateWithWhereUniqueWithoutUserInput {
   where: ItemWhereUniqueInput!
   data: ItemUpdateWithoutUserDataInput!
+}
+
+input ItemUpsertWithoutBookDetailsInput {
+  update: ItemUpdateWithoutBookDetailsDataInput!
+  create: ItemCreateWithoutBookDetailsInput!
+}
+
+input ItemUpsertWithoutClothesDetailsInput {
+  update: ItemUpdateWithoutClothesDetailsDataInput!
+  create: ItemCreateWithoutClothesDetailsInput!
 }
 
 input ItemUpsertWithoutLocationInput {
@@ -552,46 +1438,6 @@ input ItemWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  title: String
-
-  """All values that are not equal to given value."""
-  title_not: String
-
-  """All values that are contained in given list."""
-  title_in: [String!]
-
-  """All values that are not contained in given list."""
-  title_not_in: [String!]
-
-  """All values less than the given value."""
-  title_lt: String
-
-  """All values less than or equal the given value."""
-  title_lte: String
-
-  """All values greater than the given value."""
-  title_gt: String
-
-  """All values greater than or equal the given value."""
-  title_gte: String
-
-  """All values containing the given string."""
-  title_contains: String
-
-  """All values not containing the given string."""
-  title_not_contains: String
-
-  """All values starting with the given string."""
-  title_starts_with: String
-
-  """All values not starting with the given string."""
-  title_not_starts_with: String
-
-  """All values ending with the given string."""
-  title_ends_with: String
-
-  """All values not ending with the given string."""
-  title_not_ends_with: String
   category: Category
 
   """All values that are not equal to given value."""
@@ -633,6 +1479,8 @@ input ItemWhereInput {
   photos_some: PhotoWhereInput
   photos_none: PhotoWhereInput
   user: UserWhereInput
+  bookDetails: BookWhereInput
+  clothesDetails: clothesWhereInput
 }
 
 input ItemWhereUniqueInput {
@@ -1074,26 +1922,38 @@ scalar Long
 type Mutation {
   createUser(data: UserCreateInput!): User!
   createItem(data: ItemCreateInput!): Item!
+  createBook(data: BookCreateInput!): Book!
+  createclothes(data: clothesCreateInput!): clothes!
   createLocation(data: LocationCreateInput!): Location!
   createPhoto(data: PhotoCreateInput!): Photo!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
+  updateBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book
+  updateclothes(data: clothesUpdateInput!, where: clothesWhereUniqueInput!): clothes
   updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
   updatePhoto(data: PhotoUpdateInput!, where: PhotoWhereUniqueInput!): Photo
   deleteUser(where: UserWhereUniqueInput!): User
   deleteItem(where: ItemWhereUniqueInput!): Item
+  deleteBook(where: BookWhereUniqueInput!): Book
+  deleteclothes(where: clothesWhereUniqueInput!): clothes
   deleteLocation(where: LocationWhereUniqueInput!): Location
   deletePhoto(where: PhotoWhereUniqueInput!): Photo
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertItem(where: ItemWhereUniqueInput!, create: ItemCreateInput!, update: ItemUpdateInput!): Item!
+  upsertBook(where: BookWhereUniqueInput!, create: BookCreateInput!, update: BookUpdateInput!): Book!
+  upsertclothes(where: clothesWhereUniqueInput!, create: clothesCreateInput!, update: clothesUpdateInput!): clothes!
   upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
   upsertPhoto(where: PhotoWhereUniqueInput!, create: PhotoCreateInput!, update: PhotoUpdateInput!): Photo!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyItems(data: ItemUpdateManyMutationInput!, where: ItemWhereInput): BatchPayload!
+  updateManyBooks(data: BookUpdateManyMutationInput!, where: BookWhereInput): BatchPayload!
+  updateManyClotheses(data: clothesUpdateManyMutationInput!, where: clothesWhereInput): BatchPayload!
   updateManyLocations(data: LocationUpdateManyMutationInput!, where: LocationWhereInput): BatchPayload!
   updateManyPhotos(data: PhotoUpdateManyMutationInput!, where: PhotoWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyItems(where: ItemWhereInput): BatchPayload!
+  deleteManyBooks(where: BookWhereInput): BatchPayload!
+  deleteManyClotheses(where: clothesWhereInput): BatchPayload!
   deleteManyLocations(where: LocationWhereInput): BatchPayload!
   deleteManyPhotos(where: PhotoWhereInput): BatchPayload!
 }
@@ -1693,14 +2553,20 @@ input PhotoWhereUniqueInput {
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item]!
+  books(where: BookWhereInput, orderBy: BookOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Book]!
+  clotheses(where: clothesWhereInput, orderBy: clothesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [clothes]!
   locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
   photos(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Photo]!
   user(where: UserWhereUniqueInput!): User
   item(where: ItemWhereUniqueInput!): Item
+  book(where: BookWhereUniqueInput!): Book
+  clothes(where: clothesWhereUniqueInput!): clothes
   location(where: LocationWhereUniqueInput!): Location
   photo(where: PhotoWhereUniqueInput!): Photo
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   itemsConnection(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ItemConnection!
+  booksConnection(where: BookWhereInput, orderBy: BookOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BookConnection!
+  clothesesConnection(where: clothesWhereInput, orderBy: clothesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): clothesConnection!
   locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   photosConnection(where: PhotoWhereInput, orderBy: PhotoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PhotoConnection!
 
@@ -1712,13 +2578,13 @@ type Query {
 }
 
 enum School {
-  UC_IRVINE
-  UC_LOS_ANGELES
-  UC_SAND_DIEGO
-  UC_SANTA_BARBARA
-  UC_SANTA_CRUZ
-  UC_DAVIS
-  UC_BERKELEY
+  UNIVERSITY_OF_CALIFORNIA_IRVINE
+  UNIVERSITY_OF_CALIFORNIA_LOS_ANGELES
+  UNIVERSITY_OF_CALIFORNIA_SAND_DIEGO
+  UNIVERSITY_OF_CALIFORNIA_SANTA_BARBARA
+  UNIVERSITY_OF_CALIFORNIA_SANTA_CRUZ
+  UNIVERSITY_OF_CALIFORNIA_DAVIS
+  UNIVERSITY_OF_CALIFORNIA_BERKELEY
 }
 
 enum State {
@@ -1786,6 +2652,8 @@ enum State {
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
+  book(where: BookSubscriptionWhereInput): BookSubscriptionPayload
+  clothes(where: clothesSubscriptionWhereInput): clothesSubscriptionPayload
   location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   photo(where: PhotoSubscriptionWhereInput): PhotoSubscriptionPayload
 }
