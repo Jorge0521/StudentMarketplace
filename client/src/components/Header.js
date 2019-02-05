@@ -17,6 +17,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+import { Link } from 'react-router-dom'
+
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -170,7 +173,7 @@ class PrimarySearchAppBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              Material-UI
+              <Link to='/' style={{color:"inherit", textDecoration:"inherit"}}>Student Marketplace</Link>
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
