@@ -11,7 +11,8 @@
   ],
   "main": "src/index.js",
   "dependencies": {
-    "@material-ui/core": "^3.9.0",
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "apollo-boost": "latest",
     "bootstrap": "^4.2.1",
     "cuid": "2.1.4",

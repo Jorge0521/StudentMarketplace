@@ -5,10 +5,13 @@ import BasicList from "../views/BasicList";
 import Buy from "../views/Buy"
 import Sale from "../views/Sale"
 import Books from "../views/Books"
+import PrimarySearchAppBar from "../components/Header"
+
 
 
 const Routes = () => (
   <main>
+    <PrimarySearchAppBar/>
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route path='/basiclist' component={BasicList}/>
