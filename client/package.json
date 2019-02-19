@@ -16,15 +16,19 @@
     "apollo-boost": "latest",
     "bootstrap": "^4.2.1",
     "cuid": "2.1.4",
+    "downshift": "^3.2.2",
     "graphql": "latest",
     "graphql-tag": "latest",
+    "lodash.deburr": "^4.1.0",
     "react": "16.5.2",
     "react-apollo": "2.2.4",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "16.5.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.3",
-    "reactjs-popup": "^1.3.2"
+    "react-stack-grid": "^0.7.1",
+    "reactjs-popup": "^1.3.2",
+    "tachyons-components": "^1.0.1"
   },
   "devDependencies": {},
   "scripts": {

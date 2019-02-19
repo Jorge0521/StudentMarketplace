@@ -9,7 +9,8 @@ import * as path from 'path';
 
 const resolvers = {
 	Query,
-	Mutation
+	Mutation,
+	
 };
 
 const mergedSchema: MergeSchemaHelper = new MergeSchemaHelper();

@@ -1,3 +1,4 @@
+
 type User {
 	id: ID! @unique
 	createdAt: DateTime!
@@ -36,7 +37,7 @@ type Book{
 	item: Item @relation(name: "BookDetails")
 }
 
-type clothes{
+type clothes {
 	id: ID! @unique
 	createdAt: DateTime!
 	updatedAt: DateTime!
