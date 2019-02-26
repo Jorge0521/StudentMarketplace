@@ -6,7 +6,7 @@ import Buy from "../views/Buy"
 import Sale from "../views/Sale"
 import Books from "../views/Books"
 import PrimarySearchAppBar from "../components/Header"
-
+import SearchEngine from "../components/SearchEngine"
 
 const Routes = () => (
   <main>
@@ -17,6 +17,7 @@ const Routes = () => (
       <Route path='/buy' component={Buy}/>
       <Route path='/sale' component={Sale} />
       <Route path='/books' component={Books} />
+      <Route path='/searchengine' component={SearchEngine} />
      </Switch>
   </main>
 )

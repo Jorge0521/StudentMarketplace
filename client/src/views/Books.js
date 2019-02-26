@@ -4,6 +4,7 @@ import ListItem from "../components/ListItem";
 import { Link } from 'react-router-dom'
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import SearchEngine from '../components/SearchEngine'
 
 
 const BOOK_QUERY = gql`

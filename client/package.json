@@ -13,6 +13,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "algoliasearch": "^3.32.0",
     "apollo-boost": "latest",
     "bootstrap": "^4.2.1",
     "cuid": "2.1.4",
@@ -24,8 +25,10 @@
     "react-apollo": "2.2.4",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "16.5.2",
+    "react-instantsearch-dom": "^5.4.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.3",
+    "react-search-field": "^1.0.0",
     "react-stack-grid": "^0.7.1",
     "reactjs-popup": "^1.3.2",
     "tachyons-components": "^1.0.1"
