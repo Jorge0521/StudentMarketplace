@@ -1,4 +1,6 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import ListBook from "../components/ListBook";
 import { 
     InstantSearch, Hits, 
     SearchBox, Highlight,
@@ -26,7 +28,6 @@ function SearchBook() {
         <SearchBox />
         <RefinementList attribute="category" />
         <Hits hitComponent={Book}/>
-        <Pagination />
       </div>
     );
   }
@@ -34,6 +35,16 @@ function SearchBook() {
 
 function Book({ hit }) {
     return(
+      <ListBook 
+        image ={hit.image}
+        author = {hit.author}
+        condition = {hit.condition}
+        category = {hit.category}
+        price = {hit.price}
+        title = {hit.title}
+      
+      />
+        /*
         <div>
           <div>{hit.title}</div>
           <img src={hit.image} align="left" alt={hit.title} />
@@ -42,6 +53,7 @@ function Book({ hit }) {
           </div>
           <div className="hit-price">${hit.price}</div>
         </div>
+        */
         )
   }
 export default SearchEngine
