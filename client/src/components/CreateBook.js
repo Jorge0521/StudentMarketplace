@@ -1,13 +1,14 @@
-import React from "react";
-import gql from "graphql-tag";
-import { Mutation, Query } from "react-apollo";
+import React from 'react'
+import gql from 'graphql-tag'
+import { Mutation } from "react-apollo";
+
 
 const createBook = gql`
-  mutation CreateItem($data: PingPongTeamCreateInput!) {
-    createPingPongTeam(data: $data) {
-      id
+    mutation CreateItem($data: ItemCreateInput!) {
+        createItem(data: $data) {
+         id
+        }
     }
-  }
 `;
 
 const getData = gql`
@@ -24,3 +25,35 @@ const getData = gql`
     }
   }
 `;
+
+
+const CreateBook = () => {
+  let input;
+
+  return (
+    <Mutation mutation={createBook}>
+      {(createItem, { data }) => (
+        <div>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              createItem({ variables: { data: input.value } });
+              input.value = "";
+            }}
+          >
+            <input
+              ref={node => {
+                input = node;
+              }}
+            />
+            <button type="submit">Add Todo</button>
+          </form>
+        </div>
+      )}
+    </Mutation>
+  );
+};
+
+
+
+export default CreateBook

@@ -23,6 +23,7 @@
     "lodash.deburr": "^4.1.0",
     "react": "16.5.2",
     "react-apollo": "2.2.4",
+    "react-apollo-form": "^0.1.7",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "16.5.2",
     "react-instantsearch-dom": "^5.4.0",
