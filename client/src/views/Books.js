@@ -31,7 +31,7 @@ const BOOK_QUERY = gql`
         id
         title
         author
-        category
+        genre
         condition
     }
     photos{

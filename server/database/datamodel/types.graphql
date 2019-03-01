@@ -31,9 +31,9 @@ type Book{
 	updatedAt: DateTime!
 	title: String!
 	author: String!
-	condition: BookCondition
+	condition: BookCondition!
 	published: Int!
-	category: BookCategory!
+	genre: BookGenre!
 	item: Item @relation(name: "BookDetails")
 }
 

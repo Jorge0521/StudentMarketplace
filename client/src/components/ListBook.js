@@ -8,10 +8,7 @@ const ListBook = (props) => (
         <img src={props.image} width="200px" height="200px" alt="Profile" />
         <Grid item>
             <h1 style={{margin:0, marginLeft: 20}}>
-                {props.title}
-            
-            
-            
+                {props.title}     
             </h1>
             <p style={{margin:0, marginLeft: 20}}> by {props.author}</p>
             <p style={{margin:0, marginLeft:20, textTransform:"capitalize"  }}> <b>Condition:</b> {(props.condition).replace(/[^a-zA-Z ]/g, " ").toLowerCase()}</p>

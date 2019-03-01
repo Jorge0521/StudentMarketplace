@@ -139,13 +139,62 @@ type Book implements Node {
   updatedAt: DateTime!
   title: String!
   author: String!
-  condition: BookCondition
+  condition: BookCondition!
   published: Int!
-  category: BookCategory!
+  genre: BookGenre!
   item: Item
 }
 
-enum BookCategory {
+enum BookCondition {
+  NEW
+  LIKE_NEW
+  VERY_GOOD
+  GOOD
+  ACCEPTABLE
+}
+
+"""A connection to a list of items."""
+type BookConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BookEdge]!
+  aggregate: AggregateBook!
+}
+
+input BookCreateInput {
+  title: String!
+  author: String!
+  condition: BookCondition!
+  published: Int!
+  genre: BookGenre!
+  item: ItemCreateOneWithoutBookDetailsInput
+}
+
+input BookCreateOneWithoutItemInput {
+  create: BookCreateWithoutItemInput
+  connect: BookWhereUniqueInput
+}
+
+input BookCreateWithoutItemInput {
+  title: String!
+  author: String!
+  condition: BookCondition!
+  published: Int!
+  genre: BookGenre!
+}
+
+"""An edge in a connection."""
+type BookEdge {
+  """The item at the end of the edge."""
+  node: Book!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum BookGenre {
   ARTS_PHOTOGRAPHY
   BIOGRAPHIES_MEMOIRS
   BUSINESS_MONEY
@@ -178,55 +227,6 @@ enum BookCategory {
   EDUCATION_TEACHING
 }
 
-enum BookCondition {
-  NEW
-  LIKE_NEW
-  VERY_GOOD
-  GOOD
-  ACCEPTABLE
-}
-
-"""A connection to a list of items."""
-type BookConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [BookEdge]!
-  aggregate: AggregateBook!
-}
-
-input BookCreateInput {
-  title: String!
-  author: String!
-  condition: BookCondition
-  published: Int!
-  category: BookCategory!
-  item: ItemCreateOneWithoutBookDetailsInput
-}
-
-input BookCreateOneWithoutItemInput {
-  create: BookCreateWithoutItemInput
-  connect: BookWhereUniqueInput
-}
-
-input BookCreateWithoutItemInput {
-  title: String!
-  author: String!
-  condition: BookCondition
-  published: Int!
-  category: BookCategory!
-}
-
-"""An edge in a connection."""
-type BookEdge {
-  """The item at the end of the edge."""
-  node: Book!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
 enum BookOrderByInput {
   id_ASC
   id_DESC
@@ -242,8 +242,8 @@ enum BookOrderByInput {
   condition_DESC
   published_ASC
   published_DESC
-  category_ASC
-  category_DESC
+  genre_ASC
+  genre_DESC
 }
 
 type BookPreviousValues {
@@ -252,9 +252,9 @@ type BookPreviousValues {
   updatedAt: DateTime!
   title: String!
   author: String!
-  condition: BookCondition
+  condition: BookCondition!
   published: Int!
-  category: BookCategory!
+  genre: BookGenre!
 }
 
 type BookSubscriptionPayload {
@@ -301,7 +301,7 @@ input BookUpdateInput {
   author: String
   condition: BookCondition
   published: Int
-  category: BookCategory
+  genre: BookGenre
   item: ItemUpdateOneWithoutBookDetailsInput
 }
 
@@ -310,7 +310,7 @@ input BookUpdateManyMutationInput {
   author: String
   condition: BookCondition
   published: Int
-  category: BookCategory
+  genre: BookGenre
 }
 
 input BookUpdateOneWithoutItemInput {
@@ -327,7 +327,7 @@ input BookUpdateWithoutItemDataInput {
   author: String
   condition: BookCondition
   published: Int
-  category: BookCategory
+  genre: BookGenre
 }
 
 input BookUpsertWithoutItemInput {
@@ -540,16 +540,16 @@ input BookWhereInput {
 
   """All values greater than or equal the given value."""
   published_gte: Int
-  category: BookCategory
+  genre: BookGenre
 
   """All values that are not equal to given value."""
-  category_not: BookCategory
+  genre_not: BookGenre
 
   """All values that are contained in given list."""
-  category_in: [BookCategory!]
+  genre_in: [BookGenre!]
 
   """All values that are not contained in given list."""
-  category_not_in: [BookCategory!]
+  genre_not_in: [BookGenre!]
   item: ItemWhereInput
 }
 
@@ -3209,8 +3209,8 @@ export type BookOrderByInput =   'id_ASC' |
   'condition_DESC' |
   'published_ASC' |
   'published_DESC' |
-  'category_ASC' |
-  'category_DESC'
+  'genre_ASC' |
+  'genre_DESC'
 
 export type BookCondition =   'NEW' |
   'LIKE_NEW' |
@@ -3250,7 +3250,7 @@ export type LocationOrderByInput =   'id_ASC' |
   'zip_ASC' |
   'zip_DESC'
 
-export type BookCategory =   'ARTS_PHOTOGRAPHY' |
+export type BookGenre =   'ARTS_PHOTOGRAPHY' |
   'BIOGRAPHIES_MEMOIRS' |
   'BUSINESS_MONEY' |
   'CALENDARS' |
@@ -3581,10 +3581,10 @@ export interface BookWhereInput {
   published_lte?: Int
   published_gt?: Int
   published_gte?: Int
-  category?: BookCategory
-  category_not?: BookCategory
-  category_in?: BookCategory[] | BookCategory
-  category_not_in?: BookCategory[] | BookCategory
+  genre?: BookGenre
+  genre_not?: BookGenre
+  genre_in?: BookGenre[] | BookGenre
+  genre_not_in?: BookGenre[] | BookGenre
   item?: ItemWhereInput
 }
 
@@ -3809,9 +3809,9 @@ export interface LocationUpdateManyMutationInput {
 export interface BookCreateInput {
   title: String
   author: String
-  condition?: BookCondition
+  condition: BookCondition
   published: Int
-  category: BookCategory
+  genre: BookGenre
   item?: ItemCreateOneWithoutBookDetailsInput
 }
 
@@ -3855,7 +3855,7 @@ export interface BookUpdateManyMutationInput {
   author?: String
   condition?: BookCondition
   published?: Int
-  category?: BookCategory
+  genre?: BookGenre
 }
 
 export interface ItemCreateOneWithoutClothesDetailsInput {
@@ -4111,9 +4111,9 @@ export interface LocationUpsertWithoutItemInput {
 export interface BookCreateWithoutItemInput {
   title: String
   author: String
-  condition?: BookCondition
+  condition: BookCondition
   published: Int
-  category: BookCategory
+  genre: BookGenre
 }
 
 export interface PhotoUpdateManyWithoutItemInput {
@@ -4344,7 +4344,7 @@ export interface BookUpdateWithoutItemDataInput {
   author?: String
   condition?: BookCondition
   published?: Int
-  category?: BookCategory
+  genre?: BookGenre
 }
 
 export interface UserCreateOneWithoutProfilePhotoInput {
@@ -4607,7 +4607,7 @@ export interface BookUpdateInput {
   author?: String
   condition?: BookCondition
   published?: Int
-  category?: BookCategory
+  genre?: BookGenre
   item?: ItemUpdateOneWithoutBookDetailsInput
 }
 
@@ -4915,9 +4915,9 @@ export interface Book extends Node {
   updatedAt: DateTime
   title: String
   author: String
-  condition?: BookCondition
+  condition: BookCondition
   published: Int
-  category: BookCategory
+  genre: BookGenre
   item?: Item
 }
 
@@ -5008,9 +5008,9 @@ export interface BookPreviousValues {
   updatedAt: DateTime
   title: String
   author: String
-  condition?: BookCondition
+  condition: BookCondition
   published: Int
-  category: BookCategory
+  genre: BookGenre
 }
 
 export interface BookSubscriptionPayload {

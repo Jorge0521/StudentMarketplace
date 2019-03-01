@@ -13,7 +13,7 @@ enum BookCondition{
 	ACCEPTABLE
 }
 
-enum BookCategory {
+enum BookGenre {
 	ARTS_PHOTOGRAPHY
 	BIOGRAPHIES_MEMOIRS
 	BUSINESS_MONEY
