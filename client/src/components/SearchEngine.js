@@ -39,7 +39,7 @@ function Book({ hit }) {
         image ={hit.image}
         author = {hit.author}
         condition = {hit.condition}
-        category = {hit.category}
+        genre = {hit.genre}
         price = {hit.price}
         title = {hit.title}
       

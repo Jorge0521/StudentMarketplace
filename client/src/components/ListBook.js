@@ -12,7 +12,7 @@ const ListBook = (props) => (
             </h1>
             <p style={{margin:0, marginLeft: 20}}> by {props.author}</p>
             <p style={{margin:0, marginLeft:20, textTransform:"capitalize"  }}> <b>Condition:</b> {(props.condition).replace(/[^a-zA-Z ]/g, " ").toLowerCase()}</p>
-            <p style={{margin:0, marginLeft:20, textTransform:"capitalize"  }}> <b>Category: </b>{(props.category).replace(/[^a-zA-Z ]/g, " ").toLowerCase()}</p>
+            <p style={{margin:0, marginLeft:20, textTransform:"capitalize"  }}> <b>Category: </b>{(props.genre).replace(/[^a-zA-Z ]/g, " ").toLowerCase()}</p>
             <h2 style={{marginLeft: 20,}}>${props.price}</h2>
         </Grid>
     </Grid>

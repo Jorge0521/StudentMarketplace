@@ -2,21 +2,12 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 
-/*
-const POST_MUTATION = gql`
-  mutation BookMutation($title: String!, $author: String!, $published: String!, 
-  $genre: BookGenre, $condition: BookCondition) {
-    createItem(category:$category, price: $price, listed: true
-      bookdetails
-      title: $title, author: $author, published: $published, genre: $genre, condition:$condition ) {
-      
-      
-      title
-      author
-    }
-  }
-`
-*/
+
+var algoliasearch = require('algoliasearch');
+
+var client = algoliasearch('HFOJJ5GAUD', '391f543039c8a0b3752d4296e2149507');
+var index = client.initIndex('studentMarketPlace');
+
 
 const BOOK_MUTATION = gql`
   mutation BookMutation($price: Float, $title: String!, $author: String!, $published: Int!, $url: String){
@@ -46,24 +37,50 @@ const BOOK_MUTATION = gql`
 }
 `
 
+/*
+function fetchDataFromDatabase() {
+  const title = ""
+  return title;
+}
+
+const records = fetchDataFromDatabase();
+
+console.log(records)
+*/
+
+
+function someFunc(title,author,published,url,price) {
+  index.addObject({
+    title: title,
+    author: author,
+    published: published,
+    condition: "NEW",
+    genre: "FICTION_FANTASY",
+    image: url,
+    price: price
+  }, function(err, content) {
+    console.log('objectID=' + content.objectID);
+  });
+    
+}
+
+
 
 class CreateBook extends Component {
   constructor(props){
     super(props)
     this.state = {
-      price: 0,
+      price: '',
       title: '',
       author: '',
-      published: 0,
+      published: '',
       url: ''
     }
   }
 
-
-  
-
   render() {
     const { price, title, author, published, url } = this.state
+
     return (
       <div>
         <div className="flex flex-column mt3">
@@ -116,7 +133,7 @@ class CreateBook extends Component {
           mutation={BOOK_MUTATION}
           variables={{ price, title, author, published, url }}
         >
-          {postBook => <button onClick={postBook}>Submit</button>}
+          {postBook => <button onClick={() => someFunc(title,author,published,url,price)}>Submit</button>}
         </Mutation>
       </div>
     )
