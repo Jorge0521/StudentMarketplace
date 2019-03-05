@@ -4,10 +4,9 @@ import gql from 'graphql-tag';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import FilledInput from '@material-ui/core/FilledInput';
 import { Query } from 'react-apollo';
+import { withStyles } from '@material-ui/core/styles';
 
 var algoliasearch = require('algoliasearch');
 
@@ -127,6 +126,7 @@ class CreateBook extends Component {
 			condition,
 			genre,
 		} = this.state;
+		const { classes } = this.props;
 
 		return (
 			<div>
@@ -171,8 +171,8 @@ class CreateBook extends Component {
 						type="text"
 						placeholder="Picture URL"
 					/>
-					<form autoComplete="off">
-						<FormControl>
+					<form className={classes.root} autoComplete="off">
+						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor="genre-simple">Genre</InputLabel>
 							<Query query={getBookGenre}>
 								{({ data, loading, error }) => {
@@ -201,7 +201,7 @@ class CreateBook extends Component {
 								}}
 							</Query>
 						</FormControl>
-						<FormControl>
+						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor="condition-simple">Condition</InputLabel>
 							<Query query={getBookCategory}>
 								{({ data, loading, error }) => {
@@ -260,4 +260,4 @@ class CreateBook extends Component {
 	}
 }
 
-export default CreateBook;
+export default withStyles(styles)(CreateBook);
