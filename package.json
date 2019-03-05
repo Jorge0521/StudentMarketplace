@@ -15,6 +15,7 @@
 	"dependencies": {
 		"@material-ui/core": "^3.9.2",
 		"@material-ui/icons": "^3.0.2",
+		"apollo-boost": "^0.3.1",
 		"concurrently": "^4.1.0",
 		"global": "^4.3.2",
 		"react-apollo-form": "^0.1.7",
