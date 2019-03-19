@@ -13,102 +13,15 @@ var algoliasearch = require('algoliasearch');
 var client = algoliasearch('HFOJJ5GAUD', '391f543039c8a0b3752d4296e2149507');
 var index = client.initIndex('studentMarketPlace');
 
-const getBookGenre = gql`
-	{
-		__type(name: "BookGenre") {
-			name
-			enumValues {
-				name
-			}
-		}
-	}
-`;
-
-const getBookCategory = gql`
-	{
-		__type(name: "BookCondition") {
-			name
-			enumValues {
-				name
-			}
-		}
-	}
-`;
-
-const BOOK_MUTATION = gql`
-	mutation BookMutation(
-		$price: Float
-		$title: String!
-		$author: String!
-		$published: Int!
-		$url: String
-		$genre: BookGenre!
-		$condition: BookCondition!
-	) {
-		createItem(
-			data: {
-				listed: true
-				price: $price
-				bookDetails: {
-					create: {
-						title: $title
-						author: $author
-						published: $published
-						condition: $condition
-						genre: $genre
-					}
-				}
-				photos: { create: { url: $url } }
-			}
-		) {
-			id
-			price
-		}
-	}
-`;
-
-const styles = theme => ({
-	root: {
-		display: 'flex',
-		flexWrap: 'wrap',
-	},
-	formControl: {
-		margin: theme.spacing.unit,
-		minWidth: 120,
-	},
-	selectEmpty: {
-		marginTop: theme.spacing.unit * 2,
-	},
-});
-
-function someFunc(title, author, published, url, price, genre, condition) {
-	index.addObject(
-		{
-			title: title,
-			author: author,
-			published: published,
-			condition: condition,
-			genre: genre,
-			image: url,
-			price: price,
-		},
-		function(err, content) {
-			console.log('objectID=' + content.objectID);
-		}
-	);
-}
-
-class CreateBook extends Component {
+class CreateUser extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			price: '',
-			title: '',
-			author: '',
-			published: '',
-			url: '',
-			genre: '',
-			condition: '',
+			name: '',
+			password: '',
+			email: '',
+			school: '',
+			photo: '',
 		};
 	}
 
@@ -117,15 +30,7 @@ class CreateBook extends Component {
 	};
 
 	render() {
-		const {
-			price,
-			title,
-			author,
-			published,
-			url,
-			condition,
-			genre,
-		} = this.state;
+		const { name, password, email, school, photo } = this.state;
 		const { classes } = this.props;
 
 		return (
@@ -133,21 +38,21 @@ class CreateBook extends Component {
 				<div className="flex flex-column mt3">
 					<input
 						className="mb2"
-						value={title}
-						onChange={e => this.setState({ title: e.target.value })}
+						value={name}
+						onChange={e => this.setState({ name: e.target.value })}
 						type="text"
-						placeholder="Name of book"
+						placeholder="Full Name: "
 					/>
 					<input
 						className="mb2"
-						value={author}
-						onChange={e => this.setState({ author: e.target.value })}
+						value={password}
+						onChange={e => this.setState({ password: e.target.value })}
 						type="text"
 						placeholder="Author of book"
 					/>
 					<input
 						className="mb2"
-						value={price}
+						value={email}
 						onChange={e => this.setState({ price: parseFloat(e.target.value) })}
 						type="number"
 						min="1"
@@ -272,4 +177,4 @@ class CreateBook extends Component {
 	}
 }
 
-export default withStyles(styles)(CreateBook);
+export default withStyles(styles)(CreateUser);

@@ -18,6 +18,8 @@
 		"apollo-boost": "^0.3.1",
 		"concurrently": "^4.1.0",
 		"global": "^4.3.2",
+		"jsonwebtoken": "^8.5.0",
+		"jwks-rsa": "^1.4.0",
 		"react-apollo-form": "^0.1.7",
 		"react-router-dom": "^4.3.1",
 		"react-search-field": "^1.0.0",

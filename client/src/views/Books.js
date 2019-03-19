@@ -1,10 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import SearchEngine from '../components/SearchEngine';
-
-import { Highlight } from 'react-instantsearch-dom';
 
 const BOOK_QUERY = gql`
 	query {
@@ -41,8 +38,6 @@ class Books extends React.Component {
 					{({ loading, error, data }) => {
 						if (loading) return 'Loading...';
 						if (error) return `Error! ${error.message}`;
-						const itemsArray = data.items;
-						console.log(data.items);
 						return (
 							<div className="list">
 								<SearchEngine />
