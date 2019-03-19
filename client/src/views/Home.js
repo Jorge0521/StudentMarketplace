@@ -53,7 +53,7 @@ class Home extends React.Component {
 					</Link>
 				</Grid>
 				<Grid item xs={3}>
-					<Link to="/createbook" style={styles.noLinkCss}>
+					<Link to="/login" style={styles.noLinkCss}>
 						<Card>
 							<CardActionArea>
 								<CardMedia

@@ -1,27 +1,37 @@
 # import * from "./generated/prisma.graphql"
 
-
 type Query {
 	info: String!
 	user(id: ID, email: String, school: School): User
 	photo(id: ID): Photo
-	items(id:ID, listed:Boolean, category:Category): [Item]
-	books(id:ID, title: String, author: String): [Book!]
-	searchSuggestions(skip: Int, after: String, before: String, first: Int, last: Int): [SearchSuggestion]
+	items(id: ID, listed: Boolean, category: Category): [Item]
+	books(id: ID, title: String, author: String): [Book!]
+	searchSuggestions(
+		skip: Int
+		after: String
+		before: String
+		first: Int
+		last: Int
+	): [SearchSuggestion]
 }
 
 type Mutation {
 	createItem(data: ItemCreateInput!): Item!
 	createUser(data: UserCreateInput!): User!
+	login(email: String!, password: String!): AuthPayload
+	signup(data: UserCreateInput!): AuthPayload
+}
+type AuthPayload {
+	token: String
+	user: User
 }
 
 enum NodeType {
-	AUTHOR,
+	AUTHOR
 	TITLE
 }
 
 type SearchSuggestion {
-	type: NodeType,
+	type: NodeType
 	value: String
 }
-

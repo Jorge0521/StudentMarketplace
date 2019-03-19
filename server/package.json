@@ -9,6 +9,7 @@
 	},
 	"dependencies": {
 		"@material-ui/core": "^3.9.0",
+		"apollo-link-context": "^1.0.17",
 		"apollo-server": "2.2.2",
 		"axios": "0.18.0",
 		"bcryptjs": "2.4.3",
