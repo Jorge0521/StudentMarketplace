@@ -45,7 +45,7 @@ export const Mutation = {
 		}
 
 		return {
-			token: jwt.sign({ userId: user.id }, process.env.PRISMA_SECRET),
+			token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
 			user,
 		};
 	},

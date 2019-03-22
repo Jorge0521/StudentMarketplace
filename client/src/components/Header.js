@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -16,6 +15,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 import { Link } from 'react-router-dom';
+
+import { AUTH_TOKEN } from '../ constants';
+
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
 	root: {
@@ -71,7 +74,18 @@ class PrimarySearchAppBar extends React.Component {
 		this.setState({ mobileMoreAnchorEl: null });
 	};
 
+	multipleActions = () => {
+		this.handleMenuClose();
+		console.log(AUTH_TOKEN);
+		if (localStorage.getItem(AUTH_TOKEN) != null) {
+			localStorage.removeItem(AUTH_TOKEN);
+			this.props.history.push('/');
+		} else {
+			this.props.history.push('/login');
+		}
+	};
 	render() {
+		const authToken = localStorage.getItem(AUTH_TOKEN);
 		const { anchorEl, mobileMoreAnchorEl } = this.state;
 		const { classes } = this.props;
 		const isMenuOpen = Boolean(anchorEl);
@@ -84,7 +98,9 @@ class PrimarySearchAppBar extends React.Component {
 				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 				open={isMenuOpen}
 				onClose={this.handleMenuClose}>
-				<MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+				<MenuItem onClick={this.multipleActions}>
+					{authToken ? 'logout' : 'login'}
+				</MenuItem>
 				<MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
 			</Menu>
 		);
@@ -96,22 +112,6 @@ class PrimarySearchAppBar extends React.Component {
 				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 				open={isMobileMenuOpen}
 				onClose={this.handleMenuClose}>
-				<MenuItem onClick={this.handleMobileMenuClose}>
-					<IconButton color="inherit">
-						<Badge badgeContent={4} color="secondary">
-							<MailIcon />
-						</Badge>
-					</IconButton>
-					<p>Messages</p>
-				</MenuItem>
-				<MenuItem onClick={this.handleMobileMenuClose}>
-					<IconButton color="inherit">
-						<Badge badgeContent={11} color="secondary">
-							<NotificationsIcon />
-						</Badge>
-					</IconButton>
-					<p>Notifications</p>
-				</MenuItem>
 				<MenuItem onClick={this.handleProfileMenuOpen}>
 					<IconButton color="inherit">
 						<AccountCircle />
@@ -183,4 +183,4 @@ PrimarySearchAppBar.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchAppBar);
+export default withRouter(withStyles(styles)(PrimarySearchAppBar));
