@@ -4,10 +4,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 export const Mutation = {
-	createUser: (_, args, ctx: Context, info) => {
+	createUser: async (_, args, ctx: Context, info) => {
 		return ctx.db.mutation.createUser(
 			{
-				data: args.data,
+				data: {
+					...args.data,
+					password: await bcrypt.hash(args.data.password, 10),
+				},
 			},
 			info
 		);
@@ -23,8 +26,12 @@ export const Mutation = {
 	},
 
 	async signup(_, args, ctx, info) {
-		// const password = await bcrypt.hash(args.password, 10);
-		const user = await ctx.db.mutation.createUser({ data: args.data });
+		const user = await ctx.db.mutation.createUser({
+			data: {
+				...args.data,
+				password: await bcrypt.hash(args.data.password, 10),
+			},
+		});
 		const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
 		return {
@@ -39,10 +46,7 @@ export const Mutation = {
 		if (!user) {
 			throw new Error('No such user found');
 		}
-		const valid = await bcrypt.compare(
-			args.password,
-			'$2a$10$vwnCaMY4xzTEpHjFirdB..YqsuA50inB2gMJbJ.b26EShbxAuN4xC'
-		);
+		const valid = await bcrypt.compare(args.password, user.password);
 		if (!valid) {
 			throw new Error(
 				'Invalid pass' + ' ' + user.password + ' ' + args.password
