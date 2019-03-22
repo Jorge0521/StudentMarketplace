@@ -1,4 +1,5 @@
 import { Context } from '../utils/getContext';
+import { getUserId } from '../utils/getUser';
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -33,15 +34,19 @@ export const Mutation = {
 		};
 	},
 
-	async login(parent, args, ctx) {
-		const user = await ctx.db.mutation.user({ email: args.email });
+	async login(_, args, ctx: Context, info) {
+		const user = await ctx.db.query.user({ where: { email: args.email } });
 		if (!user) {
 			throw new Error('No such user found');
 		}
-
-		const valid = await bcrypt.compare(args.password, user.password);
+		const valid = await bcrypt.compare(
+			args.password,
+			'$2a$10$vwnCaMY4xzTEpHjFirdB..YqsuA50inB2gMJbJ.b26EShbxAuN4xC'
+		);
 		if (!valid) {
-			throw new Error('Invalid password');
+			throw new Error(
+				'Invalid pass' + ' ' + user.password + ' ' + args.password
+			);
 		}
 
 		return {

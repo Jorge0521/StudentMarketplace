@@ -110,17 +110,17 @@ class Login extends Component {
 					<div className="flex flex-column mt3">
 						<input
 							className="mb2"
-							value={name}
-							onChange={e => this.setState({ name: e.target.value })}
-							type="text"
-							placeholder="Your Name..."
-						/>
-						<input
-							className="mb2"
 							value={email}
 							onChange={e => this.setState({ email: e.target.value })}
 							type="text"
 							placeholder="Email..."
+						/>
+						<input
+							className="mb2"
+							value={password}
+							onChange={e => this.setState({ password: e.target.value })}
+							type="password"
+							placeholder="password..."
 						/>
 					</div>
 				) : (
@@ -178,7 +178,6 @@ class Login extends Component {
 						</form>
 					</div>
 				)}
-
 				<div>
 					<Mutation
 						mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
@@ -215,7 +214,7 @@ class Login extends Component {
 	_confirm = async data => {
 		const { token } = this.state.login ? data.login : data.signup;
 		this._saveUserData(token);
-		this.props.history.push(`/`);
+		this.props.history.push(`/createBook`);
 	};
 
 	_saveUserData = token => {

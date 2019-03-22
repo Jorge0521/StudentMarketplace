@@ -1,19 +1,10 @@
 import { ApolloServer } from 'apollo-server';
 import { schema } from './resolvers';
-import { Prisma } from './generated/prisma';
-
-const db = new Prisma({
-	endpoint: process.env.PRISMA_ENDPOINT!,
-	secret: process.env.PRISMA_SECRET!,
-	debug: true,
-});
+import getContext from './utils/getContext';
 
 const server = new ApolloServer({
 	schema,
-	context: req => ({
-		...req,
-		db,
-	}),
+	context: getContext,
 	engine: {
 		apiKey: 'service:marvelQL:31heDXzZ0JWmMz7L4zCuug',
 	},
