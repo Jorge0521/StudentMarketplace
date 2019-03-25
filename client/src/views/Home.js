@@ -53,7 +53,7 @@ class Home extends React.Component {
 					</Link>
 				</Grid>
 				<Grid item xs={3}>
-					<Link to="/login" style={styles.noLinkCss}>
+					<Link to="/createBook" style={styles.noLinkCss}>
 						<Card>
 							<CardActionArea>
 								<CardMedia
@@ -63,7 +63,7 @@ class Home extends React.Component {
 								/>
 								<CardContent>
 									<Typography gutterBottom variant="h5" component="h2">
-										Sale
+										Sell
 									</Typography>
 								</CardContent>
 							</CardActionArea>

@@ -8,20 +8,39 @@ import Books from '../views/Books';
 import PrimarySearchAppBar from '../components/Header';
 import CreateBook from '../components/CreateBook';
 import Login from '../components/Login';
+import PrivateRoute from 'react-private-route';
+import { AUTH_TOKEN } from '../ constants';
 
-const Routes = () => (
-	<main>
-		<PrimarySearchAppBar />
-		<Switch>
-			<Route exact path="/" component={Home} />
-			<Route path="/basiclist" component={BasicList} />
-			<Route path="/buy" component={Buy} />
-			<Route path="/sale" component={Sale} />
-			<Route path="/books" component={Books} />
-			<Route path="/createbook" component={CreateBook} />
-			<Route path="/login" component={Login} />
-		</Switch>
-	</main>
-);
+function isLoggedIn(auth) {
+	if (auth) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+const Routes = () => {
+	const authToken = localStorage.getItem(AUTH_TOKEN);
+	return (
+		<main>
+			{console.log(authToken)}
+			<PrimarySearchAppBar />
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route path="/basiclist" component={BasicList} />
+				<Route path="/buy" component={Buy} />
+				<Route path="/sale" component={Sale} />
+				<Route path="/books" component={Books} />
+				<PrivateRoute
+					exact
+					path="/createbook"
+					component={CreateBook}
+					isAuthenticated={!!isLoggedIn(authToken)}
+				/>
+				<Route path="/login" component={Login} />
+			</Switch>
+		</main>
+	);
+};
 
 export default Routes;

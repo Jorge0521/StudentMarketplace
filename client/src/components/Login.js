@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
-
+import apolloClient from '../apollo-client';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Query } from 'react-apollo';
@@ -214,7 +214,9 @@ class Login extends Component {
 	_confirm = async data => {
 		const { token } = this.state.login ? data.login : data.signup;
 		this._saveUserData(token);
-		this.props.history.push(`/createBook`);
+		console.log('token created');
+		await apolloClient.resetStore();
+		this.props.history.push('/createBook');
 	};
 
 	_saveUserData = token => {

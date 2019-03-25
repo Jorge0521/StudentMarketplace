@@ -13,7 +13,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
+import apolloClient from '../apollo-client';
 import { Link } from 'react-router-dom';
 
 import { AUTH_TOKEN } from '../ constants';
@@ -74,11 +74,13 @@ class PrimarySearchAppBar extends React.Component {
 		this.setState({ mobileMoreAnchorEl: null });
 	};
 
-	multipleActions = () => {
+	multipleActions = async () => {
 		this.handleMenuClose();
 		console.log(AUTH_TOKEN);
-		if (localStorage.getItem(AUTH_TOKEN) != null) {
+		if (localStorage.getItem(AUTH_TOKEN)) {
+			console.log('removed');
 			localStorage.removeItem(AUTH_TOKEN);
+			await apolloClient.resetStore();
 			this.props.history.push('/');
 		} else {
 			this.props.history.push('/login');
