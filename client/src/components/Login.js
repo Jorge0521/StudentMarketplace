@@ -9,6 +9,16 @@ import apolloClient from '../apollo-client';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Query } from 'react-apollo';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Input from '@material-ui/core/Input';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const getSchool = gql`
 	{
@@ -105,108 +115,201 @@ class Login extends Component {
 		const { classes } = this.props;
 		return (
 			<div>
-				<h4 className="mv3">{login ? 'Login' : 'Sign Up'}</h4>
 				{login ? (
-					<div className="flex flex-column mt3">
-						<input
-							className="mb2"
-							value={email}
-							onChange={e => this.setState({ email: e.target.value })}
-							type="text"
-							placeholder="Email..."
-						/>
-						<input
-							className="mb2"
-							value={password}
-							onChange={e => this.setState({ password: e.target.value })}
-							type="password"
-							placeholder="password..."
-						/>
-					</div>
-				) : (
-					<div className="flex flex-column mt3">
-						<input
-							className="mb2"
-							value={name}
-							onChange={e => this.setState({ name: e.target.value })}
-							type="text"
-							placeholder="Your Name..."
-						/>
-						<input
-							className="mb2"
-							value={email}
-							onChange={e => this.setState({ email: e.target.value })}
-							type="text"
-							placeholder="Email..."
-						/>
-						<input
-							className="mb2"
-							value={password}
-							onChange={e => this.setState({ password: e.target.value })}
-							type="password"
-							placeholder="password..."
-						/>
-						<form className={classes.root} autoComplete="off">
-							<FormControl className={classes.formControl}>
-								<InputLabel htmlFor="school-simple">School</InputLabel>
-								<Query query={getSchool}>
-									{({ data, loading, error }) => {
-										let menuItems = [];
-										if (loading || error) {
-											menuItems = [];
-										} else {
-											menuItems = data.__type.enumValues;
-										}
+					<div className={classes.main}>
+						<CssBaseline />
+						<Paper className={classes.paper}>
+							<Avatar className={classes.avatar}>
+								<LockOutlinedIcon />
+							</Avatar>
+							<Typography component="h1" variant="h5">
+								Sign in
+							</Typography>
+							<form className={classes.form}>
+								<FormControl margin="normal" required fullWidth>
+									<InputLabel htmlFor="email">Email Address</InputLabel>
+									<Input
+										id="email"
+										name="email"
+										autoComplete="email"
+										autoFocus
+										value={email}
+										onChange={e => this.setState({ email: e.target.value })}
+										type="text"
+									/>
+								</FormControl>
+								<FormControl margin="normal" required fullWidth>
+									<InputLabel htmlFor="password">Password</InputLabel>
+									<Input
+										name="password"
+										id="password"
+										autoComplete="current-password"
+										value={password}
+										onChange={e => this.setState({ password: e.target.value })}
+										type="password"
+									/>
+								</FormControl>
+								<FormControlLabel
+									control={<Checkbox value="remember" color="primary" />}
+									label="Remember me"
+								/>
+
+								<Mutation
+									mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
+									variables={{
+										email,
+										password,
+										name,
+										school,
+									}}
+									onCompleted={data => this._confirm(data)}>
+									{(newUser, { data, error, loading }) => {
+										if (error) return <div>{error}</div>;
+										if (loading) return <div>{loading}</div>;
 										return (
-											<Select
-												value={this.state.school}
-												onChange={e =>
-													this.setState({ school: e.target.value })
-												}
-												inputProps={{
-													name: 'school',
-													id: 'school-simple',
-												}}>
-												{menuItems.map(item => (
-													<MenuItem value={item.name}>{item.name}</MenuItem>
-												))}
-											</Select>
+											<Button
+												onClick={() => {
+													newUser();
+												}}
+												type="submit"
+												fullWidth
+												variant="contained"
+												color="primary"
+												className={classes.submit}>
+												{login ? 'login' : 'create account'}
+											</Button>
 										);
 									}}
-								</Query>
-							</FormControl>
-						</form>
+								</Mutation>
+								<div
+									className="pointer button"
+									onClick={() => this.setState({ login: !login })}>
+									{login
+										? 'need to create an account?'
+										: 'already have an account?'}
+								</div>
+							</form>
+						</Paper>
+					</div>
+				) : (
+					<div className={classes.main}>
+						<CssBaseline />
+						<Paper className={classes.paper}>
+							<Avatar className={classes.avatar}>
+								<LockOutlinedIcon />
+							</Avatar>
+							<Typography component="h1" variant="h5">
+								Create Account
+							</Typography>
+							<form className={classes.form}>
+								<FormControl margin="normal" required fullWidth>
+									<InputLabel htmlFor="name">Full Name</InputLabel>
+									<Input
+										id="name"
+										name="name"
+										autoComplete="name"
+										autoFocus
+										value={name}
+										onChange={e => this.setState({ name: e.target.value })}
+										type="text"
+									/>
+								</FormControl>
+								<FormControl margin="normal" required fullWidth>
+									<InputLabel htmlFor="email">Email Address</InputLabel>
+									<Input
+										id="email"
+										name="email"
+										autoComplete="email"
+										autoFocus
+										value={email}
+										onChange={e => this.setState({ email: e.target.value })}
+										type="text"
+									/>
+								</FormControl>
+								<FormControl margin="normal" required fullWidth>
+									<InputLabel htmlFor="password">Password</InputLabel>
+									<Input
+										name="password"
+										id="password"
+										autoComplete="current-password"
+										value={password}
+										onChange={e => this.setState({ password: e.target.value })}
+										type="password"
+									/>
+								</FormControl>
+								<FormControlLabel
+									control={<Checkbox value="remember" color="primary" />}
+									label="Remember me"
+								/>
+								<form className={classes.root} autoComplete="off">
+									<FormControl className={classes.formControl}>
+										<InputLabel htmlFor="school-simple">School</InputLabel>
+										<Query query={getSchool}>
+											{({ data, loading, error }) => {
+												let menuItems = [];
+												if (loading || error) {
+													menuItems = [];
+												} else {
+													menuItems = data.__type.enumValues;
+												}
+												return (
+													<Select
+														value={this.state.school}
+														onChange={e =>
+															this.setState({ school: e.target.value })
+														}
+														inputProps={{
+															name: 'school',
+															id: 'school-simple',
+														}}>
+														{menuItems.map(item => (
+															<MenuItem value={item.name}>{item.name}</MenuItem>
+														))}
+													</Select>
+												);
+											}}
+										</Query>
+									</FormControl>
+								</form>
+
+								<Mutation
+									mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
+									variables={{
+										email,
+										password,
+										name,
+										school,
+									}}
+									onCompleted={data => this._confirm(data)}>
+									{(newUser, { data, error, loading }) => {
+										if (error) return <div>{error}</div>;
+										if (loading) return <div>{loading}</div>;
+										return (
+											<Button
+												onClick={() => {
+													newUser();
+												}}
+												type="submit"
+												fullWidth
+												variant="contained"
+												color="primary"
+												className={classes.submit}>
+												{login ? 'login' : 'create account'}
+											</Button>
+										);
+									}}
+								</Mutation>
+								<div
+									className="pointer button"
+									onClick={() => this.setState({ login: !login })}>
+									{login
+										? 'need to create an account?'
+										: 'already have an account?'}
+								</div>
+							</form>
+						</Paper>
 					</div>
 				)}
-				<div>
-					<Mutation
-						mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
-						variables={{
-							email,
-							password,
-							name,
-							school,
-						}}
-						onCompleted={data => this._confirm(data)}>
-						{(newUser, { data, error, loading }) => {
-							if (error) return <div>{error}</div>;
-							if (loading) return <div>{loading}</div>;
-							return (
-								<button
-									onClick={() => {
-										newUser();
-									}}>
-									{login ? 'login' : 'create account'}
-								</button>
-							);
-						}}
-					</Mutation>
-					<div
-						className="pointer button"
-						onClick={() => this.setState({ login: !login })}>
-						{login ? 'need to create an account?' : 'already have an account?'}
-					</div>
-				</div>
 			</div>
 		);
 	}

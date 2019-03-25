@@ -164,6 +164,7 @@ type BookConnection {
 }
 
 input BookCreateInput {
+  id: ID
   title: String!
   author: String!
   condition: BookCondition!
@@ -178,6 +179,7 @@ input BookCreateOneWithoutItemInput {
 }
 
 input BookCreateWithoutItemInput {
+  id: ID
   title: String!
   author: String!
   condition: BookCondition!
@@ -195,6 +197,7 @@ type BookEdge {
 }
 
 enum BookGenre {
+  AMERICAN_CLASSIC
   ARTS_PHOTOGRAPHY
   BIOGRAPHIES_MEMOIRS
   BUSINESS_MONEY
@@ -205,6 +208,7 @@ enum BookGenre {
   COOKBOOKS
   CRAFTS
   CHRISTIAN
+  EDUCATION_TEACHING
   ENGINEERING_TRANSPORTATION
   HEALTH
   HISTORY
@@ -212,6 +216,7 @@ enum BookGenre {
   LAW
   MEDICAL
   MYSTERY
+  NOVEL
   PARENTING_RELATIONSHIPS
   POLITICS
   SOCIAL_SCIENCE
@@ -223,8 +228,8 @@ enum BookGenre {
   SELF_HELP
   SPORTS_OUTDOORS
   TEST_PREPARATION
+  THRILLER
   TRAVEL
-  EDUCATION_TEACHING
 }
 
 enum BookOrderByInput {
@@ -586,6 +591,7 @@ type clothesConnection {
 }
 
 input clothesCreateInput {
+  id: ID
   name: String!
   size: String!
   category: String!
@@ -599,6 +605,7 @@ input clothesCreateOneWithoutItemInput {
 }
 
 input clothesCreateWithoutItemInput {
+  id: ID
   name: String!
   size: String!
   category: String!
@@ -1003,6 +1010,7 @@ type ItemConnection {
 }
 
 input ItemCreateInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -1039,6 +1047,7 @@ input ItemCreateOneWithoutPhotosInput {
 }
 
 input ItemCreateWithoutBookDetailsInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -1049,6 +1058,7 @@ input ItemCreateWithoutBookDetailsInput {
 }
 
 input ItemCreateWithoutClothesDetailsInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -1059,6 +1069,7 @@ input ItemCreateWithoutClothesDetailsInput {
 }
 
 input ItemCreateWithoutLocationInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -1069,6 +1080,7 @@ input ItemCreateWithoutLocationInput {
 }
 
 input ItemCreateWithoutPhotosInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -1079,6 +1091,7 @@ input ItemCreateWithoutPhotosInput {
 }
 
 input ItemCreateWithoutUserInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -1614,6 +1627,7 @@ type LocationConnection {
 }
 
 input LocationCreateInput {
+  id: ID
   lat: Float
   long: Float
   street: String
@@ -1629,6 +1643,7 @@ input LocationCreateOneWithoutItemInput {
 }
 
 input LocationCreateWithoutItemInput {
+  id: ID
   lat: Float
   long: Float
   street: String
@@ -2110,6 +2125,7 @@ type PhotoConnection {
 }
 
 input PhotoCreateInput {
+  id: ID
   url: String
   caption: String
   default: Boolean
@@ -2128,6 +2144,7 @@ input PhotoCreateOneWithoutUserInput {
 }
 
 input PhotoCreateWithoutItemInput {
+  id: ID
   url: String
   caption: String
   default: Boolean
@@ -2135,6 +2152,7 @@ input PhotoCreateWithoutItemInput {
 }
 
 input PhotoCreateWithoutUserInput {
+  id: ID
   url: String
   caption: String
   default: Boolean
@@ -2784,6 +2802,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -2803,6 +2822,7 @@ input UserCreateOneWithoutProfilePhotoInput {
 }
 
 input UserCreateWithoutItemsInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -2811,6 +2831,7 @@ input UserCreateWithoutItemsInput {
 }
 
 input UserCreateWithoutProfilePhotoInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -3185,7 +3206,6 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
-  school: School
 }
 `
 
@@ -3250,7 +3270,8 @@ export type LocationOrderByInput =   'id_ASC' |
   'zip_ASC' |
   'zip_DESC'
 
-export type BookGenre =   'ARTS_PHOTOGRAPHY' |
+export type BookGenre =   'AMERICAN_CLASSIC' |
+  'ARTS_PHOTOGRAPHY' |
   'BIOGRAPHIES_MEMOIRS' |
   'BUSINESS_MONEY' |
   'CALENDARS' |
@@ -3260,6 +3281,7 @@ export type BookGenre =   'ARTS_PHOTOGRAPHY' |
   'COOKBOOKS' |
   'CRAFTS' |
   'CHRISTIAN' |
+  'EDUCATION_TEACHING' |
   'ENGINEERING_TRANSPORTATION' |
   'HEALTH' |
   'HISTORY' |
@@ -3267,6 +3289,7 @@ export type BookGenre =   'ARTS_PHOTOGRAPHY' |
   'LAW' |
   'MEDICAL' |
   'MYSTERY' |
+  'NOVEL' |
   'PARENTING_RELATIONSHIPS' |
   'POLITICS' |
   'SOCIAL_SCIENCE' |
@@ -3278,8 +3301,8 @@ export type BookGenre =   'ARTS_PHOTOGRAPHY' |
   'SELF_HELP' |
   'SPORTS_OUTDOORS' |
   'TEST_PREPARATION' |
-  'TRAVEL' |
-  'EDUCATION_TEACHING'
+  'THRILLER' |
+  'TRAVEL'
 
 export type UserOrderByInput =   'id_ASC' |
   'id_DESC' |
@@ -3402,6 +3425,7 @@ export type clothesOrderByInput =   'id_ASC' |
   'forwho_DESC'
 
 export interface LocationCreateInput {
+  id?: ID_Input
   lat?: Float
   long?: Float
   street?: String
@@ -3704,6 +3728,7 @@ export interface UserUpdateWithoutItemsDataInput {
 }
 
 export interface PhotoCreateWithoutUserInput {
+  id?: ID_Input
   url?: String
   caption?: String
   default?: Boolean
@@ -3736,6 +3761,7 @@ export interface PhotoSubscriptionWhereInput {
 }
 
 export interface ItemCreateWithoutPhotosInput {
+  id?: ID_Input
   category?: Category
   price?: Float
   listed?: Boolean
@@ -3773,6 +3799,7 @@ export interface ItemSubscriptionWhereInput {
 }
 
 export interface UserCreateWithoutItemsInput {
+  id?: ID_Input
   email: String
   password: String
   name: String
@@ -3787,6 +3814,7 @@ export interface PhotoUpdateManyMutationInput {
 }
 
 export interface ItemCreateInput {
+  id?: ID_Input
   category?: Category
   price?: Float
   listed?: Boolean
@@ -3807,6 +3835,7 @@ export interface LocationUpdateManyMutationInput {
 }
 
 export interface BookCreateInput {
+  id?: ID_Input
   title: String
   author: String
   condition: BookCondition
@@ -3829,6 +3858,7 @@ export interface clothesWhereUniqueInput {
 }
 
 export interface ItemCreateWithoutBookDetailsInput {
+  id?: ID_Input
   category?: Category
   price?: Float
   listed?: Boolean
@@ -3843,6 +3873,7 @@ export interface PhotoWhereUniqueInput {
 }
 
 export interface clothesCreateInput {
+  id?: ID_Input
   name: String
   size: String
   category: String
@@ -3871,6 +3902,7 @@ export interface UserUpdateManyMutationInput {
 }
 
 export interface ItemCreateWithoutClothesDetailsInput {
+  id?: ID_Input
   category?: Category
   price?: Float
   listed?: Boolean
@@ -3910,6 +3942,7 @@ export interface ItemUpsertWithoutClothesDetailsInput {
 }
 
 export interface ItemCreateWithoutLocationInput {
+  id?: ID_Input
   category?: Category
   price?: Float
   listed?: Boolean
@@ -3929,6 +3962,7 @@ export interface ItemUpdateOneWithoutClothesDetailsInput {
 }
 
 export interface PhotoCreateInput {
+  id?: ID_Input
   url?: String
   caption?: String
   default?: Boolean
@@ -3988,6 +4022,7 @@ export interface ItemUpdateWithWhereUniqueWithoutUserInput {
 }
 
 export interface UserCreateInput {
+  id?: ID_Input
   email: String
   password: String
   name: String
@@ -4065,6 +4100,7 @@ export interface PhotoWhereInput {
 }
 
 export interface ItemCreateWithoutUserInput {
+  id?: ID_Input
   category?: Category
   price?: Float
   listed?: Boolean
@@ -4080,6 +4116,7 @@ export interface UserUpsertWithoutItemsInput {
 }
 
 export interface LocationCreateWithoutItemInput {
+  id?: ID_Input
   lat?: Float
   long?: Float
   street?: String
@@ -4089,6 +4126,7 @@ export interface LocationCreateWithoutItemInput {
 }
 
 export interface PhotoCreateWithoutItemInput {
+  id?: ID_Input
   url?: String
   caption?: String
   default?: Boolean
@@ -4096,6 +4134,7 @@ export interface PhotoCreateWithoutItemInput {
 }
 
 export interface UserCreateWithoutProfilePhotoInput {
+  id?: ID_Input
   email: String
   password: String
   name: String
@@ -4109,6 +4148,7 @@ export interface LocationUpsertWithoutItemInput {
 }
 
 export interface BookCreateWithoutItemInput {
+  id?: ID_Input
   title: String
   author: String
   condition: BookCondition
@@ -4129,6 +4169,7 @@ export interface PhotoUpdateManyWithoutItemInput {
 }
 
 export interface clothesCreateWithoutItemInput {
+  id?: ID_Input
   name: String
   size: String
   category: String
@@ -4181,7 +4222,6 @@ export interface UserUpdateOneWithoutProfilePhotoInput {
 export interface UserWhereUniqueInput {
   id?: ID_Input
   email?: String
-  school?: School
 }
 
 export interface UserUpdateWithoutProfilePhotoDataInput {

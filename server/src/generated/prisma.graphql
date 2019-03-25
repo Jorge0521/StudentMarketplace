@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/jorge/peer2peer/dev
-# timestamp: Fri Mar 01 2019 11:03:40 GMT-0800 (PST)
+# timestamp: Mon Mar 25 2019 15:24:31 GMT-0700 (PDT)
 
 type AggregateBook {
   count: Int!
@@ -61,6 +61,7 @@ type BookConnection {
 }
 
 input BookCreateInput {
+  id: ID
   title: String!
   author: String!
   condition: BookCondition!
@@ -75,6 +76,7 @@ input BookCreateOneWithoutItemInput {
 }
 
 input BookCreateWithoutItemInput {
+  id: ID
   title: String!
   author: String!
   condition: BookCondition!
@@ -92,6 +94,7 @@ type BookEdge {
 }
 
 enum BookGenre {
+  AMERICAN_CLASSIC
   ARTS_PHOTOGRAPHY
   BIOGRAPHIES_MEMOIRS
   BUSINESS_MONEY
@@ -102,6 +105,7 @@ enum BookGenre {
   COOKBOOKS
   CRAFTS
   CHRISTIAN
+  EDUCATION_TEACHING
   ENGINEERING_TRANSPORTATION
   HEALTH
   HISTORY
@@ -109,6 +113,7 @@ enum BookGenre {
   LAW
   MEDICAL
   MYSTERY
+  NOVEL
   PARENTING_RELATIONSHIPS
   POLITICS
   SOCIAL_SCIENCE
@@ -120,8 +125,8 @@ enum BookGenre {
   SELF_HELP
   SPORTS_OUTDOORS
   TEST_PREPARATION
+  THRILLER
   TRAVEL
-  EDUCATION_TEACHING
 }
 
 enum BookOrderByInput {
@@ -483,6 +488,7 @@ type clothesConnection {
 }
 
 input clothesCreateInput {
+  id: ID
   name: String!
   size: String!
   category: String!
@@ -496,6 +502,7 @@ input clothesCreateOneWithoutItemInput {
 }
 
 input clothesCreateWithoutItemInput {
+  id: ID
   name: String!
   size: String!
   category: String!
@@ -900,6 +907,7 @@ type ItemConnection {
 }
 
 input ItemCreateInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -936,6 +944,7 @@ input ItemCreateOneWithoutPhotosInput {
 }
 
 input ItemCreateWithoutBookDetailsInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -946,6 +955,7 @@ input ItemCreateWithoutBookDetailsInput {
 }
 
 input ItemCreateWithoutClothesDetailsInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -956,6 +966,7 @@ input ItemCreateWithoutClothesDetailsInput {
 }
 
 input ItemCreateWithoutLocationInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -966,6 +977,7 @@ input ItemCreateWithoutLocationInput {
 }
 
 input ItemCreateWithoutPhotosInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -976,6 +988,7 @@ input ItemCreateWithoutPhotosInput {
 }
 
 input ItemCreateWithoutUserInput {
+  id: ID
   category: Category
   price: Float
   listed: Boolean
@@ -1511,6 +1524,7 @@ type LocationConnection {
 }
 
 input LocationCreateInput {
+  id: ID
   lat: Float
   long: Float
   street: String
@@ -1526,6 +1540,7 @@ input LocationCreateOneWithoutItemInput {
 }
 
 input LocationCreateWithoutItemInput {
+  id: ID
   lat: Float
   long: Float
   street: String
@@ -2007,6 +2022,7 @@ type PhotoConnection {
 }
 
 input PhotoCreateInput {
+  id: ID
   url: String
   caption: String
   default: Boolean
@@ -2025,6 +2041,7 @@ input PhotoCreateOneWithoutUserInput {
 }
 
 input PhotoCreateWithoutItemInput {
+  id: ID
   url: String
   caption: String
   default: Boolean
@@ -2032,6 +2049,7 @@ input PhotoCreateWithoutItemInput {
 }
 
 input PhotoCreateWithoutUserInput {
+  id: ID
   url: String
   caption: String
   default: Boolean
@@ -2681,6 +2699,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -2700,6 +2719,7 @@ input UserCreateOneWithoutProfilePhotoInput {
 }
 
 input UserCreateWithoutItemsInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -2708,6 +2728,7 @@ input UserCreateWithoutItemsInput {
 }
 
 input UserCreateWithoutProfilePhotoInput {
+  id: ID
   email: String!
   password: String!
   name: String!
@@ -3082,5 +3103,4 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
-  school: School
 }
