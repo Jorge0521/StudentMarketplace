@@ -112,7 +112,6 @@ class Login extends Component {
 		};
 	}
 	render() {
-		const authToken = localStorage.getItem(AUTH_TOKEN);
 		const { login, email, password, name, school } = this.state;
 		const { classes } = this.props;
 		return (
