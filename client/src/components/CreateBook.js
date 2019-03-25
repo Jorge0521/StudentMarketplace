@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import StoreOutlinedIcon from '@material-ui/icons/StoreOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -174,7 +174,7 @@ class CreateBook extends Component {
 					<CssBaseline />
 					<Paper className={classes.paper}>
 						<Avatar className={classes.avatar}>
-							<LockOutlinedIcon />
+							<StoreOutlinedIcon />
 						</Avatar>
 						<Typography component="h1" variant="h5">
 							Create a book
