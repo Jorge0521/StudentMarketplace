@@ -23,7 +23,6 @@ const Routes = () => {
 	const authToken = localStorage.getItem(AUTH_TOKEN);
 	return (
 		<main>
-			{console.log(authToken)}
 			<PrimarySearchAppBar />
 			<Switch>
 				<Route exact path="/" component={Home} />

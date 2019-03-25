@@ -9,7 +9,7 @@ export interface Context {
 	request: any;
 }
 
-export default (req): Context => ({
+export default ({ req }): Context => ({
 	request: req,
 	db,
 });

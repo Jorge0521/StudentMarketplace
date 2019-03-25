@@ -17,9 +17,18 @@ export const Mutation = {
 	},
 
 	createItem: (_, args, ctx: Context, info) => {
+		const userId = getUserId(ctx);
+		console.log('TESTING: ', userId);
 		return ctx.db.mutation.createItem(
 			{
-				data: args.data,
+				data: {
+					...args.data,
+					user: {
+						connect: {
+							id: userId,
+						},
+					},
+				},
 			},
 			info
 		);
