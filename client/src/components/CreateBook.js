@@ -181,7 +181,7 @@ class CreateBook extends Component {
 						</Typography>
 						<form className={classes.form}>
 							<FormControl margin="normal" required fullWidth>
-								<InputLabel htmlFor="Title">Title of Book</InputLabel>
+								<InputLabel htmlFor="Title">Title</InputLabel>
 								<Input
 									id="title"
 									name="title"
@@ -193,7 +193,7 @@ class CreateBook extends Component {
 								/>
 							</FormControl>
 							<FormControl margin="normal" required fullWidth>
-								<InputLabel htmlFor="Author">Author of Book</InputLabel>
+								<InputLabel htmlFor="Author">Author</InputLabel>
 								<Input
 									name="author"
 									id="author"
@@ -203,140 +203,143 @@ class CreateBook extends Component {
 									type="text"
 								/>
 							</FormControl>
+							<FormControl margin="normal" required fullWidth>
+								<InputLabel htmlFor="Price">Price</InputLabel>
+								<Input
+									name="price"
+									id="price"
+									autoComplete="price"
+									value={price}
+									onChange={e =>
+										this.setState({ price: parseFloat(e.target.value) })
+									}
+									type="number"
+									min="1"
+									step="any"
+								/>
+							</FormControl>
+							<FormControl margin="normal" required fullWidth>
+								<InputLabel htmlFor="Published">Published</InputLabel>
+								<Input
+									name="published"
+									id="published"
+									autoComplete="published"
+									value={published}
+									onChange={e =>
+										this.setState({ published: parseInt(e.target.value) })
+									}
+									type="number"
+									min="1"
+								/>
+							</FormControl>
+							<FormControl margin="normal" required fullWidth>
+								<InputLabel htmlFor="Picture URL">Picture URL</InputLabel>
+								<Input
+									name="picture url"
+									id="picture url"
+									autoComplete="picture url"
+									value={url}
+									onChange={e => this.setState({ url: e.target.value })}
+									type="text"
+								/>
+							</FormControl>
+							<FormControl className={classes.formControl}>
+								<InputLabel htmlFor="genre-simple">Genre</InputLabel>
+								<Query query={getBookGenre}>
+									{({ data, loading, error }) => {
+										let menuItems = [];
+										if (loading || error) {
+											menuItems = [];
+										} else {
+											menuItems = data.__type.enumValues;
+										}
+										return (
+											<Select
+												value={this.state.genre}
+												onChange={e => this.setState({ genre: e.target.value })}
+												inputProps={{
+													name: 'genre',
+													id: 'genre-simple',
+												}}>
+												{menuItems.map(item => (
+													<MenuItem value={item.name}>{item.name}</MenuItem>
+												))}
+											</Select>
+										);
+									}}
+								</Query>
+							</FormControl>
+							<FormControl className={classes.formControl}>
+								<InputLabel htmlFor="condition-simple">Condition</InputLabel>
+								<Query query={getBookCategory}>
+									{({ data, loading, error }) => {
+										let menuItems = [];
+										if (loading || error) {
+											menuItems = [];
+										} else {
+											menuItems = data.__type.enumValues;
+										}
+										return (
+											<Select
+												value={this.state.condition}
+												onChange={e =>
+													this.setState({ condition: e.target.value })
+												}
+												inputProps={{
+													name: 'condition',
+													id: 'condition-simple',
+												}}>
+												{menuItems.map(item => (
+													<MenuItem value={item.name}>{item.name}</MenuItem>
+												))}
+											</Select>
+										);
+									}}
+								</Query>
+							</FormControl>
 						</form>
+						<Mutation
+							mutation={BOOK_MUTATION}
+							variables={{
+								price,
+								title,
+								author,
+								published,
+								url,
+								genre,
+								condition,
+							}}>
+							{(postBook, { data, error, loading }) => {
+								if (error) return <div>{error}</div>;
+								if (loading) return <div>{loading}</div>;
+								return (
+									<Button
+										type="submit"
+										fullWidth
+										variant="contained"
+										color="primary"
+										className={classes.submit}
+										onClick={() => {
+											postBook();
+											someFunc(
+												title,
+												author,
+												published,
+												url,
+												price,
+												genre,
+												condition
+											);
+											this.props.history.push('/buy');
+										}}>
+										{' '}
+										Submit
+									</Button>
+								);
+							}}
+						</Mutation>
 					</Paper>
-
-					<input
-						className="mb2"
-						value={title}
-						onChange={e => this.setState({ title: e.target.value })}
-						type="text"
-						placeholder="Name of book"
-					/>
-					<input
-						className="mb2"
-						value={author}
-						onChange={e => this.setState({ author: e.target.value })}
-						type="text"
-						placeholder="Author of book"
-					/>
-					<input
-						className="mb2"
-						value={price}
-						onChange={e => this.setState({ price: parseFloat(e.target.value) })}
-						type="number"
-						min="1"
-						step="any"
-						placeholder="Price of book"
-					/>
-					<input
-						className="mb2"
-						value={published}
-						onChange={e =>
-							this.setState({ published: parseInt(e.target.value) })
-						}
-						type="number"
-						min="1"
-						placeholder="Published: "
-					/>
-					<input
-						className="mb2"
-						value={url}
-						onChange={e => this.setState({ url: e.target.value })}
-						type="text"
-						placeholder="Picture URL"
-					/>
-					<form className={classes.root} autoComplete="off">
-						<FormControl className={classes.formControl}>
-							<InputLabel htmlFor="genre-simple">Genre</InputLabel>
-							<Query query={getBookGenre}>
-								{({ data, loading, error }) => {
-									let menuItems = [];
-									if (loading || error) {
-										menuItems = [];
-									} else {
-										menuItems = data.__type.enumValues;
-									}
-									return (
-										<Select
-											value={this.state.genre}
-											onChange={e => this.setState({ genre: e.target.value })}
-											inputProps={{
-												name: 'genre',
-												id: 'genre-simple',
-											}}>
-											{menuItems.map(item => (
-												<MenuItem value={item.name}>{item.name}</MenuItem>
-											))}
-										</Select>
-									);
-								}}
-							</Query>
-						</FormControl>
-						<FormControl className={classes.formControl}>
-							<InputLabel htmlFor="condition-simple">Condition</InputLabel>
-							<Query query={getBookCategory}>
-								{({ data, loading, error }) => {
-									let menuItems = [];
-									if (loading || error) {
-										menuItems = [];
-									} else {
-										menuItems = data.__type.enumValues;
-									}
-									return (
-										<Select
-											value={this.state.condition}
-											onChange={e =>
-												this.setState({ condition: e.target.value })
-											}
-											inputProps={{
-												name: 'condition',
-												id: 'condition-simple',
-											}}>
-											{menuItems.map(item => (
-												<MenuItem value={item.name}>{item.name}</MenuItem>
-											))}
-										</Select>
-									);
-								}}
-							</Query>
-						</FormControl>
-					</form>
 				</div>
-				<Mutation
-					mutation={BOOK_MUTATION}
-					variables={{
-						price,
-						title,
-						author,
-						published,
-						url,
-						genre,
-						condition,
-					}}>
-					{(postBook, { data, error, loading }) => {
-						if (error) return <div>{error}</div>;
-						if (loading) return <div>{loading}</div>;
-						return (
-							<button
-								onClick={() => {
-									postBook();
-									someFunc(
-										title,
-										author,
-										published,
-										url,
-										price,
-										genre,
-										condition
-									);
-									this.props.history.push('/buy');
-								}}>
-								Submit
-							</button>
-						);
-					}}
-				</Mutation>
 			</div>
 		);
 	}
