@@ -17,6 +17,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -196,7 +198,7 @@ class Login extends Component {
 						<CssBaseline />
 						<Paper className={classes.paper}>
 							<Avatar className={classes.avatar}>
-								<LockOutlinedIcon />
+								<CreateOutlinedIcon />
 							</Avatar>
 							<Typography component="h1" variant="h5">
 								Create Account

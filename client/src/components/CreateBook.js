@@ -8,6 +8,16 @@ import FormControl from '@material-ui/core/FormControl';
 import { Query } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Input from '@material-ui/core/Input';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
 var algoliasearch = require('algoliasearch');
 
 var client = algoliasearch('HFOJJ5GAUD', '391f543039c8a0b3752d4296e2149507');
@@ -79,6 +89,36 @@ const styles = theme => ({
 	selectEmpty: {
 		marginTop: theme.spacing.unit * 2,
 	},
+	main: {
+		width: 'auto',
+		display: 'block',
+		marginLeft: theme.spacing.unit * 3,
+		marginRight: theme.spacing.unit * 3,
+		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+			width: 400,
+			marginLeft: 'auto',
+			marginRight: 'auto',
+		},
+	},
+	paper: {
+		marginTop: theme.spacing.unit * 8,
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+			.spacing.unit * 3}px`,
+	},
+	avatar: {
+		margin: theme.spacing.unit,
+		backgroundColor: theme.palette.secondary.main,
+	},
+	form: {
+		width: '100%',
+		marginTop: theme.spacing.unit,
+	},
+	submit: {
+		marginTop: theme.spacing.unit * 3,
+	},
 });
 
 function someFunc(title, author, published, url, price, genre, condition) {
@@ -130,7 +170,42 @@ class CreateBook extends Component {
 
 		return (
 			<div>
-				<div className="flex flex-column mt3">
+				<div className={classes.main}>
+					<CssBaseline />
+					<Paper className={classes.paper}>
+						<Avatar className={classes.avatar}>
+							<LockOutlinedIcon />
+						</Avatar>
+						<Typography component="h1" variant="h5">
+							Create a book
+						</Typography>
+						<form className={classes.form}>
+							<FormControl margin="normal" required fullWidth>
+								<InputLabel htmlFor="Title">Title of Book</InputLabel>
+								<Input
+									id="title"
+									name="title"
+									autoComplete="title"
+									autoFocus
+									value={title}
+									onChange={e => this.setState({ title: e.target.value })}
+									type="text"
+								/>
+							</FormControl>
+							<FormControl margin="normal" required fullWidth>
+								<InputLabel htmlFor="Author">Author of Book</InputLabel>
+								<Input
+									name="author"
+									id="author"
+									autoComplete="author"
+									value={author}
+									onChange={e => this.setState({ author: e.target.value })}
+									type="text"
+								/>
+							</FormControl>
+						</form>
+					</Paper>
+
 					<input
 						className="mb2"
 						value={title}
@@ -228,12 +303,6 @@ class CreateBook extends Component {
 						</FormControl>
 					</form>
 				</div>
-				<div>
-					{console.log(price)}
-					{console.log(title)}
-					{console.log(published)}
-					{console.log(url)}
-				</div>
 				<Mutation
 					mutation={BOOK_MUTATION}
 					variables={{
@@ -261,6 +330,7 @@ class CreateBook extends Component {
 										genre,
 										condition
 									);
+									this.props.history.push('/buy');
 								}}>
 								Submit
 							</button>
