@@ -6,6 +6,7 @@ type Query {
 	photo(id: ID): Photo
 	items(id: ID, listed: Boolean, category: Category): [Item]
 	books(id: ID, title: String, author: String): [Book!]
+	getLoggedInUser(id: ID, email: String): User
 	searchSuggestions(
 		skip: Int
 		after: String

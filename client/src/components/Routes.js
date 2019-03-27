@@ -5,6 +5,8 @@ import BasicList from '../views/BasicList';
 import Buy from '../views/Buy';
 import Sale from '../views/Sale';
 import Books from '../views/Books';
+import UserItems from '../views/UserItems';
+
 import PrimarySearchAppBar from '../components/Header';
 import CreateBook from '../components/CreateBook';
 import Login from '../components/Login';
@@ -34,6 +36,12 @@ const Routes = () => {
 					exact
 					path="/createbook"
 					component={CreateBook}
+					isAuthenticated={!!isLoggedIn(authToken)}
+				/>
+				<PrivateRoute
+					exact
+					path="/useritems"
+					component={UserItems}
 					isAuthenticated={!!isLoggedIn(authToken)}
 				/>
 				<Route path="/login" component={Login} />

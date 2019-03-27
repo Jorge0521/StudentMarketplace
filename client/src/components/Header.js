@@ -4,14 +4,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import apolloClient from '../apollo-client';
 import { Link } from 'react-router-dom';
@@ -76,12 +73,20 @@ class PrimarySearchAppBar extends React.Component {
 
 	multipleActions = async () => {
 		this.handleMenuClose();
-		console.log(AUTH_TOKEN);
 		if (localStorage.getItem(AUTH_TOKEN)) {
 			console.log('removed');
 			localStorage.removeItem(AUTH_TOKEN);
 			await apolloClient.resetStore();
 			this.props.history.push('/');
+		} else {
+			this.props.history.push('/login');
+		}
+	};
+
+	navToUserItems = () => {
+		this.handleMenuClose();
+		if (localStorage.getItem(AUTH_TOKEN)) {
+			this.props.history.push('/useritems');
 		} else {
 			this.props.history.push('/login');
 		}
@@ -103,7 +108,7 @@ class PrimarySearchAppBar extends React.Component {
 				<MenuItem onClick={this.multipleActions}>
 					{authToken ? 'logout' : 'login'}
 				</MenuItem>
-				<MenuItem onClick={this.handleMenuClose}>My Items</MenuItem>
+				<MenuItem onClick={this.navToUserItems}>My Items</MenuItem>
 			</Menu>
 		);
 
