@@ -9,6 +9,19 @@ import {
 	ClearRefinements,
 } from 'react-instantsearch-dom';
 
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+
+const styles = theme => ({
+	root: {
+		...theme.mixins.gutters(),
+		paddingTop: theme.spacing.unit * 2,
+		paddingBottom: theme.spacing.unit * 2,
+	},
+});
+
 const SearchEngine = () => (
 	<InstantSearch
 		appId="HFOJJ5GAUD"
@@ -21,7 +34,7 @@ const SearchEngine = () => (
 
 function SearchBook() {
 	return (
-		<div className="container">
+		<div>
 			<CurrentRefinements />
 			<ClearRefinements />
 			<SearchBox />
@@ -33,24 +46,16 @@ function SearchBook() {
 
 function Book({ hit }) {
 	return (
-		<ListBook
-			image={hit.image}
-			author={hit.author}
-			condition={hit.condition}
-			genre={hit.genre}
-			price={hit.price}
-			title={hit.title}
-		/>
-		/*
-        <div>
-          <div>{hit.title}</div>
-          <img src={hit.image} align="left" alt={hit.title} />
-          <div className="hit-name">
-            <Highlight attribute="name" hit={hit.title} />
-          </div>
-          <div className="hit-price">${hit.price}</div>
-        </div>
-        */
+		<Paper className={styles.root} elevation={2}>
+			<ListBook
+				image={hit.image}
+				author={hit.author}
+				condition={hit.condition}
+				genre={hit.genre}
+				price={hit.price}
+				title={hit.title}
+			/>
+		</Paper>
 	);
 }
-export default SearchEngine;
+export default withStyles(styles)(SearchEngine);
