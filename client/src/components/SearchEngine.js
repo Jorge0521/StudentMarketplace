@@ -10,15 +10,18 @@ import {
 } from 'react-instantsearch-dom';
 
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
 	root: {
 		...theme.mixins.gutters(),
 		paddingTop: theme.spacing.unit * 2,
 		paddingBottom: theme.spacing.unit * 2,
+	},
+	noLinkCss: {
+		color: 'inherit',
+		textDecoration: 'inherit',
 	},
 });
 
@@ -46,16 +49,20 @@ function SearchBook() {
 
 function Book({ hit }) {
 	return (
-		<Paper className={styles.root} elevation={2}>
-			<ListBook
-				image={hit.image}
-				author={hit.author}
-				condition={hit.condition}
-				genre={hit.genre}
-				price={hit.price}
-				title={hit.title}
-			/>
-		</Paper>
+		<Link
+			to="/sellerdetails"
+			style={{ color: 'inherit', textDecoration: 'inherit' }}>
+			<Paper className={styles.root} elevation={2}>
+				<ListBook
+					image={hit.image}
+					author={hit.author}
+					condition={hit.condition}
+					genre={hit.genre}
+					price={hit.price}
+					title={hit.title}
+				/>
+			</Paper>
+		</Link>
 	);
 }
 export default withStyles(styles)(SearchEngine);

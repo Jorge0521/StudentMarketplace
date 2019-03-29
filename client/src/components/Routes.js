@@ -12,6 +12,7 @@ import CreateBook from '../components/CreateBook';
 import Login from '../components/Login';
 import PrivateRoute from 'react-private-route';
 import { AUTH_TOKEN } from '../ constants';
+import SellerDetails from '../views/SellerDetails';
 
 function isLoggedIn(auth) {
 	if (auth) {
@@ -45,6 +46,7 @@ const Routes = () => {
 					isAuthenticated={!!isLoggedIn(authToken)}
 				/>
 				<Route path="/login" component={Login} />
+				<Route path="/sellerdetails" component={SellerDetails} />
 			</Switch>
 		</main>
 	);
