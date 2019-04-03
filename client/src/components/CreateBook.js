@@ -7,7 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { Query } from 'react-apollo';
 import { withStyles } from '@material-ui/core/styles';
-
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -20,7 +19,7 @@ var algoliasearch = require('algoliasearch');
 
 var client = algoliasearch('HFOJJ5GAUD', '391f543039c8a0b3752d4296e2149507');
 var index = client.initIndex('studentMarketPlace');
-
+var id_test = '';
 const getBookGenre = gql`
 	{
 		__type(name: "BookGenre") {
@@ -75,6 +74,15 @@ const BOOK_MUTATION = gql`
 	}
 `;
 
+const USER_ID = gql`
+	query {
+		getLoggedInUser(id: "test") {
+			id
+			name
+		}
+	}
+`;
+
 const styles = theme => ({
 	root: {
 		display: 'flex',
@@ -119,6 +127,20 @@ const styles = theme => ({
 	},
 });
 
+const getId = () => {
+	return (
+		<Query query={USER_ID}>
+			{({ loading, error, data }) => {
+				if (loading) return 'Loading...';
+				if (error) return `Error! ${error.message}`;
+				const test_id = data.getLoggedInUser.id;
+				id_test = test_id;
+				return test_id;
+			}}
+		</Query>
+	);
+};
+
 function someFunc(title, author, published, url, price, genre, condition) {
 	index.addObject(
 		{
@@ -129,11 +151,15 @@ function someFunc(title, author, published, url, price, genre, condition) {
 			genre: genre,
 			image: url,
 			price: price,
+			userID: id_test,
 		},
 		function(err, content) {
 			console.log('objectID=' + content.objectID);
 		}
 	);
+	{
+		console.log('ID TEST', id_test);
+	}
 }
 
 class CreateBook extends Component {
@@ -147,6 +173,7 @@ class CreateBook extends Component {
 			url: '',
 			genre: '',
 			condition: '',
+			userId: '',
 		};
 	}
 
@@ -163,9 +190,12 @@ class CreateBook extends Component {
 			url,
 			condition,
 			genre,
+			userId,
 		} = this.state;
 		const { classes } = this.props;
+		let num = '';
 
+		console.log(num);
 		return (
 			<div>
 				<div className={classes.main}>
@@ -259,8 +289,10 @@ class CreateBook extends Component {
 													name: 'genre',
 													id: 'genre-simple',
 												}}>
-												{menuItems.map(item => (
-													<MenuItem value={item.name}>{item.name}</MenuItem>
+												{menuItems.map((item, key) => (
+													<MenuItem value={item.name} key={key}>
+														{item.name}
+													</MenuItem>
 												))}
 											</Select>
 										);
@@ -287,13 +319,17 @@ class CreateBook extends Component {
 													name: 'condition',
 													id: 'condition-simple',
 												}}>
-												{menuItems.map(item => (
-													<MenuItem value={item.name}>{item.name}</MenuItem>
+												{menuItems.map((item, key) => (
+													<MenuItem value={item.name} key={key}>
+														{item.name}
+													</MenuItem>
 												))}
 											</Select>
 										);
 									}}
 								</Query>
+								{getId() /*THIS IS THE ONE THAT WORKS */}
+								{console.log('TEST', getId())}
 							</FormControl>
 						</form>
 						<Mutation
@@ -310,29 +346,31 @@ class CreateBook extends Component {
 							{(postBook, { data, error, loading }) => {
 								if (error) return <div>{error}</div>;
 								if (loading) return <div>{loading}</div>;
+
 								return (
-									<Button
-										type="submit"
-										fullWidth
-										variant="contained"
-										color="primary"
-										className={classes.submit}
-										onClick={() => {
-											postBook();
-											someFunc(
-												title,
-												author,
-												published,
-												url,
-												price,
-												genre,
-												condition
-											);
-											this.props.history.push('/buy');
-										}}>
-										{' '}
-										Submit
-									</Button>
+									<div>
+										<Button
+											type="submit"
+											fullWidth
+											variant="contained"
+											color="primary"
+											className={classes.submit}
+											onClick={() => {
+												postBook();
+												someFunc(
+													title,
+													author,
+													published,
+													url,
+													price,
+													genre,
+													condition
+												);
+												this.props.history.push('/buy');
+											}}>
+											Submit
+										</Button>
+									</div>
 								);
 							}}
 						</Mutation>
