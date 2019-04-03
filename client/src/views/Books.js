@@ -39,29 +39,9 @@ class Books extends React.Component {
 						if (loading) return 'Loading...';
 						if (error) return `Error! ${error.message}`;
 						return (
-							<div className="list">
+							<div>
 								<SearchEngine />
 							</div>
-							/*
-                  <div className="list">
-                    {itemsArray.map((o,i) => 
-                       ( <ListItem
-                                key={o.id}
-                                title={o.title}
-                                author={o.author}
-                                photos={o.photos}
-                                price={o.price}
-                                condition={o.bookDetails.condition}
-                                category={o.bookDetails.category}
-
-                                name={o.user.name}
-                                email={o.user.email}
-                                school={o.user.school}
-                            />)
-                              
-                    )}
-                    </div>
-                    */
 						);
 					}}
 				</Query>

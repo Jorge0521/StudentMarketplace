@@ -157,9 +157,6 @@ function someFunc(title, author, published, url, price, genre, condition) {
 			console.log('objectID=' + content.objectID);
 		}
 	);
-	{
-		console.log('ID TEST', id_test);
-	}
 }
 
 class CreateBook extends Component {
@@ -190,12 +187,9 @@ class CreateBook extends Component {
 			url,
 			condition,
 			genre,
-			userId,
 		} = this.state;
 		const { classes } = this.props;
 		let num = '';
-
-		console.log(num);
 		return (
 			<div>
 				<div className={classes.main}>
@@ -329,7 +323,6 @@ class CreateBook extends Component {
 									}}
 								</Query>
 								{getId() /*THIS IS THE ONE THAT WORKS */}
-								{console.log('TEST', getId())}
 							</FormControl>
 						</form>
 						<Mutation
