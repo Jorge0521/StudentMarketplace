@@ -55,9 +55,14 @@ const Hits = ({ hits }) => (
 		justify="center"
 		alignItems="center"
 		spacing={16}>
-		{hits.map(hit => (
-			<Grid item xs={12}>
-				<Grid container direction="row" justify="center" alignItems="center">
+		<Grid item xs={12}>
+			<Grid
+				container
+				direction="row"
+				justify="center"
+				alignItems="center"
+				spacing={20}>
+				{hits.map(hit => (
 					<ListBook
 						image={hit.image}
 						author={hit.author}
@@ -67,9 +72,9 @@ const Hits = ({ hits }) => (
 						title={hit.title}
 						userID={hit.userID}
 					/>
-				</Grid>
+				))}
 			</Grid>
-		))}
+		</Grid>
 	</Grid>
 );
 
