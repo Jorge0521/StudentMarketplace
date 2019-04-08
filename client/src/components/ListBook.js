@@ -19,6 +19,8 @@ import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
+import Flippy, { FrontSide, BackSide } from 'react-flippy';
+
 const styles = theme => ({
 	card: {
 		maxWidth: 400,
@@ -45,27 +47,6 @@ const styles = theme => ({
 	},
 });
 
-const ListBook = props => (
-	<Grid container className="book" key={props.id}>
-		<img src={props.image} width="200px" height="200px" alt="Profile" />
-		<Grid item>
-			<h1 style={{ margin: 0, marginLeft: 20 }}>{props.title}</h1>
-			<p style={{ margin: 0, marginLeft: 20 }}> by {props.author}</p>
-			<p style={{ margin: 0, marginLeft: 20, textTransform: 'capitalize' }}>
-				{' '}
-				<b>Condition:</b>{' '}
-				{props.condition.replace(/[^a-zA-Z ]/g, ' ').toLowerCase()}
-			</p>
-			<p style={{ margin: 0, marginLeft: 20, textTransform: 'capitalize' }}>
-				{' '}
-				<b>Category: </b>
-				{props.genre.replace(/[^a-zA-Z ]/g, ' ').toLowerCase()}
-			</p>
-			<h2 style={{ marginLeft: 20 }}>${props.price}</h2>
-		</Grid>
-	</Grid>
-);
-
 class DisplayBook extends React.Component {
 	state = { expanded: false };
 
@@ -77,77 +58,45 @@ class DisplayBook extends React.Component {
 		const { classes } = this.props;
 
 		return (
-			<Card className={classes.card}>
-				<CardHeader
-					avatar={
-						<Avatar aria-label="Book" className={classes.avatar}>
-							B
-						</Avatar>
-					}
-					action={
-						<IconButton>
-							<MoreVertIcon />
-						</IconButton>
-					}
-					title={this.props.title}
-					subheader={this.props.author}
-				/>
-				<CardMedia
-					className={classes.media}
-					image={this.props.image}
-					title={this.props.title}
-				/>
-				<CardContent>
-					<Typography component="p">
-						Condition: {' ' + this.props.condition}
-						<br /> Genre: {' ' + this.props.genre.replace(/_/g, ' ')}
-						<br /> Price: {' ' + this.props.price}
-					</Typography>
-				</CardContent>
-				<CardActions className={classes.actions} disableActionSpacing>
-					<IconButton
-						className={classnames(classes.expand, {
-							[classes.expandOpen]: this.state.expanded,
-						})}
-						onClick={this.handleExpandClick}
-						aria-expanded={this.state.expanded}
-						aria-label="Show more">
-						<ExpandMoreIcon />
-					</IconButton>
-				</CardActions>
-				<Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+			<Flippy
+				flipOnHover={false} // default false
+				flipOnClick={true} // default false
+				flipDirection="horizontal" // horizontal or vertical
+				ref={r => (this.flippy = r)} // to use toggle method like this.flippy.toggle()
+				// if you pass isFlipped prop component will be controlled component.
+				// and other props, which will go to div
+				style={{ width: '360px', height: '360px' }}>
+				<FrontSide>
+					<CardHeader
+						avatar={
+							<Avatar aria-label="Book" className={classes.avatar}>
+								B
+							</Avatar>
+						}
+						action={
+							<IconButton>
+								<MoreVertIcon />
+							</IconButton>
+						}
+						title={this.props.title}
+						subheader={this.props.author}
+					/>
+					<CardMedia
+						className={classes.media}
+						image={this.props.image}
+						title={this.props.title}
+					/>
 					<CardContent>
-						<Typography paragraph>Method:</Typography>
-						<Typography paragraph>
-							Heat 1/2 cup of the broth in a pot until simmering, add saffron
-							and set aside for 10 minutes.
-						</Typography>
-						<Typography paragraph>
-							Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-							over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-							stirring occasionally until lightly browned, 6 to 8 minutes.
-							Transfer shrimp to a large plate and set aside, leaving chicken
-							and chorizo in the pan. Add pimentón, bay leaves, garlic,
-							tomatoes, onion, salt and pepper, and cook, stirring often until
-							thickened and fragrant, about 10 minutes. Add saffron broth and
-							remaining 4 1/2 cups chicken broth; bring to a boil.
-						</Typography>
-						<Typography paragraph>
-							Add rice and stir very gently to distribute. Top with artichokes
-							and peppers, and cook without stirring, until most of the liquid
-							is absorbed, 15 to 18 minutes. Reduce heat to medium-low, add
-							reserved shrimp and mussels, tucking them down into the rice, and
-							cook again without stirring, until mussels have opened and rice is
-							just tender, 5 to 7 minutes more. (Discard any mussels that don’t
-							open.)
-						</Typography>
-						<Typography>
-							Set aside off of the heat to let rest for 10 minutes, and then
-							serve.
+						<Typography component="p">
+							Condition: {' ' + this.props.condition}
+							<br /> Genre: {' ' + this.props.genre.replace(/_/g, ' ')}
+							<br /> Price: {' ' + this.props.price}
 						</Typography>
 					</CardContent>
-				</Collapse>
-			</Card>
+				</FrontSide>
+
+				<BackSide>rock</BackSide>
+			</Flippy>
 		);
 	}
 }

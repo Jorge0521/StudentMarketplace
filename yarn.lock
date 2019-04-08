@@ -1588,6 +1588,10 @@ react-event-listener@^0.6.2:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
+react-flippy@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-flippy/-/react-flippy-0.1.2.tgz#8055c9be3f4c530831ef2920e16f005e61d18eec"
+
 react-is@^16.6.3, react-is@^16.7.0:
   version "16.7.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
